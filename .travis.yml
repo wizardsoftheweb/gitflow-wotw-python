@@ -6,9 +6,6 @@ notifications:
 
 cache:
   pip: true
-  # directories:
-
-
 
 sudo: true
 
@@ -19,7 +16,6 @@ python:
   - '3.6'
 
 install:
-  - echo $PWD
   - sudo apt-get install -y cmake {libffi,python}-dev
   - wget https://github.com/libgit2/libgit2/archive/v0.26.0.tar.gz
   - tar xzf v0.26.0.tar.gz
