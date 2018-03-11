@@ -8,9 +8,9 @@ from gitflow_wotw.util import HasDescendants
 
 class Subcommand(Parser, HasDescendants, OrderedDict):
 
-    def __init__(self, identifier=None, help_string=None):
+    def __init__(self, identifier=None, help_string=None, tier=None):
         OrderedDict.__init__(self)
-        Parser.__init__(self, identifier, help_string)
+        Parser.__init__(self, identifier, help_string, tier)
         HasDescendants.__init__(self, self.below)
 
     def attach_below(self):
