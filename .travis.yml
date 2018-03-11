@@ -4,7 +4,8 @@ notifications:
     on_success: never
     on_failure: change
 
-cache: pip
+cache:
+  pip: true
 
 sudo: true
 
@@ -15,6 +16,14 @@ python:
   - '3.6'
 
 install:
+  - sudo apt-get install -y cmake {libffi,python}-dev
+  - wget https://github.com/libgit2/libgit2/archive/v0.26.0.tar.gz
+  - tar xzf v0.26.0.tar.gz
+  - cd libgit2-0.26.0/
+  - cmake .
+  - make
+  - sudo make install
+  - cd ..
   - pip install coveralls
   - python setup.py install
 
