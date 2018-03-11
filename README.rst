@@ -27,7 +27,7 @@ Suggested Reading
 .. _gitflow: https://github.com/nvie/gitflow
 .. |gitflow_avh| replace:: An updated and active fork, ``gitflow-avh``
 .. _gitflow_avh: https://github.com/petervanderdoes/gitflow-avh
-.. |pygit2| replace:: ``pygit2``, Python bindings for ``libgit1``
+.. |pygit2| replace:: ``pygit2``, Python bindings for ``libgit2``
 .. _pygit2: https://github.com/libgit2/pygit2
 
 Installation
