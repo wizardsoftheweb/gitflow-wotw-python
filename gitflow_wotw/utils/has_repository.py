@@ -35,6 +35,3 @@ class HasRepository(object):
                 )
             )
         )
-
-test = HasRepository('~/Code/gitflow-autorelease')
-print(test.repo)
