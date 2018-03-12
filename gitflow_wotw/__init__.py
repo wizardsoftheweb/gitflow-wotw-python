@@ -4,8 +4,8 @@
 
 from .constants import *
 from .util import *
+from .components import *
 from .arguments import *
 from .action import *
 from .subcommand import *
-from .command import Command
 from .cli_file import cli
