@@ -23,6 +23,7 @@ class Parser(SinkParser):
 
     def attach(self, subparsers=None):
         self.add_parser(subparsers)
+        self.attach_arguments()
         self.add_subparsers()
         self.attach_below()
 
