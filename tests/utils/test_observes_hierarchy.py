@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from mock import call, MagicMock, patch
 
-from gitflow_wotw import ObservesHierarchy
+from gitflow_wotw.utils import ObservesHierarchy
 
 
 class ObservesHierarchyTestCase(TestCase):

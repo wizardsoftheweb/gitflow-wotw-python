@@ -4,8 +4,8 @@ from __future__ import print_function
 
 from sys import exit as sys_exit
 
-from gitflow_wotw.action import StartAction
-from gitflow_wotw.subcommand import Subcommand
+from gitflow_wotw.actions import StartAction
+from gitflow_wotw.components import Subcommand
 
 
 class FeatureSubcommand(Subcommand):

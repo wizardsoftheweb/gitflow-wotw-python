@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from mock import call, MagicMock, patch
 
-from gitflow_wotw import FeatureSubcommand
+from gitflow_wotw.subcommands import FeatureSubcommand
 
 
 class FeatureSubcommandTestCase(TestCase):
