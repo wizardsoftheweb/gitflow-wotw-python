@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from mock import call, MagicMock, patch
 
-from gitflow_wotw import HasDescendants
+from gitflow_wotw.utils import HasDescendants
 
 
 class HasDescendantsTestCase(TestCase):

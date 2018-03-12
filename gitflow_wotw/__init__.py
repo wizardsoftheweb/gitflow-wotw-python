@@ -3,7 +3,7 @@
 # pylint:disable=W,C,R
 
 from .constants import *
-from .util import *
+from .utils import *
 from .parsers import *
 from .components import *
 from .arguments import *
