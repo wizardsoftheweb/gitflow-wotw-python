@@ -9,7 +9,7 @@ from gitflow_wotw.constants import HIERARCHY
 from gitflow_wotw.arguments import Parser
 
 
-class SourceParser(Parser):
+class ParserSource(Parser):
 
     def __init__(self, identifier=None, help_string=None, tier=None):
         if tier is None:
