@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 from gitflow_wotw.arguments import SourceParser
 from gitflow_wotw.constants import HIERARCHY
-from gitflow_wotw.subcommand import Subcommand
+from gitflow_wotw.components import Subcommand
 
 
 # class Command(SourceParser, HasDescendants):
