@@ -2,7 +2,7 @@
 
 from gitflow_wotw.components import Command
 
-from gitflow_wotw.subcommand import FeatureSubcommand
+from gitflow_wotw.subcommands import FeatureSubcommand
 
 
 def cli():
