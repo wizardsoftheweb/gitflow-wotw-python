@@ -2,15 +2,15 @@
 
 from collections import OrderedDict
 
-from gitflow_wotw.arguments import Parser
+from gitflow_wotw.parsers import ParserNode
 from gitflow_wotw.util import HasDescendants
 
 
-class Subcommand(Parser, HasDescendants, OrderedDict):
+class Subcommand(ParserNode, HasDescendants, OrderedDict):
 
     def __init__(self, identifier=None, help_string=None, tier=None):
         OrderedDict.__init__(self)
-        Parser.__init__(self, identifier, help_string, tier)
+        ParserNode.__init__(self, identifier, help_string, tier)
         HasDescendants.__init__(self, self.below)
 
     def attach_below(self):
