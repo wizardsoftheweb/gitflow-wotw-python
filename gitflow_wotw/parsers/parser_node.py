@@ -1,10 +1,10 @@
 # pylint: disable=W,C,R
 
 from gitflow_wotw.constants import HIERARCHY
-from gitflow_wotw.arguments import SinkParser
+from gitflow_wotw.parsers import ParserSink
 
 
-class ParserNode(SinkParser):
+class ParserNode(ParserSink):
 
     def __init__(self, identifier=None, help_string=None, tier=None):
         if tier is None:
