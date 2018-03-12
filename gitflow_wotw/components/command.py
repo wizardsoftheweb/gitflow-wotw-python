@@ -3,13 +3,13 @@
 from collections import OrderedDict
 
 
-from gitflow_wotw.arguments import SourceParser
+from gitflow_wotw.parsers import ParserSource
 from gitflow_wotw.constants import HIERARCHY
 from gitflow_wotw.components import Subcommand
 
 
 # class Command(SourceParser, HasDescendants):
-class Command(SourceParser, Subcommand):
+class Command(ParserSource, Subcommand):
     IDENTIFIER = 'wotw'
     HELP_STRING = 'An ambitious attempt to duplicate gitflow-avh in Python'
 
@@ -20,7 +20,7 @@ class Command(SourceParser, Subcommand):
             self.HELP_STRING,
             HIERARCHY[0]
         )
-        SourceParser.__init__(
+        ParserSource.__init__(
             self,
             self.IDENTIFIER,
             self.HELP_STRING,

@@ -6,12 +6,12 @@ from gitflow_wotw.constants import HIERARCHY
 from gitflow_wotw.util import ObservesHierarchy
 
 
-class SinkParser(ObservesHierarchy):
+class ParserSink(ObservesHierarchy):
 
     def __init__(self, identifier=None, help_string=None, tier=None):
         if tier is None:
             tier = HIERARCHY[2]
-        super(SinkParser, self).__init__(tier)
+        super(ParserSink, self).__init__(tier)
         self.identifier = identifier
         self.help_string = help_string
         self.parser = None
