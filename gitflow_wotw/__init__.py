@@ -8,5 +8,5 @@ from .parsers import *
 from .components import *
 from .arguments import *
 from .actions import *
-from .subcommand import *
+from .subcommands import *
 from .cli_file import cli
