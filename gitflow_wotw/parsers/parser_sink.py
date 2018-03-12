@@ -3,7 +3,7 @@
 from collections import OrderedDict
 
 from gitflow_wotw.constants import HIERARCHY
-from gitflow_wotw.util import ObservesHierarchy
+from gitflow_wotw.utils import ObservesHierarchy
 
 
 class ParserSink(ObservesHierarchy):
