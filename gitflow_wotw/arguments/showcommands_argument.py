@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import Argument
+from gitflow_wotw.components import Argument
 
 
 class ShowcommandsArgument(Argument):
