@@ -70,6 +70,7 @@ Once all of these are finished, I'll release ``v1``. Until then, ``v0`` should b
     "0%", "``version`` support"
     "0%", "``config`` support"
     "0%", "``log`` support"
+    "0%", "Negatable options"
 
 Eventual Features
 -----------------
@@ -79,8 +80,13 @@ These are things I'd like to add, but might not be included in ``v1``. If not, t
 .. csv-table::
     :header: "Progress", "Feature"
 
+    "0%", "Repo reflection"
     "0%", "``pygit2`` alternatives"
     "0%", "semver bindings"
     "0%", "Replace ``git wotw`` with ``git flow``"
     "0%", "Local hooks connected to ``gitflow`` actions"
     "0%", "User-defined shortcuts"
+    "0%", "Create ``arguments`` from config files"
+    "0%", "Create ``actions`` from config files"
+    "0%", "Create ``subcommands`` from config files"
+    "0%", "Create the main ``command`` from config files"
