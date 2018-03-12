@@ -6,15 +6,15 @@ from argparse import ArgumentParser
 from sys import argv
 
 from gitflow_wotw.constants import HIERARCHY
-from gitflow_wotw.arguments import Parser
+from gitflow_wotw.parsers import ParserNode
 
 
-class ParserSource(Parser):
+class ParserSource(ParserNode):
 
     def __init__(self, identifier=None, help_string=None, tier=None):
         if tier is None:
             tier = HIERARCHY[0]
-        Parser.__init__(self, identifier, help_string, tier)
+        ParserNode.__init__(self, identifier, help_string, tier)
 
     def add_parser(self, subparsers=None):
         self.parser = ArgumentParser(
