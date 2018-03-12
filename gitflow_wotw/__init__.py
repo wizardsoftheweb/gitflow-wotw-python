@@ -7,6 +7,6 @@ from .util import *
 from .parsers import *
 from .components import *
 from .arguments import *
-from .action import *
+from .actions import *
 from .subcommand import *
 from .cli_file import cli
