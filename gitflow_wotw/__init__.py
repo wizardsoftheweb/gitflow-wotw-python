@@ -3,10 +3,10 @@
 # pylint:disable=W,C,R
 
 from .constants import *
-from .util import *
+from .utils import *
 from .parsers import *
 from .components import *
 from .arguments import *
-from .action import *
-from .subcommand import *
+from .actions import *
+from .subcommands import *
 from .cli_file import cli

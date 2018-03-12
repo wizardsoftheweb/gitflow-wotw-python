@@ -3,7 +3,7 @@
 from collections import OrderedDict
 
 from gitflow_wotw.parsers import ParserNode
-from gitflow_wotw.util import HasDescendants
+from gitflow_wotw.utils import HasDescendants
 
 
 class Subcommand(ParserNode, HasDescendants, OrderedDict):

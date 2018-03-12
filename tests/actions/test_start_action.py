@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from mock import call, MagicMock, patch
 
-from gitflow_wotw import StartAction
+from gitflow_wotw.actions import StartAction
 
 
 class StartActionTestCase(TestCase):
