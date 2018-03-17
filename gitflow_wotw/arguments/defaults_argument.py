@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class DefaultsArgument(Argument):
-    ARGS = ['-D', '--defaults']
-    KWARGS = {
+class DefaultsArgument(ArgumentInstance):
+    args = ['-D', '--defaults']
+    kwargs = {
         'action': 'store_true',
         'dest': 'defaults',
         'help': 'Use defaults where possible'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)
