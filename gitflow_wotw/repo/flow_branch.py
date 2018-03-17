@@ -196,8 +196,14 @@ class FlowBranch(HasConfig):
         )
         # self.repo.branches[branch].delete()
 
+    def strip_remote_from_ref(self, upstream=None):
+        return upstream.shorthand.replace(
+            "%s/" % upstream.remote_name,
+            ''
+        )
+
     def delete_remote_branch(self, upstream=None, force=False):
-        branch = upstream.shorthand.replace("%s/" % upstream.remote_name, '')
+        branch = self.strip_remote_from_ref(upstream)
         print(
             "git push%s %s :%s" % (
                 (
@@ -214,3 +220,13 @@ class FlowBranch(HasConfig):
         if branch is None:
             branch = self.branch
         return self.repo.branches[branch].peel().id
+
+    def fetch_if_upstream(self, branch=None):
+        upstream = self.upstream_branch(branch)
+        if upstream:
+            print(
+                "git fetch %s %s" % (
+                    upstream.remote_name,
+                    self.strip_remote_from_ref(upstream)
+                )
+            )
