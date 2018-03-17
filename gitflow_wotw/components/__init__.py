@@ -11,3 +11,4 @@ from .argument_instance import ArgumentInstance
 from .argument_group_instance import ArgumentGroupInstance
 from .action_instance import ActionInstance
 from .subcommand_instance import SubcommandInstance
+from .command_instance import CommandInstance
