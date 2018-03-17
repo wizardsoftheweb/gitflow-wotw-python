@@ -11,7 +11,7 @@ class KeepRemoteArgument(Argument):
         'action': 'store_const',
         'const': 'remote',
         'dest': 'keep',
-        'help': 'Keep the remote branch after the operation completes'
+        'help': 'Keep the remote branch after the operation finishes'
     }
     NEGATABLE = True
 
