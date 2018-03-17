@@ -10,10 +10,10 @@ from gitflow_wotw.constants import FLOWS
 from gitflow_wotw.repo import HasConfig
 
 
-class FlowConfig(HasConfig):
+class FlowBranch(HasConfig):
 
     def __init__(self, directory=None, config=None):
-        super(FlowConfig, self).__init__(directory, config)
+        super(FlowBranch, self).__init__(directory, config)
         self.stored_prefixes = []
         self.branch = self.repo.head.shorthand
         self.all_branches = self.sort_branches()
@@ -54,7 +54,7 @@ class FlowConfig(HasConfig):
             callback = lambda x: x
         prefixed_lists = OrderedDict()
         for prefix in prefixes:
-            prefixed, unclaimed = FlowConfig.check_for_prefix(
+            prefixed, unclaimed = FlowBranch.check_for_prefix(
                 branches,
                 prefix
             )
@@ -96,7 +96,7 @@ class FlowConfig(HasConfig):
 
     @staticmethod
     def validate_flow(flow):
-        if not FlowConfig.is_flow(flow):
+        if not FlowBranch.is_flow(flow):
             raise KeyError("'%s' is not a valid gitflow prefix")
 
     @property
