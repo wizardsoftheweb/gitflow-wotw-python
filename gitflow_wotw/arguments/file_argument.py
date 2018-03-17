@@ -8,7 +8,7 @@ from gitflow_wotw.components import Argument
 class FileArgument(Argument):
     ARGS = ['--file']
     KWARGS = {
-        'nargs': '1',
+        'nargs': 1,
         'dest': 'config_file',
         'metavar': 'file',
         'help': 'Use the given config file'
