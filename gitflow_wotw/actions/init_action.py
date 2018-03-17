@@ -23,11 +23,13 @@ class InitAction(Action):
         self.populate()
 
     def populate(self):
+        self.exclusive_groups.append([
+            GlobalArgument(),
+            SystemArgument(),
+            LocalArgument(),
+            FileArgument()
+        ])
         self.arguments['defaults'] = DefaultsArgument()
-        self.arguments['local'] = LocalArgument()
-        self.arguments['global'] = GlobalArgument()
-        self.arguments['system'] = SystemArgument()
-        self.arguments['file'] = FileArgument()
         self.arguments['force'] = ForceArgument()
         self.arguments['show_commands'] = ShowCommandsArgument()
 

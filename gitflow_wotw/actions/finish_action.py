@@ -36,12 +36,18 @@ class FinishAction(Action):
         self.arguments['fetch'] = FetchArgument()
         self.arguments['rebase'] = RebaseArgument()
         self.arguments['preserve_merges'] = PreserveMergesArgument()
-        self.arguments['delete'] = DeleteArgument()
-        self.arguments['delete_local'] = DeleteLocalArgument()
-        self.arguments['delete_remote'] = DeleteRemoteArgument()
-        self.arguments['keep'] = KeepArgument()
-        self.arguments['keep_local'] = KeepLocalArgument()
-        self.arguments['keep_remote'] = KeepRemoteArgument()
+        self.exclusive_groups.append([
+            DeleteArgument(),
+            KeepArgument()
+        ])
+        self.exclusive_groups.append([
+            DeleteLocalArgument(),
+            KeepLocalArgument()
+        ])
+        self.exclusive_groups.append([
+            DeleteRemoteArgument(),
+            KeepRemoteArgument()
+        ])
         self.arguments['push'] = PushArgument()
         self.arguments['push_develop'] = PushDevelopArgument()
         self.arguments['push_master'] = PushProductionArgument()
