@@ -10,6 +10,7 @@ class SetArgument(Argument):
     KWARGS = {
         'nargs': 1,
         'dest': 'set',
+        'metavar': 'BASE_BRANCH',
         'help': 'Use the provided branch as the base'
     }
     NEGATABLE = False
