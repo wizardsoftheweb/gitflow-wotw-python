@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from gitflow_wotw.arguments import (
     ForceArgument,
+    HelpArgument,
     ShowCommandsArgument,
     VerboseArgument
 )
@@ -16,6 +17,7 @@ class UniversalArgumentGroup(ArgumentGroup):
         ArgumentGroup. __init__(
             self,
             OrderedDict({
+                'help': HelpArgument(),
                 'force': ForceArgument(),
                 'show_commands': ShowCommandsArgument(),
                 'verbose': VerboseArgument()
