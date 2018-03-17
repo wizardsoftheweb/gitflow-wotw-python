@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 
+from copy import deepcopy
+
 
 class Argument(object):
 
@@ -21,7 +23,7 @@ class Argument(object):
             if arg.startswith('--'):
                 negated_args.append(arg.replace('--', '--no-'))
         if negated_args:
-            negated_kwargs = self.kwargs
+            negated_kwargs = deepcopy(self.kwargs)
             negated_kwargs['help'] = (
                 "Do not %s" % negated_kwargs['help'].lower()
             )
