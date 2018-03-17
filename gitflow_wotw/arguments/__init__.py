@@ -12,6 +12,7 @@ from .file_argument import FileArgument
 from .force_argument import ForceArgument
 from .get_argument import GetArgument
 from .global_argument import GlobalArgument
+from .help_argument import HelpArgument
 from .interactive_argument import InteractiveArgument
 from .keep_argument import KeepArgument
 from .keep_local_argument import KeepLocalArgument
