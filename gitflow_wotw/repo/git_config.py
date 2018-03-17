@@ -14,8 +14,8 @@ class GitConfig(HasRepository, OrderedDict):
     def __init__(self, directory=None):
         OrderedDict.__init__(self)
         HasRepository.__init__(self, directory)
+        self.prefixes = {}
         self.load_and_sort()
-        self.flows = []
 
     def load_repo_config(self):
         config = {}
@@ -27,7 +27,8 @@ class GitConfig(HasRepository, OrderedDict):
         for key in sorted(unsorted_config.iterkeys()):
             self[key] = unsorted_config[key]
             if key.startswith('gitflow.prefix.'):
-                self.flows.append(self[key])
+                flow = key.replace('gitflow.prefix.')
+                self.prefixes[flow] = self[key]
 
     def load_and_sort(self):
         raw = self.load_repo_config()
