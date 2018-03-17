@@ -9,6 +9,7 @@ class GetArgument(ArgumentInstance):
     args = ['--get']
     kwargs = {
         'action': 'store_true',
+        'default': True,
         'dest': 'get',
         'default': True,
         'help': 'Get the base branch',

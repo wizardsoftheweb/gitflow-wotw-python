@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 from collections import OrderedDict
+from gitflow_wotw.repo import FlowBranch
 
 
 class ComponentInstance(OrderedDict):
@@ -16,6 +17,7 @@ class ComponentInstance(OrderedDict):
 
     def __init__(self):
         OrderedDict.__init__(self)
+        self.flow_branch = FlowBranch()
         self.populate()
 
     def populate(self):

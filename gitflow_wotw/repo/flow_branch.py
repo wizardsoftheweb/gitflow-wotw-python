@@ -118,14 +118,7 @@ class FlowBranch(HasConfig):
 
     @property
     def current_base(self):
-        base_key = "gitflow.branch.%s.base" % self.branch
-        if base_key in self.config:
-            return self.config[base_key]
-        elif self.branch == self.develop:
-            return self.master
-        elif self.branch == self.master:
-            return None
-        return self.develop
+        return self.base_branch()
 
     @property
     def current_flow(self):
@@ -133,3 +126,26 @@ class FlowBranch(HasConfig):
             if self.branch.startswith(prefix):
                 return prefix[0:-1]
         return None
+
+    def base_branch(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        base_key = "gitflow.branch.%s.base" % branch
+        print("git config --get gitflow.branch.%s.base" % branch)
+        if base_key in self.config:
+            return self.config[base_key]
+        elif branch == self.develop:
+            return self.master
+        elif branch == self.master:
+            return None
+        return self.develop
+
+    def update_base(self, branch=None, base=None):
+        if branch is None:
+            branch = self.branch
+        if base is None:
+            if branch != self.branch:
+                base = self.branch
+            else:
+                base = self.develop
+        print("git config gitflow.branch.%s.base %s" % (branch, base))
