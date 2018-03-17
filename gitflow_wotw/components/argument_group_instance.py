@@ -15,7 +15,8 @@ class ArgumentGroupInstance(ComponentInstance, ArgumentGroup):
 
     def __init__(self):
         ComponentInstance.__init__(self)
-        super(ArgumentGroupInstance, self).__init__(
+        ArgumentGroup.__init__(
+            self,
             seed=self.seed,
             title=self.title,
             description=self.help_string,
