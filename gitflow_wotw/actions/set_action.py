@@ -21,10 +21,12 @@ class SetAction(Action):
         self.populate()
 
     def populate(self):
-        self.arguments['local'] = LocalArgument()
-        self.arguments['global'] = GlobalArgument()
-        self.arguments['system'] = SystemArgument()
-        self.arguments['file'] = FileArgument()
+        self.exclusive_groups.append([
+            GlobalArgument(),
+            SystemArgument(),
+            LocalArgument(),
+            FileArgument()
+        ])
         self.arguments['show_commands'] = ShowCommandsArgument()
 
     def execute(self, parsed):
