@@ -15,12 +15,13 @@ class ComponentInstance(OrderedDict):
     arguments_seed = []
     arguments = OrderedDict()
     handlers = OrderedDict()
-    handlers['tidy_branches'] = tidy_branches
 
     def __init__(self):
         OrderedDict.__init__(self)
         self.flow_branch = FlowBranch()
         self.populate()
+        self.handlers['tidy_branches'] = self.tidy_branches
+        self.handlers['change_to_base_branch'] = self.change_to_base_branch
 
     def populate(self):
         self.populate_dict(self.arguments, self.arguments_seed)
@@ -42,3 +43,7 @@ class ComponentInstance(OrderedDict):
                 parsed.base = runner.flow_branch.base_branch(parsed.branch)
         if parsed.branch:
             parsed.upstream = runner.flow_branch.upstream_branch(parsed.branch)
+
+    @staticmethod
+    def change_to_base_branch(runner, parsed):
+        runner.flow_branch.change_to_base_branch(parsed.branch)
