@@ -10,7 +10,7 @@ class FfArgument(Argument):
     KWARGS = {
         'action': 'store_true',
         'dest': 'fast_forward',
-        'help': 'Fast forward where possible'
+        'help': 'Fast-forward where possible'
     }
     NEGATABLE = True
 

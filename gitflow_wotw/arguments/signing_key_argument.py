@@ -10,6 +10,7 @@ class SigningKeyArgument(Argument):
     KWARGS = {
         'nargs': 1,
         'dest': 'signing_key',
+        'metavar': 'KEY',
         'help': 'Sign with the provided key'
     }
     NEGATABLE = False

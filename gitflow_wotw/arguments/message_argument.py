@@ -10,6 +10,7 @@ class MessageArgument(Argument):
     KWARGS = {
         'nargs': 1,
         'dest': 'message',
+        'metavar': 'MESSAGE',
         'help': 'Use the provided message'
     }
     NEGATABLE = True

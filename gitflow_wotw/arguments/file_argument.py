@@ -10,8 +10,8 @@ class FileArgument(Argument):
     KWARGS = {
         'nargs': 1,
         'dest': 'config_file',
-        'metavar': 'file',
-        'help': 'Use the given config file'
+        'metavar': 'CONFIG_FILE',
+        'help': 'Use the provided config file'
     }
     NEGATABLE = False
 

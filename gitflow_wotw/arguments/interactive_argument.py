@@ -10,7 +10,7 @@ class InteractiveArgument(Argument):
     KWARGS = {
         'action': 'store_true',
         'dest': 'interactive',
-        'help': 'Interactive rebase'
+        'help': 'Perform an interactive rebase'
     }
     NEGATABLE = True
 
