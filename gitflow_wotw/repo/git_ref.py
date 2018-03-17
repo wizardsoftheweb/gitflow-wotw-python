@@ -9,28 +9,19 @@ from pygit2 import GIT_SORT_TOPOLOGICAL
 # pylint: enable=no-name-in-module
 
 from gitflow_wotw.constants import FLOWS
-from gitflow_wotw.repo import GitConfig
-from gitflow_wotw.utils import HasRepository
+from gitflow_wotw.repo import HasConfig
 
 
-class GitRef(HasRepository):
+class GitRef(HasConfig):
 
     def __init__(self, directory=None, config=None):
-        super(GitRef, self).__init__(directory)
-        if isinstance(config, GitConfig):
-            self.config = config
-        else:
-            self.config = GitConfig(directory)
+        super(GitRef, self).__init__(directory, config)
         self.tags = OrderedDict()
         self.versions = OrderedDict()
-        self.remotes = OrderedDict()
-        self.locals = OrderedDict()
         self.parse_references()
 
     def parse_references(self):
         for reference in self.repo.references:
-            if self.check_for_local(reference) or self.check_for_remote(reference):
-                continue
             tag, tag_id = self.check_for_tag(reference)
             if tag or tag_id:
                 self.check_for_version_tag(tag, tag_id)
@@ -52,65 +43,6 @@ class GitRef(HasRepository):
                     1
                 )
 
-    def check_for_local(self, reference=None):
-        if reference.startswith('refs/heads/'):
-            branch = reference.replace('refs/heads/', '')
-            self.locals[branch] = self.repo.lookup_reference(reference).peel()
-            return True
-        return False
-
-    def check_for_remote(self, reference):
-        if reference.startswith('refs/remotes/'):
-            remote_reference = reference.replace('refs/remotes/', '')
-            remote = remote_reference.split('/')[0]
-            commit = self.repo.lookup_reference(reference).peel()
-            branch = remote_reference.replace("%s/" % remote, '', 1)
-            if remote in self.remotes:
-                self.remotes[remote][branch] = commit
-            else:
-                self.remotes[remote] = OrderedDict({
-                    branch: commit
-                })
-            return True
-        return False
-
-    def active_branch(self):
-        if self.repo.head_is_detached or self.repo.head_is_unborn:
-            return None
-        return self.repo.head.name.replace('refs/heads/', '')
-
-    def flow_from_branch(self, branch=None):
-        chunks = branch.split('/')
-        if self.is_valid_flow(chunks[0]):
-            return chunks[0]
-        return None
-
-    def base_from_branch(self, branch=None):
-        production = self.config['gitflow.branch.master']
-        develop = self.config['gitflow.branch.develop']
-        if branch == production:
-            return None
-        elif branch == develop:
-            return production
-        elif self.config["gitflow.branch.%s.base" % branch]:
-            return self.config["gitflow.branch.%s.base" % branch]
-        return develop
-
-    def active_flow_and_branch(self):
-        branch = self.active_branch()
-        flow = self.flow_from_branch(branch)
-        return flow, branch
-
-    def is_valid_flow(self, flow=None):
-        return self.is_vanilla_flow(flow) or self.is_user_flow(flow)
-
-    @staticmethod
-    def is_vanilla_flow(flow=None):
-        return flow in FLOWS
-
-    def is_user_flow(self, flow=None):
-        return flow in self.config.prefixes.itervalues()
-
     def walk_for_tags(self):
         last = None
         version = None
@@ -124,13 +56,13 @@ class GitRef(HasRepository):
         return last, version
 
     def important_refs(self):
-        flow, branch = self.active_flow_and_branch()
-        base = self.base_from_branch(branch)
+        # flow, branch = self.active_flow_and_branch()
+        # base = self.base_from_branch(branch)
         tag, version = self.walk_for_tags()
-        return OrderedDict({
-            'flow': flow,
-            'branch': branch,
-            'base': base,
-            'tag': tag,
-            'version': version
-        })
+        # return OrderedDict({
+        #     'flow': flow,
+        #     'branch': branch,
+        #     'base': base,
+        #     'tag': tag,
+        #     'version': version
+        # })
