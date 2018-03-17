@@ -16,20 +16,10 @@ class DiffAction(ActionInstance):
         self.arguments['base'] = BaseArgument()
 
     def execute(self, parsed):
-        if parsed.branch:
-            branch = parsed.branch
-        else:
-            branch = None
-        if parsed.base:
-            base = parsed.base
-        else:
-            if branch:
-                base = self.flow_branch.base_branch(branch)
-            else:
-                base = None
+        self.handlers['tidy_branches'](self, parsed)
         print(
             "git diff %s %s" % (
-                self.flow_branch.branch_to_commit_id(branch),
-                self.flow_branch.branch_to_commit_id(base)
+                self.flow_branch.branch_to_commit_id(parsed.branch),
+                self.flow_branch.branch_to_commit_id(parsed.base)
             )
         )
