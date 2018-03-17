@@ -20,6 +20,7 @@ class ParserSink(ObservesHierarchy):
     def add_parser(self, subparsers=None):
         self.parser = subparsers.add_parser(
             self.identifier,
+            add_help=False,
             description=self.help_string,
             help=self.help_string
         )

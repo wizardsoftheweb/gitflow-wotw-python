@@ -5,12 +5,12 @@ from __future__ import print_function
 from gitflow_wotw.components import Argument
 
 
-class ShowcommandsArgument(Argument):
-    ARGS = ['--showcommands']
+class TagArgument(Argument):
+    ARGS = ['-t', '--tag']
     KWARGS = {
         'action': 'store_true',
-        'dest': 'showcommands',
-        'help': 'Prints git commands as they are used'
+        'dest': 'tag',
+        'help': 'Tag the repo after the operation finishes'
     }
 
     def __init__(self):
