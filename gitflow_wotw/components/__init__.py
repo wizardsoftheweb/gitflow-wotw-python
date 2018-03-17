@@ -8,4 +8,5 @@ from .branch_subcommand import BranchSubcommand
 from .command import Command
 from .component_instance import ComponentInstance
 from .argument_instance import ArgumentInstance
+from .argument_group_instance import ArgumentGroupInstance
 from .action_instance import ActionInstance
