@@ -1,6 +1,7 @@
 # pylint:disable=W,C,R
 
 from .back_merge_argument import BackMergeArgument
+from .branch_argument import BranchArgument
 from .defaults_argument import DefaultsArgument
 from .delete_argument import DeleteArgument
 from .delete_local_argument import DeleteLocalArgument
