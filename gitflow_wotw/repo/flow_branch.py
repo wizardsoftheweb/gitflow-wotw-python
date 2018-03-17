@@ -149,3 +149,16 @@ class FlowBranch(HasConfig):
             else:
                 base = self.develop
         print("git config gitflow.branch.%s.base %s" % (branch, base))
+
+    def branch_to_reference(self, branch=None):
+        try:
+            prefixed_branch = "%s/%s" % (self.current_flow, branch)
+            branch_object = self.repo.branches[prefixed_branch]
+        except KeyError:
+            branch_object = self.repo.branches[branch]
+        return self.repo.lookup_reference(branch_object.name)
+
+    def change_branch(self, branch=None):
+        reference = self.branch_to_reference(branch)
+        print("git checkout %s" % reference.shorthand)
+        # self.repo.checkout(reference)

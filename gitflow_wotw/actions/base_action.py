@@ -30,7 +30,6 @@ class BaseAction(ActionInstance):
         )
 
     def execute(self, parsed):
-        print(parsed)
         if not parsed.branch:
             if parsed.set:
                 return self.set_base(None, parsed.set)
@@ -51,10 +50,6 @@ class BaseAction(ActionInstance):
                 else:
                     return self.set_base(parsed.branch, parsed.base)
             return self.get_base(parsed.branch)
-
-    @staticmethod
-    def parse_config_location(parsed):
-        print(parsed)
 
     def get_base(self, branch=None):
         self.flow_branch.base_branch(branch)
