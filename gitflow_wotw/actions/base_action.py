@@ -2,8 +2,8 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Action
 from gitflow_wotw.arguments import GetArgument, SetArgument
+from gitflow_wotw.components import Action
 
 
 class BaseAction(Action):
