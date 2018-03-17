@@ -15,7 +15,7 @@ class ComponentInstance(OrderedDict):
     arguments = OrderedDict()
 
     def __init__(self):
-        super(ComponentInstance, self).__init__()
+        OrderedDict.__init__(self)
         self.populate()
 
     def populate(self):
