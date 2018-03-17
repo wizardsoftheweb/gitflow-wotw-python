@@ -8,17 +8,21 @@ from collections import OrderedDict
 from pygit2 import GIT_SORT_TOPOLOGICAL
 # pylint: enable=no-name-in-module
 
-from gitflow_wotw.constants import FLOWS
 from gitflow_wotw.repo import HasConfig
 
 
-class GitRef(HasConfig):
+class FlowTag(HasConfig):
 
     def __init__(self, directory=None, config=None):
-        super(GitRef, self).__init__(directory, config)
+        super(FlowTag, self).__init__(directory, config)
         self.tags = OrderedDict()
         self.versions = OrderedDict()
-        self.parse_references()
+        print(self.repo.references.get('refs/tags/'))
+        # self.parse_references()
+
+    @property
+    def version_tag(self):
+        return self.config['gitflow.prefix.versiontag']
 
     def parse_references(self):
         for reference in self.repo.references:
@@ -56,11 +60,11 @@ class GitRef(HasConfig):
         return last, version
 
     def important_refs(self):
-        # flow, branch = self.active_flow_and_branch()
+        # flw, branch = self.active_flow_and_branch()
         # base = self.base_from_branch(branch)
         tag, version = self.walk_for_tags()
         # return OrderedDict({
-        #     'flow': flow,
+        #     'floww': floww,
         #     'branch': branch,
         #     'base': base,
         #     'tag': tag,
