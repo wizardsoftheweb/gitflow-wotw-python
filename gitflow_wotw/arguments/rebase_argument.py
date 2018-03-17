@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class RebaseArgument(Argument):
-    ARGS = ['-r', '--rebase']
-    KWARGS = {
+class RebaseArgument(ArgumentInstance):
+    args = ['-r', '--rebase']
+    kwargs = {
         'action': 'store_true',
         'dest': 'rebase',
         'help': 'Rebase before merging'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

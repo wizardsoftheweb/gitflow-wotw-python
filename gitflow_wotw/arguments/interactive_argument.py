@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class InteractiveArgument(Argument):
-    ARGS = ['-i', '--interactive']
-    KWARGS = {
+class InteractiveArgument(ArgumentInstance):
+    args = ['-i', '--interactive']
+    kwargs = {
         'action': 'store_true',
         'dest': 'interactive',
         'help': 'Perform an interactive rebase'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -2,17 +2,14 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class PushTagArgument(Argument):
-    ARGS = ['--push-tag']
-    KWARGS = {
+class PushTagArgument(ArgumentInstance):
+    args = ['--push-tag']
+    kwargs = {
         'action': 'append_const',
         'const': 'tag',
         'dest': 'push',
         'help': 'Push tag after operation finishes'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)
