@@ -14,22 +14,13 @@ from gitflow_wotw.actions import (
     StartAction,
     TrackAction,
 )
-from gitflow_wotw.components import Subcommand
+from gitflow_wotw.components import SubcommandInstance
 
 
-class BranchSubcommand(Subcommand):
+class BranchSubcommand(SubcommandInstance):
 
-    def __init__(self, subcommand, help_string):
-        super(
-            BranchSubcommand,
-            self
-        ).__init__(
-            subcommand,
-            help_string
-        )
-        self.populate()
-
-    def populate(self):
+    def __init__(self):
+        SubcommandInstance.__init__(self)
         self['list'] = ListAction()
         self['start'] = StartAction()
         self['finish'] = FinishAction()

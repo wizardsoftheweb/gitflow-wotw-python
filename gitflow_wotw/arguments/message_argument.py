@@ -2,17 +2,14 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class MessageArgument(Argument):
-    ARGS = ['-m', '--message']
-    KWARGS = {
+class MessageArgument(ArgumentInstance):
+    args = ['-m', '--message']
+    kwargs = {
         'nargs': 1,
         'dest': 'message',
         'metavar': 'MESSAGE',
         'help': 'Use the provided message'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

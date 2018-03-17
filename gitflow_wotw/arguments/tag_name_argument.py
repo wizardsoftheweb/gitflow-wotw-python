@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class TagNameArgument(Argument):
-    ARGS = ['-T', '--tag-name']
-    KWARGS = {
+class TagNameArgument(ArgumentInstance):
+    args = ['-T', '--tag-name']
+    kwargs = {
         'action': 'store_true',
         'dest': 'tag_name',
         'help': 'Use the provided tag name'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

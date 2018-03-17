@@ -10,44 +10,32 @@ from gitflow_wotw.arguments import (
     KeepLocalArgument,
     KeepRemoteArgument
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroup, ArgumentGroupInstance
 
 
-class BranchArgumentGroup(ArgumentGroup):
-
-    def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            self.__create_seed(),
-            'Branch Actions',
-            'Keep or delete local and remote branches after the operation finishes',
-            False
-        )
-
-    def __create_seed(self):
-        full = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteArgument(),
-                'keep': KeepArgument(),
-            }),
-            exclusive=True
-        )
-        local = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteLocalArgument(),
-                'keep': KeepLocalArgument(),
-            }),
-            exclusive=True
-        )
-        remote = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteRemoteArgument(),
-                'keep': KeepRemoteArgument(),
-            }),
-            exclusive=True
-        )
-        return OrderedDict({
-            'full': full,
-            'local': local,
-            'remote': remote
-        })
+class BranchArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['full'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteArgument(),
+            'keep': KeepArgument(),
+        }),
+        exclusive=True
+    )
+    seed['local'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteLocalArgument(),
+            'keep': KeepLocalArgument(),
+        }),
+        exclusive=True
+    )
+    seed['remote'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteRemoteArgument(),
+            'keep': KeepRemoteArgument(),
+        }),
+        exclusive=True
+    )
+    title = 'Branch Actions'
+    help_string = 'Keep or delete local and remote branches after the operation finishes'
+    exclusive = False

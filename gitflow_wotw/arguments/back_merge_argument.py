@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class BackMergeArgument(Argument):
-    ARGS = ['-b', '--back-merge']
-    KWARGS = {
+class BackMergeArgument(ArgumentInstance):
+    args = ['-b', '--back-merge']
+    kwargs = {
         'action': 'store_true',
         'dest': 'back_merge',
         'help': 'Back merge where possible'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

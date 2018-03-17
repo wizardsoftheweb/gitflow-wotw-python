@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class HelpArgument(Argument):
-    ARGS = ['-h', '--help']
-    KWARGS = {
+class HelpArgument(ArgumentInstance):
+    args = ['-h', '--help']
+    kwargs = {
         'action': 'help',
         'dest': 'help',
         'help': 'Print this help message and exit'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

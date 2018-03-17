@@ -6,14 +6,5 @@ from gitflow_wotw.components import BranchSubcommand
 
 
 class ReleaseSubcommand(BranchSubcommand):
-    SUBCOMMAND = 'release'
-    HELP_STRING = 'Manages release branches'
-
-    def __init__(self):
-        super(
-            ReleaseSubcommand,
-            self
-        ).__init__(
-            self.SUBCOMMAND,
-            self.HELP_STRING
-        )
+    identifier = 'release'
+    help_string = 'Manages release branches'

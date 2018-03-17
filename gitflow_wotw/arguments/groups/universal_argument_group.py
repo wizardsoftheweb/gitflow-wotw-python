@@ -8,21 +8,15 @@ from gitflow_wotw.arguments import (
     ShowCommandsArgument,
     VerboseArgument
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroupInstance
 
 
-class UniversalArgumentGroup(ArgumentGroup):
-
-    def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            OrderedDict({
-                'help': HelpArgument(),
-                'force': ForceArgument(),
-                'show_commands': ShowCommandsArgument(),
-                'verbose': VerboseArgument()
-            }),
-            'Universal Arguments',
-            'Arguments that can be used anywhere',
-            False
-        )
+class UniversalArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['help'] = HelpArgument()
+    seed['force'] = ForceArgument()
+    seed['show_commands'] = ShowCommandsArgument()
+    seed['verbose'] = VerboseArgument()
+    title = 'Universal Arguments'
+    help_string = 'Arguments that can be used anywhere'
+    exclusive = False

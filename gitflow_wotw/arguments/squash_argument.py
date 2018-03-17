@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class SquashArgument(Argument):
-    ARGS = ['-S', '--squash']
-    KWARGS = {
+class SquashArgument(ArgumentInstance):
+    args = ['-S', '--squash']
+    kwargs = {
         'action': 'store_true',
         'dest': 'squash',
         'help': 'Squash the operation during merge'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

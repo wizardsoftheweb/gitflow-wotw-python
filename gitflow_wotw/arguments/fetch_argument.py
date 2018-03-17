@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class FetchArgument(Argument):
-    ARGS = ['-F', '--fetch']
-    KWARGS = {
+class FetchArgument(ArgumentInstance):
+    args = ['-F', '--fetch']
+    kwargs = {
         'action': 'store_true',
         'dest': 'fetch',
         'help': 'Fetch before operation'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

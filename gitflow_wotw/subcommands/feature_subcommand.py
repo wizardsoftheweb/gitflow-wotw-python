@@ -6,14 +6,5 @@ from gitflow_wotw.components import BranchSubcommand
 
 
 class FeatureSubcommand(BranchSubcommand):
-    SUBCOMMAND = 'feature'
-    HELP_STRING = 'Manages feature branches'
-
-    def __init__(self):
-        super(
-            FeatureSubcommand,
-            self
-        ).__init__(
-            self.SUBCOMMAND,
-            self.HELP_STRING
-        )
+    identifier = 'feature'
+    help_string = 'Manages feature branches'
