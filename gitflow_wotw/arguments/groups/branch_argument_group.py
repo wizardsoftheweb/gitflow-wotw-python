@@ -39,3 +39,31 @@ class BranchArgumentGroup(ArgumentGroupInstance):
     title = 'Branch Actions'
     help_string = 'Keep or delete local and remote branches after the operation finishes'
     exclusive = False
+
+    def __init__(self):
+        ArgumentGroupInstance.__init__(self)
+        self.handlers['delete_branch'] = self.delete_branch
+
+    @staticmethod
+    def delete_branch(runner, parsed):
+        runner.handlers['change_to_base_branch'](runner, parsed)
+        runner.flow_branch.change_to_base_branch(parsed.branch)
+        if 'local' == parsed.keep:
+            runner.flow_branch.delete_remote_branch(
+                parsed.upstream,
+                parsed.force
+            )
+        elif 'remote' == parsed.keep:
+            runner.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )
+        elif not parsed.keep or 'both' == parsed.delete:
+            runner.flow_branch.delete_remote_branch(
+                parsed.upstream,
+                parsed.force
+            )
+            runner.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )
