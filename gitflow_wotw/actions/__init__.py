@@ -5,6 +5,7 @@ from .checkout_action import CheckoutAction
 from .delete_action import DeleteAction
 from .diff_action import DiffAction
 from .finish_action import FinishAction
+from .init_action import InitAction
 from .list_action import ListAction
 from .log_action import LogAction
 from .publish_action import PublishAction
