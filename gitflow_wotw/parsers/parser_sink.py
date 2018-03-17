@@ -28,6 +28,7 @@ class ParserSink(ObservesHierarchy):
     def attach_arguments(self):
         for _, value in self.arguments.items():
             value.attach_argument(self.parser)
+        self.attach_exclusive_groups()
 
     def attach_exclusive_groups(self):
         for group in self.exclusive_groups:
