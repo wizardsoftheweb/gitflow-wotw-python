@@ -10,7 +10,7 @@ class ForceArgument(Argument):
     KWARGS = {
         'action': 'store_true',
         'dest': 'force',
-        'help': 'Forces the operation to complete'
+        'help': 'Force the operation to complete'
     }
     NEGATABLE = False
 
