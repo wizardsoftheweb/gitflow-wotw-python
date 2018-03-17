@@ -10,7 +10,7 @@ class FfMasterArgument(Argument):
     KWARGS = {
         'action': 'store_true',
         'dest': 'ff_master',
-        'help': 'Fast-forward master'
+        'help': 'Fast-forward master when applicable'
     }
     NEGATABLE = True
 
