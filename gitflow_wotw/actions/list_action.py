@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import VerboseArgument
 from gitflow_wotw.components import Action
 
 
@@ -15,7 +14,7 @@ class ListAction(Action):
         self.populate()
 
     def populate(self):
-        self.arguments['verbose'] = VerboseArgument()
+        """"""
 
     def execute(self, parsed):
         print('Firing list!')
