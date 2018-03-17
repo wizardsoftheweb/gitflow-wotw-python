@@ -5,13 +5,13 @@ from __future__ import print_function
 from gitflow_wotw.components import BranchSubcommand
 
 
-class FeatureSubcommand(BranchSubcommand):
-    SUBCOMMAND = 'feature'
-    HELP_STRING = 'Manages feature branches'
+class ReleaseSubcommand(BranchSubcommand):
+    SUBCOMMAND = 'release'
+    HELP_STRING = 'Manages release branches'
 
     def __init__(self):
         super(
-            FeatureSubcommand,
+            ReleaseSubcommand,
             self
         ).__init__(
             self.SUBCOMMAND,
