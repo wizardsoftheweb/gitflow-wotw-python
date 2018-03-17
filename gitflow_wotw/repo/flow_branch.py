@@ -131,6 +131,7 @@ class FlowBranch(HasConfig):
         if branch is None:
             branch = self.branch
         base_key = "gitflow.branch.%s.base" % branch
+        print("git config --get gitflow.branch.%s.base" % branch)
         if base_key in self.config:
             return self.config[base_key]
         elif branch == self.develop:
