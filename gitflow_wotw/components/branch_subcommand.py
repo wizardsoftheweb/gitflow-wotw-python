@@ -3,16 +3,17 @@
 from __future__ import print_function
 
 from gitflow_wotw.actions import (
-    StartAction,
-    FinishAction,
-    PublishAction,
-    TrackAction,
+    CheckoutAction,
+    DeleteAction,
     DiffAction,
+    FinishAction,
+    ListAction,
+    PublishAction,
+    PullAction,
     RebaseAction,
     RenameAction,
-    CheckoutAction,
-    PullAction,
-    DeleteAction,
+    StartAction,
+    TrackAction,
 )
 from gitflow_wotw.components import Subcommand
 
@@ -30,6 +31,7 @@ class BranchSubcommand(Subcommand):
         self.populate()
 
     def populate(self):
+        self['list'] = ListAction()
         self['start'] = StartAction()
         self['finish'] = FinishAction()
         self['publish'] = PublishAction()
