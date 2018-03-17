@@ -13,7 +13,6 @@ class GlobalArgument(Argument):
         'dest': 'config_location',
         'help': 'Use the global config file'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

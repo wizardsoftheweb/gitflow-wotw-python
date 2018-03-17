@@ -12,7 +12,6 @@ class TagNameArgument(Argument):
         'dest': 'tag_name',
         'help': 'Use the provided tag name'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

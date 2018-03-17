@@ -13,7 +13,6 @@ class FileArgument(Argument):
         'metavar': 'CONFIG_FILE',
         'help': 'Use the provided config file'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

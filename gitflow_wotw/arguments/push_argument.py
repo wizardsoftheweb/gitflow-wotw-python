@@ -13,7 +13,6 @@ class PushArgument(Argument):
         'dest': 'push',
         'help': 'Push to origin after operation completes'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

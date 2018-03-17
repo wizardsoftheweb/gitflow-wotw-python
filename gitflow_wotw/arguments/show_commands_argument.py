@@ -12,7 +12,6 @@ class ShowCommandsArgument(Argument):
         'dest': 'show_commands',
         'help': 'Display git commands as they are used'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

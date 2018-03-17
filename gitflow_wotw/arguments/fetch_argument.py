@@ -12,7 +12,6 @@ class FetchArgument(Argument):
         'dest': 'fetch',
         'help': 'Fetch before operation'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

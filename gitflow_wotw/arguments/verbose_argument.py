@@ -12,7 +12,6 @@ class VerboseArgument(Argument):
         'dest': 'verbose',
         'help': 'More output'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

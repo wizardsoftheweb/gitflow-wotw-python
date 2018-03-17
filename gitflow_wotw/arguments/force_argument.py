@@ -12,7 +12,6 @@ class ForceArgument(Argument):
         'dest': 'force',
         'help': 'Force the operation to complete'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

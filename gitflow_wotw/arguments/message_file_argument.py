@@ -13,7 +13,6 @@ class MessageFileArgument(Argument):
         'metavar': 'MESSAGE_FILE',
         'help': 'Use the contents of the provided file as the tag message'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

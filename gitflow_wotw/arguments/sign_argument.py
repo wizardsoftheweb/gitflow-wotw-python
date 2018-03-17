@@ -12,7 +12,6 @@ class SignArgument(Argument):
         'dest': 'sign',
         'help': 'Sign the operation'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -13,7 +13,6 @@ class SetArgument(Argument):
         'metavar': 'BASE_BRANCH',
         'help': 'Use the provided branch as the base'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

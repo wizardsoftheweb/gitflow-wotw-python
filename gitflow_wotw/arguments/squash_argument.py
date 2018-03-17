@@ -12,7 +12,6 @@ class SquashArgument(Argument):
         'dest': 'squash',
         'help': 'Squash the operation during merge'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

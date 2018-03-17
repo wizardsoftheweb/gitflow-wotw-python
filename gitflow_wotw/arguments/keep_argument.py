@@ -13,7 +13,6 @@ class KeepArgument(Argument):
         'dest': 'keep',
         'help': 'Keep local and remote branch after operation finishes'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -12,7 +12,6 @@ class FfMasterArgument(Argument):
         'dest': 'ff_master',
         'help': 'Fast-forward master when applicable'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

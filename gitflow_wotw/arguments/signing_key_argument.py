@@ -13,7 +13,6 @@ class SigningKeyArgument(Argument):
         'metavar': 'KEY',
         'help': 'Sign with the provided key'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

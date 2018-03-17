@@ -12,7 +12,6 @@ class DefaultsArgument(Argument):
         'dest': 'defaults',
         'help': 'Use defaults where possible'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

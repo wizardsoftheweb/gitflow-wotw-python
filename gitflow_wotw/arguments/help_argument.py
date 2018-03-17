@@ -12,7 +12,6 @@ class HelpArgument(Argument):
         'dest': 'help',
         'help': 'Print this help message and exit'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

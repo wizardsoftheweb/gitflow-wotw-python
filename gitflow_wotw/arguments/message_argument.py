@@ -13,7 +13,6 @@ class MessageArgument(Argument):
         'metavar': 'MESSAGE',
         'help': 'Use the provided message'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

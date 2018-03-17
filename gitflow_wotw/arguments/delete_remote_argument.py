@@ -13,7 +13,6 @@ class DeleteRemoteArgument(Argument):
         'dest': 'delete',
         'help': 'Delete the remote branch after the operation finishes'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

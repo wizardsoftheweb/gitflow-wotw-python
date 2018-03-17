@@ -13,7 +13,6 @@ class LocalArgument(Argument):
         'dest': 'config_location',
         'help': "Use repository's config file"
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -12,7 +12,6 @@ class GetArgument(Argument):
         'dest': 'get',
         'help': 'Get the base branch'
     }
-    NEGATABLE = False
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -12,7 +12,6 @@ class BackMergeArgument(Argument):
         'dest': 'back_merge',
         'help': 'Back merge where possible'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)

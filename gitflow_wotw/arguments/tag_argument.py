@@ -12,7 +12,6 @@ class TagArgument(Argument):
         'dest': 'tag',
         'help': 'Tag the repo after the operation finishes'
     }
-    NEGATABLE = True
 
     def __init__(self):
         Argument.__init__(self, *self.ARGS, **self.KWARGS)
