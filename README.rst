@@ -90,3 +90,6 @@ These are things I'd like to add, but might not be included in ``v1``. If not, t
     "0%", "Create ``actions`` from config files"
     "0%", "Create ``subcommands`` from config files"
     "0%", "Create the main ``command`` from config files"
+    "0%", "Shell completion (bolster existing ``gitflow`` completion)"
+    "0%", "``subcommand``-detecting ``action``s, e.g. ``git wotw finish release/1.0.0`` finishes a release branch"
+    "0%", "``subcommand``-agnostic ``action``s, e.g. ``git wotw publish some-cool-feature`` publishes a feature branch"
