@@ -21,12 +21,13 @@ class GitRef(HasRepository):
         self.tags = OrderedDict()
         self.versions = OrderedDict()
         self.remotes = OrderedDict()
-        self.local = OrderedDict()
+        self.locals = OrderedDict()
         self.parse_references()
 
     def parse_references(self):
         for reference in self.repo.references:
-            print(reference)
+            if self.check_for_local(reference) or self.check_for_remote(reference):
+                continue
             tag, tag_id = self.check_for_tag(reference)
             if tag or tag_id:
                 self.check_for_version_tag(tag, tag_id)
@@ -50,17 +51,25 @@ class GitRef(HasRepository):
 
     def check_for_local(self, reference=None):
         if reference.startswith('refs/heads/'):
-            branch = reference.replace('refs/heads/')
-            self.local[branch] = self.repo.lookup_reference(reference).peel()
+            branch = reference.replace('refs/heads/', '')
+            self.locals[branch] = self.repo.lookup_reference(reference).peel()
+            return True
+        return False
 
     def check_for_remote(self, reference):
         if reference.startswith('refs/remotes/'):
-            remote_reference = reference.replace('refs/remotes/')
-            chunks = remote_reference.split('/')
-            if chunks[0] in self.remotes:
-                self.remotes[chunks[0]].append(chunks[1:].join('/'))
+            remote_reference = reference.replace('refs/remotes/', '')
+            remote = remote_reference.split('/')[0]
+            commit = self.repo.lookup_reference(reference).peel()
+            branch = remote_reference.replace("%s/" % remote, '', 1)
+            if remote in self.remotes:
+                self.remotes[remote][branch] = commit
             else:
-                self.remotes[chunks[0]] = [chunks[1:].join('/')]
+                self.remotes[remote] = OrderedDict({
+                    branch: commit
+                })
+            return True
+        return False
 
     def active_branch(self):
         if self.repo.head_is_detached or self.repo.head_is_unborn:
