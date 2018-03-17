@@ -4,6 +4,7 @@ from __future__ import print_function
 
 from gitflow_wotw.arguments import (
     BackMergeArgument,
+    BranchArgument,
     FetchArgument,
     FfArgument,
     FfMasterArgument,
@@ -25,7 +26,8 @@ class FinishAction(ActionInstance):
 
     def __init__(self):
         ActionInstance.__init__(self)
-        self.arguments['branch'] = BranchArgumentGroup()
+        self.arguments['branch'] = BranchArgument()
+        self.arguments['branches'] = BranchArgumentGroup()
         self.arguments['tag'] = TagArgumentGroup()
         self.arguments['push'] = PushArgumentGroup()
         self.arguments['fetch'] = FetchArgument()
@@ -35,3 +37,17 @@ class FinishAction(ActionInstance):
         self.arguments['ff'] = FfArgument()
         self.arguments['ff_master'] = FfMasterArgument()
         self.arguments['back_merge'] = BackMergeArgument()
+
+    def execute(self, parsed):
+        print('firing!')
+        self.fetch_first(parsed)
+
+    def pretasks(self):
+        print('run before merge')
+
+    def fetch_first(self, parsed):
+        self.flow_branch.fetch_if_upstream(parsed.branch)
+        if parsed.fetch:
+            self.flow_branch.fetch_if_upstream(
+                self.flow_branch.base_branch(parsed.branch)
+            )
