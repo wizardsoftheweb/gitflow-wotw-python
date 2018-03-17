@@ -2,6 +2,9 @@
 
 from __future__ import print_function
 
+from os import mkdir
+from os.path import join
+
 from gitflow_wotw.arguments import (
     BackMergeArgument,
     BranchArgument,
@@ -27,20 +30,30 @@ class FinishAction(ActionInstance):
     def __init__(self):
         ActionInstance.__init__(self)
         self.arguments['branch'] = BranchArgument()
-        # self.arguments['branches'] = BranchArgumentGroup()
+        self.arguments['branches'] = BranchArgumentGroup()
         # self.arguments['tag'] = TagArgumentGroup()
-        # self.arguments['push'] = PushArgumentGroup()
+        self.arguments['push'] = PushArgumentGroup()
         self.arguments['fetch'] = FetchArgument()
-        # self.arguments['rebase'] = RebaseArgument()
-        # self.arguments['preserve_merges'] = PreserveMergesArgument()
-        # self.arguments['squash'] = SquashArgument()
-        # self.arguments['ff'] = FfArgument()
+        self.arguments['rebase'] = RebaseArgument()
+        self.arguments['preserve_merges'] = PreserveMergesArgument()
+        self.arguments['squash'] = SquashArgument()
+        self.arguments['ff'] = FfArgument()
         # self.arguments['ff_master'] = FfMasterArgument()
         # self.arguments['back_merge'] = BackMergeArgument()
 
     def execute(self, parsed):
         print('firing!')
+        self.tidy_branch(parsed)
         self.fetch_first(parsed)
+        self.stream_equality(parsed)
+        self.rebase_first(parsed)
+        self.finish_with_failsafe(parsed)
+        self.delete_branches(parsed)
+        self.push_results(parsed)
+
+    def tidy_branch(self, parsed):
+        if not parsed.branch:
+            parsed.branch = self.flow_branch.branch
 
     def pretasks(self):
         print('run before merge')
@@ -54,3 +67,106 @@ class FinishAction(ActionInstance):
 
     def stream_equality(self, parsed):
         self.flow_branch.ensure_local_and_remote_equal(parsed.branch)
+
+    def rebase_first(self, parsed):
+        if parsed.rebase:
+            options = ''
+            if parsed.preserve_merges:
+                options += ' --preserve-merges'
+            print(
+                "git flow feature rebase%s %s" % (
+                    options,
+                    parsed.branch
+                )
+            )
+
+    def merge_without_squash(self, parsed):
+        print("git merge --no-ff %s" % parsed.branch)
+
+    def merge_with_squash(self, parsed):
+        print("git merge --squash %s" % parsed.branch)
+        print("git commit")
+
+    def change_and_merge(self, parsed):
+        self.flow_branch.change_to_base_branch(parsed.branch)
+        if parsed.squash:
+            self.merge_with_squash(parsed)
+        else:
+            self.merge_without_squash(parsed)
+
+    def handle_merge_error(self, parsed):
+        directory = join(
+            self.flow_branch.repo.path,
+            '.gitflow'
+        )
+        mkdir(directory)
+        with open(join(directory, 'MERGE_BASE'), 'w') as merge_file:
+            merge_file.write(self.flow_branch.base_branch(parsed.branch))
+        raise RuntimeError(
+            'Merge conflict detected; please fix before continuing'
+        )
+
+    def finish_with_failsafe(self, parsed):
+        try:
+            self.change_and_merge(parsed)
+        except Exception as e:
+            # TODO: need to figure out the real exception
+            print(e)
+            self.handle_merge_error(parsed)
+
+    def delete_branches(self, parsed):
+        upstream = self.flow_branch.upstream_branch(parsed.branch)
+        self.flow_branch.change_to_base_branch(parsed.branch)
+        if 'local' == parsed.keep:
+            self.flow_branch.delete_remote_branch(
+                upstream,
+                parsed.force
+            )
+        elif 'remote' == parsed.keep:
+            self.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )
+        elif not parsed.keep or 'both' == parsed.delete:
+            self.flow_branch.delete_remote_branch(
+                upstream,
+                parsed.force
+            )
+            self.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )
+
+    def push_results(self, parsed):
+        all_tasks = ['develop', 'master', 'tag']
+        if 'all' in parsed.push:
+            tasks = all_tasks[0:]
+        else:
+            tasks = [task for task in parsed.push if task in all_tasks]
+        if 'develop' in tasks:
+            self.push_branch('develop', parsed.force)
+        if 'master' in tasks:
+            self.push_branch('master', parsed.force)
+        if 'tag' in tasks:
+            self.push_tags(parsed.force)
+
+    def push_tags(self, force=False):
+        if force:
+            options = ' --force'
+        else:
+            options = ''
+        print("git push%s --tags" % (options))
+
+    def push_branch(self, branch=None, force=False):
+        if not branch in ['master', 'develop']:
+            branch = 'master'
+        if force:
+            options = ' --force'
+        else:
+            options = ''
+        print(
+            "git push%s %s" % (
+                options,
+                getattr(self.flow_branch, branch)
+            )
+        )
