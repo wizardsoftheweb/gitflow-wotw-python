@@ -11,5 +11,5 @@ class DeleteAction(ActionInstance):
     help_string = 'Delete a specific branch'
 
     def __init__(self):
-        super(DeleteAction, self).__init__(self)
+        DeleteAction.__init__(self)
         self.arguments['branches'] = BranchArgumentGroup()
