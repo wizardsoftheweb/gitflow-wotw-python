@@ -148,4 +148,4 @@ class FlowBranch(HasConfig):
                 base = self.branch
             else:
                 base = self.develop
-        print("gitflow.branch.%s.base %s" % (branch, base))
+        print("git config gitflow.branch.%s.base %s" % (branch, base))
