@@ -31,7 +31,7 @@ class GitConfig(HasRepository, OrderedDict):
         for key in sorted(unsorted_config.iterkeys()):
             self[key] = unsorted_config[key]
             if key.startswith('gitflow.prefix.'):
-                flow = key.replace('gitflow.prefix.')
+                flow = key.replace('gitflow.prefix.', '')
                 self.prefixes[flow] = self[key]
 
     def load_and_sort(self):
