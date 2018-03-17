@@ -14,6 +14,7 @@ class ComponentInstance(OrderedDict):
     responsibilities_seed = []
     arguments_seed = []
     arguments = OrderedDict()
+    handlers = OrderedDict()
 
     def __init__(self):
         OrderedDict.__init__(self)
@@ -25,7 +26,8 @@ class ComponentInstance(OrderedDict):
         if self.responsibilities_seed:
             self.populate_dict(self, self.responsibilities_seed)
 
-    @staticmethod
-    def populate_dict(target=None, elements=None):
+    def populate_dict(self, target=None, elements=None):
         for element in elements:
             target[element.identifier] = element
+            for key, handler in element.handlers.items():
+                self.handlers[key] = handler
