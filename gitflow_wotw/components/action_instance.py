@@ -4,25 +4,21 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from gitflow_wotw.components import Action
+from gitflow_wotw.arguments.groups import UniversalArgumentGroup
+from gitflow_wotw.components import Action, ComponentInstance
 
 
-class ActionInstance(Action):
-    ACTION = ''
-    HELP_STRING = ''
-    ARGUMENTS = []
+class ActionInstance(ComponentInstance, Action):
 
     def __init__(self):
-        super(ActionInstance, self).__init__(
-            self.ACTION,
-            self.HELP_STRING
+        ComponentInstance.__init__(self)
+        Action.__init__(
+            self,
+            self.identifier,
+            self.help_string
         )
-        self.populate()
-
-    def populate(self):
-        for argument in self.ARGUMENTS:
-            self.arguments[argument.identifier] = argument
+        self.arguments['universal'] = UniversalArgumentGroup()
 
     def execute(self, parsed):
-        print("Firing %s!" % self.ACTION)
+        print("Firing %s!" % self.identifier)
         print(parsed)
