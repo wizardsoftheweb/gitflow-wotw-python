@@ -71,7 +71,7 @@ Once all of these are finished, I'll release ``v1``. Until then, ``v0`` should b
     "0%", "``config`` support"
     "0%", "``log`` support"
     "0%", "Negatable options"
-    "0%", "Add opt-out for ``no-`` booleans"
+    "50%", "Add opt-out for ``no-`` booleans"
     "0%", "Convert ``-v`` to a count"
 
 Eventual Features
