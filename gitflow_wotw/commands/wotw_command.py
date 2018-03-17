@@ -17,7 +17,7 @@ class WotwCommand(Command):
     HELP_STRING = 'An ambitious attempt to duplicate gitflow-avh in Python'
 
     def __init__(self):
-        WotwCommand.__init__(
+        Command.__init__(
             self,
             self.IDENTIFIER,
             self.HELP_STRING
