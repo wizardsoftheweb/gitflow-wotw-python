@@ -3,15 +3,19 @@
 from __future__ import print_function
 
 from gitflow_wotw.arguments import (
+    BackMergeArgument,
     DeleteArgument,
     DeleteLocalArgument,
     DeleteRemoteArgument,
     FetchArgument,
     FfArgument,
+    FfMasterArgument,
     ForceArgument,
     KeepArgument,
     KeepLocalArgument,
     KeepRemoteArgument,
+    MessageArgument,
+    MessageFileArgument,
     PushArgument,
     PushDevelopArgument,
     PushProductionArgument,
@@ -19,7 +23,11 @@ from gitflow_wotw.arguments import (
     PreserveMergesArgument,
     RebaseArgument,
     ShowCommandsArgument,
-    SquashArgument
+    SignArgument,
+    SigningKeyArgument,
+    SquashArgument,
+    TagArgument,
+    TagNameArgument
 )
 from gitflow_wotw.components import Action
 
@@ -34,6 +42,14 @@ class FinishAction(Action):
 
     def populate(self):
         self.arguments['fetch'] = FetchArgument()
+        self.arguments['sign'] = SignArgument()
+        self.arguments['signing_key'] = SigningKeyArgument()
+        self.arguments['tag'] = TagArgument()
+        self.arguments['tag_name'] = TagNameArgument()
+        self.exclusive_groups.append([
+            MessageArgument(),
+            MessageFileArgument()
+        ])
         self.arguments['rebase'] = RebaseArgument()
         self.arguments['preserve_merges'] = PreserveMergesArgument()
         self.exclusive_groups.append([
@@ -55,6 +71,8 @@ class FinishAction(Action):
         self.arguments['force'] = ForceArgument()
         self.arguments['squash'] = SquashArgument()
         self.arguments['ff'] = FfArgument()
+        self.arguments['ff_master'] = FfMasterArgument()
+        self.arguments['back_merge'] = BackMergeArgument()
         self.arguments['show_commands'] = ShowCommandsArgument()
 
     def execute(self, parsed):
