@@ -10,9 +10,10 @@ class Argument(object):
         self.kwargs = kwargs
 
     def attach_argument(self, parser=None):
-        parser.add_argument(*self.args, **self.kwargs)
         if 'action' in self.kwargs and 'store_true' == self.kwargs['action']:
+            parser = parser.add_mutually_exclusive_group()
             self.negate(parser)
+        parser.add_argument(*self.args, **self.kwargs)
 
     def negate(self, parser=None):
         negated_args = []
