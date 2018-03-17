@@ -136,3 +136,13 @@ class FlowBranch(HasConfig):
         elif branch == self.master:
             return None
         return self.develop
+
+    def update_base(self, branch=None, base=None):
+        if branch is None:
+            branch = self.branch
+        if base is None:
+            if branch != self.branch:
+                base = self.branch
+            else:
+                base = self.develop
+        print("gitflow.branch.%s.base %s" % (branch, base))
