@@ -6,10 +6,10 @@ from gitflow_wotw.components import ArgumentInstance
 
 
 class PushProductionArgument(ArgumentInstance):
-    args = ['--push-production']
+    args = ['--push-master', '--push-production']
     kwargs = {
         'action': 'append_const',
-        'const': 'production',
+        'const': 'master',
         'dest': 'push',
         'help': 'Push production after operation finishes'
     }

@@ -4,7 +4,9 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from pygit2 import Config
+# pylint: disable=no-name-in-module
+from pygit2 import Branch, Config
+# pylint: enable=no-name-in-module
 
 from gitflow_wotw.constants import FLOWS
 from gitflow_wotw.repo import HasConfig
@@ -196,8 +198,14 @@ class FlowBranch(HasConfig):
         )
         # self.repo.branches[branch].delete()
 
+    def strip_remote_from_ref(self, upstream=None):
+        return upstream.shorthand.replace(
+            "%s/" % upstream.remote_name,
+            ''
+        )
+
     def delete_remote_branch(self, upstream=None, force=False):
-        branch = upstream.shorthand.replace("%s/" % upstream.remote_name, '')
+        branch = self.strip_remote_from_ref(upstream)
         print(
             "git push%s %s :%s" % (
                 (
@@ -213,4 +221,41 @@ class FlowBranch(HasConfig):
     def branch_to_commit_id(self, branch=None):
         if branch is None:
             branch = self.branch
+        if isinstance(branch, Branch):
+            branch = branch.shorthand
         return self.repo.branches[branch].peel().id
+
+    def fetch_if_upstream(self, branch=None):
+        upstream = self.upstream_branch(branch)
+        if upstream:
+            print(
+                "git fetch %s %s" % (
+                    upstream.remote_name,
+                    self.strip_remote_from_ref(upstream)
+                )
+            )
+
+    def compare_references(self, first_branch=None, second_branch=None):
+        first_commit = self.branch_to_commit_id(first_branch)
+        second_commit = self.branch_to_commit_id(second_branch)
+        if first_commit != second_commit:
+            base = self.repo.merge_base(first_commit, second_commit)
+            if base == second_commit:
+                return 1
+            else:
+                return 2
+        return 0
+
+    def ensure_local_and_remote_equal(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        local = self.repo.branches[branch]
+        if not local.upstream:
+            return True
+        remote = local.upstream
+        result = self.compare_references(local, remote)
+        if result > 1 or result < 0:
+            raise ValueError(
+                'Local and remote have diverged; a merge is necessary'
+            )
+        return True
