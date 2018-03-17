@@ -16,6 +16,10 @@ class GitConfig(HasRepository, OrderedDict):
         HasRepository.__init__(self, directory)
         self.prefixes = {}
         self.load_and_sort()
+        if 'versiontag' in self.prefixes:
+            self.version_tag = self.prefixes['versiontag']
+        else:
+            self.version_tag = None
 
     def load_repo_config(self):
         config = {}
