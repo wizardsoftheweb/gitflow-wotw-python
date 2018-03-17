@@ -15,9 +15,12 @@ from gitflow_wotw.utils import HasRepository
 
 class GitRef(HasRepository):
 
-    def __init__(self, directory=None):
+    def __init__(self, directory=None, config=None):
         super(GitRef, self).__init__(directory)
-        self.config = GitConfig(directory)
+        if isinstance(config, GitConfig):
+            self.config = config
+        else:
+            self.config = GitConfig(directory)
         self.tags = OrderedDict()
         self.versions = OrderedDict()
         self.remotes = OrderedDict()
