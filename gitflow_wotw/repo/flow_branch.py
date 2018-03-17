@@ -155,6 +155,8 @@ class FlowBranch(HasConfig):
         print("git config gitflow.branch.%s.base %s" % (branch, base))
 
     def branch_to_reference(self, branch=None):
+        if branch is None:
+            branch = self.branch
         try:
             prefixed_branch = "%s/%s" % (self.current_flow, branch)
             branch_object = self.repo.branches[prefixed_branch]
