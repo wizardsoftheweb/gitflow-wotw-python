@@ -118,7 +118,7 @@ class FlowBranch(HasConfig):
 
     @property
     def current_base(self):
-        return self.base_branch(self.branch)
+        return self.base_branch()
 
     @property
     def current_flow(self):
@@ -127,7 +127,9 @@ class FlowBranch(HasConfig):
                 return prefix[0:-1]
         return None
 
-    def base_branch(self, branch):
+    def base_branch(self, branch=None):
+        if branch is None:
+            branch = self.branch
         base_key = "gitflow.branch.%s.base" % branch
         if base_key in self.config:
             return self.config[base_key]
