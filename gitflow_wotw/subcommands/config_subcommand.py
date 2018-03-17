@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 
+from gitflow_wotw.actions import SetAction, BaseAction
 from gitflow_wotw.components import Subcommand
 
 
@@ -22,4 +23,5 @@ class ConfigSubcommand(Subcommand):
         self.populate()
 
     def populate(self):
-        """"""
+        self['set'] = SetAction()
+        self['base'] = BaseAction()

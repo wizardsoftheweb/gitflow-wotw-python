@@ -2,11 +2,10 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.actions import StartAction
-from gitflow_wotw.components import Subcommand
+from gitflow_wotw.components import BranchSubcommand
 
 
-class FeatureSubcommand(Subcommand):
+class FeatureSubcommand(BranchSubcommand):
     SUBCOMMAND = 'feature'
     HELP_STRING = 'Manages feature branches'
 
@@ -18,9 +17,3 @@ class FeatureSubcommand(Subcommand):
             self.SUBCOMMAND,
             self.HELP_STRING
         )
-        # print(dir(self))
-        # sys_exit(1)
-        self.populate()
-
-    def populate(self):
-        self['start'] = StartAction()

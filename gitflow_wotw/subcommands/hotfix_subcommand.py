@@ -2,10 +2,10 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Subcommand
+from gitflow_wotw.components import BranchSubcommand
 
 
-class HotfixSubcommand(Subcommand):
+class HotfixSubcommand(BranchSubcommand):
     SUBCOMMAND = 'hotfix'
     HELP_STRING = 'Manages hotfix branches'
 
@@ -17,9 +17,3 @@ class HotfixSubcommand(Subcommand):
             self.SUBCOMMAND,
             self.HELP_STRING
         )
-        # print(dir(self))
-        # sys_exit(1)
-        self.populate()
-
-    def populate(self):
-        """"""
