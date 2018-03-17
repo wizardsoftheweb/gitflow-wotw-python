@@ -9,7 +9,7 @@ from gitflow_wotw.components import Action
 
 class InitAction(Action):
     ACTION = 'init'
-    HELP_STRING = 'List program version'
+    HELP_STRING = 'Initialize git wotw'
 
     def __init__(self):
         super(InitAction, self).__init__(self.ACTION, self.HELP_STRING)
