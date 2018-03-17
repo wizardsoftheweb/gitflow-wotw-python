@@ -9,6 +9,7 @@ class PushArgument(ArgumentInstance):
     args = ['-p', '--push']
     kwargs = {
         'action': 'store_const',
+        'default': [],
         'const': ['all'],
         'dest': 'push',
         'help': 'Push to origin after operation completes'

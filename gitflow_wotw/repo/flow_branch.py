@@ -4,7 +4,9 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from pygit2 import Config
+# pylint: disable=no-name-in-module
+from pygit2 import Branch, Config
+# pylint: enable=no-name-in-module
 
 from gitflow_wotw.constants import FLOWS
 from gitflow_wotw.repo import HasConfig
@@ -118,14 +120,16 @@ class FlowBranch(HasConfig):
 
     @property
     def current_base(self):
-        base_key = "gitflow.branch.%s.base" % self.branch
-        if base_key in self.config:
-            return self.config[base_key]
-        elif self.branch == self.develop:
-            return self.master
-        elif self.branch == self.master:
-            return None
-        return self.develop
+        return self.base_branch()
+
+    def upstream_branch(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        return self.repo.branches[branch].upstream
+
+    @property
+    def upstream(self):
+        return self.repo.branches[self.branch].upstream
 
     @property
     def current_flow(self):
@@ -133,3 +137,125 @@ class FlowBranch(HasConfig):
             if self.branch.startswith(prefix):
                 return prefix[0:-1]
         return None
+
+    def base_branch(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        base_key = "gitflow.branch.%s.base" % branch
+        print("git config --get gitflow.branch.%s.base" % branch)
+        if base_key in self.config:
+            return self.config[base_key]
+        elif branch == self.develop:
+            return self.master
+        elif branch == self.master:
+            return None
+        return self.develop
+
+    def update_base(self, branch=None, base=None):
+        if branch is None:
+            branch = self.branch
+        if base is None:
+            if branch != self.branch:
+                base = self.branch
+            else:
+                base = self.develop
+        print("git config gitflow.branch.%s.base %s" % (branch, base))
+
+    def branch_to_reference(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        try:
+            prefixed_branch = "%s/%s" % (self.current_flow, branch)
+            branch_object = self.repo.branches[prefixed_branch]
+        except KeyError:
+            branch_object = self.repo.branches[branch]
+        return self.repo.lookup_reference(branch_object.name)
+
+    def change_branch(self, branch=None):
+        reference = self.branch_to_reference(branch)
+        print("git checkout %s" % reference.shorthand)
+        # self.repo.checkout(reference)
+
+    def change_branch_if_active(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        if self.repo.branches[branch].is_head():
+            self.change_to_base_branch(branch)
+
+    def change_to_base_branch(self, branch=None):
+        self.change_branch(self.base_branch(branch))
+
+    def delete_local_branch(self, branch=None, force=False):
+        print(
+            "git branch%s -d %s" % (
+                (
+                    ' --force'
+                    if force
+                    else ''
+                ),
+                branch
+            )
+        )
+        # self.repo.branches[branch].delete()
+
+    def strip_remote_from_ref(self, upstream=None):
+        return upstream.shorthand.replace(
+            "%s/" % upstream.remote_name,
+            ''
+        )
+
+    def delete_remote_branch(self, upstream=None, force=False):
+        branch = self.strip_remote_from_ref(upstream)
+        print(
+            "git push%s %s :%s" % (
+                (
+                    ' --force'
+                    if force
+                    else ''
+                ),
+                upstream.remote_name,
+                branch
+            )
+        )
+
+    def branch_to_commit_id(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        if isinstance(branch, Branch):
+            branch = branch.shorthand
+        return self.repo.branches[branch].peel().id
+
+    def fetch_if_upstream(self, branch=None):
+        upstream = self.upstream_branch(branch)
+        if upstream:
+            print(
+                "git fetch %s %s" % (
+                    upstream.remote_name,
+                    self.strip_remote_from_ref(upstream)
+                )
+            )
+
+    def compare_references(self, first_branch=None, second_branch=None):
+        first_commit = self.branch_to_commit_id(first_branch)
+        second_commit = self.branch_to_commit_id(second_branch)
+        if first_commit != second_commit:
+            base = self.repo.merge_base(first_commit, second_commit)
+            if base == second_commit:
+                return 1
+            else:
+                return 2
+        return 0
+
+    def ensure_local_and_remote_equal(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        local = self.repo.branches[branch]
+        if not local.upstream:
+            return True
+        remote = local.upstream
+        result = self.compare_references(local, remote)
+        if result > 1 or result < 0:
+            raise ValueError(
+                'Local and remote have diverged; a merge is necessary'
+            )
+        return True
