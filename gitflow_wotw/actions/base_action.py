@@ -2,8 +2,10 @@
 
 from __future__ import print_function
 
+from collections import OrderedDict
+
 from gitflow_wotw.arguments import GetArgument, SetArgument
-from gitflow_wotw.components import ActionInstance
+from gitflow_wotw.components import ActionInstance, ArgumentGroup
 
 
 class BaseAction(ActionInstance):
@@ -12,5 +14,10 @@ class BaseAction(ActionInstance):
 
     def __init__(self):
         ActionInstance.__init__(self)
-        self.arguments['get'] = GetArgument()
-        self.arguments['set'] = SetArgument()
+        seed = OrderedDict()
+        seed['get'] = GetArgument()
+        seed['set'] = SetArgument()
+        self.arguments['mutators'] = ArgumentGroup(
+            seed=seed,
+            exclusive=True
+        )
