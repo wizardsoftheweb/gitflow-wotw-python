@@ -22,8 +22,9 @@ class WotwCommand(Command):
             self.IDENTIFIER,
             self.HELP_STRING
         )
+        self.populate()
 
-    def popuplate(self):
+    def populate(self):
         self['init'] = InitAction()
         self['feature'] = FeatureSubcommand()
         self['bugfix'] = BugfixSubcommand()
