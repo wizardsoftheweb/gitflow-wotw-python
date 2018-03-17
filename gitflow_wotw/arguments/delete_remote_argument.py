@@ -11,7 +11,7 @@ class DeleteRemoteArgument(Argument):
         'action': 'store_const',
         'const': 'remote',
         'dest': 'delete',
-        'help': 'Delete the remote branch after the operation completes'
+        'help': 'Delete the remote branch after the operation finishes'
     }
     NEGATABLE = True
 
