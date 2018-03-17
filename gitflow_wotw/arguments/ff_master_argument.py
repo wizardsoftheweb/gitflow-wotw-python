@@ -5,7 +5,7 @@ from __future__ import print_function
 from gitflow_wotw.components import Argument
 
 
-class FfmasterArgument(Argument):
+class FfMasterArgument(Argument):
     ARGS = ['--ff-master']
     KWARGS = {
         'action': 'store_true',

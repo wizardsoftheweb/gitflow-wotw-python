@@ -1,13 +1,13 @@
 # pylint:disable=W,C,R
 
-from .back_merge_argument import FetchArgument
+from .back_merge_argument import BackMergeArgument
 from .delete_argument import DeleteArgument
 from .delete_local_argument import DeleteLocalArgument
 from .delete_remote_argument import DeleteRemoteArgument
 from .fetch_argument import FetchArgument
-from .ff_argument import Ffrgument
-from .ff_master_argument import FfmasterArgument
-from .file_argument import FetchArgument
+from .ff_argument import FfArgument
+from .ff_master_argument import FfMasterArgument
+from .file_argument import FileArgument
 from .force_argument import ForceArgument
 from .get_argument import GetArgument
 from .global_argument import GlobalArgument
@@ -22,7 +22,7 @@ from .push_argument import PushArgument
 from .push_develop_argument import PushDevelopArgument
 from .push_production_argument import PushProductionArgument
 from .push_tag_argument import PushTagArgument
-from .rebase_argument import FetchArgument
+from .rebase_argument import RebaseArgument
 from .set_argument import SetArgument
 from .show_commands_argument import ShowCommandsArgument
 from .sign_argument import SignArgument

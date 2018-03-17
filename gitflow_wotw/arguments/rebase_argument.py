@@ -5,7 +5,7 @@ from __future__ import print_function
 from gitflow_wotw.components import Argument
 
 
-class FetchArgument(Argument):
+class RebaseArgument(Argument):
     ARGS = ['-r', '--rebase']
     KWARGS = {
         'action': 'store_true',
