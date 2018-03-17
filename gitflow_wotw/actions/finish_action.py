@@ -27,16 +27,16 @@ class FinishAction(ActionInstance):
     def __init__(self):
         ActionInstance.__init__(self)
         self.arguments['branch'] = BranchArgument()
-        self.arguments['branches'] = BranchArgumentGroup()
-        self.arguments['tag'] = TagArgumentGroup()
-        self.arguments['push'] = PushArgumentGroup()
+        # self.arguments['branches'] = BranchArgumentGroup()
+        # self.arguments['tag'] = TagArgumentGroup()
+        # self.arguments['push'] = PushArgumentGroup()
         self.arguments['fetch'] = FetchArgument()
-        self.arguments['rebase'] = RebaseArgument()
-        self.arguments['preserve_merges'] = PreserveMergesArgument()
-        self.arguments['squash'] = SquashArgument()
-        self.arguments['ff'] = FfArgument()
-        self.arguments['ff_master'] = FfMasterArgument()
-        self.arguments['back_merge'] = BackMergeArgument()
+        # self.arguments['rebase'] = RebaseArgument()
+        # self.arguments['preserve_merges'] = PreserveMergesArgument()
+        # self.arguments['squash'] = SquashArgument()
+        # self.arguments['ff'] = FfArgument()
+        # self.arguments['ff_master'] = FfMasterArgument()
+        # self.arguments['back_merge'] = BackMergeArgument()
 
     def execute(self, parsed):
         print('firing!')
@@ -51,3 +51,6 @@ class FinishAction(ActionInstance):
             self.flow_branch.fetch_if_upstream(
                 self.flow_branch.base_branch(parsed.branch)
             )
+
+    def stream_equality(self, parsed):
+        self.flow_branch.ensure_local_and_remote_equal(parsed.branch)
