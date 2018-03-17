@@ -12,7 +12,9 @@ class Argument(object):
         self.kwargs = kwargs
 
     def attach_argument(self, parser=None):
-        if 'action' in self.kwargs and 'store_true' == self.kwargs['action']:
+        if 'opt_out' in self.kwargs and self.kwargs['opt_out']:
+            del self.kwargs['opt_out']
+        elif 'action' in self.kwargs and 'store_true' == self.kwargs['action']:
             if not 'default' in self.kwargs:
                 self.kwargs['default'] = False
             parser = parser.add_mutually_exclusive_group()
