@@ -2,24 +2,15 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Command
+from gitflow_wotw.components import Command, ComponentInstance
 
 
-class CommandInstance(Command):
-    COMMAND = ''
-    HELP_STRING = ''
-    SUBCOMMANDS = []
+class CommandInstance(ComponentInstance, Command):
 
     def __init__(self):
-        super(
-            CommandInstance,
-            self
-        ).__init__(
-            self.COMMAND,
-            self.HELP_STRING
+        ComponentInstance.__init__(self)
+        Command.__init__(
+            self,
+            self.identifier,
+            self.help_string
         )
-        self.populate()
-
-    def populate(self):
-        for subcommand in self.SUBCOMMANDS:
-            self[subcommand.identifier] = subcommand
