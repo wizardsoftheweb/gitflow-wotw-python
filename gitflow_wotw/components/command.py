@@ -9,7 +9,7 @@ from gitflow_wotw.components import Subcommand
 
 class Command(ParserSource, Subcommand):
 
-    def __init__(self, identifier=None, help_string=None,):
+    def __init__(self, identifier=None, help_string=None):
         Subcommand.__init__(
             self,
             identifier,
