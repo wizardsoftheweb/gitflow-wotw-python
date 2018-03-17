@@ -13,6 +13,8 @@ class Argument(object):
 
     def attach_argument(self, parser=None):
         if 'action' in self.kwargs and 'store_true' == self.kwargs['action']:
+            if not 'default' in self.kwargs:
+                self.kwargs['default'] = False
             parser = parser.add_mutually_exclusive_group()
             self.negate(parser)
         parser.add_argument(*self.args, **self.kwargs)
