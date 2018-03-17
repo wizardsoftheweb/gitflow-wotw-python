@@ -254,4 +254,8 @@ class FlowBranch(HasConfig):
             return True
         remote = local.upstream
         result = self.compare_references(local, remote)
-        print(result)
+        if result > 1 or result < 0:
+            raise ValueError(
+                'Local and remote have diverged; a merge is necessary'
+            )
+        return True
