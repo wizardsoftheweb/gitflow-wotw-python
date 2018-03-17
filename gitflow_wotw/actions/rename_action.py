@@ -2,20 +2,9 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Action
+from gitflow_wotw.components import ActionInstance
 
 
-class RenameAction(Action):
-    ACTION = 'rename'
-    HELP_STRING = 'Renames a specific branch'
-
-    def __init__(self):
-        super(RenameAction, self).__init__(self.ACTION, self.HELP_STRING)
-        self.populate()
-
-    def populate(self):
-        """"""
-
-    def execute(self, parsed):
-        print('Firing rename!')
-        print(parsed)
+class RenameAction(ActionInstance):
+    identifier = 'rename'
+    help_string = 'Renames a specific branch'

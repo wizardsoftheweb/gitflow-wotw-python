@@ -2,20 +2,9 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Action
+from gitflow_wotw.components import ActionInstance
 
 
-class LogAction(Action):
-    ACTION = 'log'
-    HELP_STRING = 'Compare current log against dev'
-
-    def __init__(self):
-        super(LogAction, self).__init__(self.ACTION, self.HELP_STRING)
-        self.populate()
-
-    def populate(self):
-        """"""
-
-    def execute(self, parsed):
-        print('Firing log!')
-        print(parsed)
+class LogAction(ActionInstance):
+    identifier = 'log'
+    help_string = 'Compare current log against dev'
