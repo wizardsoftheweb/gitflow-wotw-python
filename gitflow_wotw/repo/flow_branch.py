@@ -209,3 +209,8 @@ class FlowBranch(HasConfig):
                 branch
             )
         )
+
+    def branch_to_commit_id(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        return self.repo.branches[branch].peel().id
