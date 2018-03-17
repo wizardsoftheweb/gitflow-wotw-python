@@ -9,7 +9,6 @@ from gitflow_wotw.actions import (
     FinishAction,
     ListAction,
     PublishAction,
-    PullAction,
     RebaseAction,
     RenameAction,
     StartAction,
@@ -40,5 +39,4 @@ class BranchSubcommand(Subcommand):
         self['rebase'] = RebaseAction()
         self['rename'] = RenameAction()
         self['checkout'] = CheckoutAction()
-        self['pull'] = PullAction()
         self['delete'] = DeleteAction()
