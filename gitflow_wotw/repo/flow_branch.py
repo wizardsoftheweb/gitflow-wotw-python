@@ -121,6 +121,10 @@ class FlowBranch(HasConfig):
         return self.base_branch()
 
     @property
+    def upstream(self):
+        return self.repo.branches[self.branch].upstream
+
+    @property
     def current_flow(self):
         for prefix in self.prefixes:
             if self.branch.startswith(prefix):
