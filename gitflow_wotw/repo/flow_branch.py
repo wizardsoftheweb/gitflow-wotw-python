@@ -120,6 +120,15 @@ class FlowBranch(HasConfig):
     def current_base(self):
         return self.base_branch()
 
+    def upstream_branch(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        return self.repo.branches[branch].upstream
+
+    @property
+    def upstream(self):
+        return self.repo.branches[self.branch].upstream
+
     @property
     def current_flow(self):
         for prefix in self.prefixes:
@@ -151,6 +160,8 @@ class FlowBranch(HasConfig):
         print("git config gitflow.branch.%s.base %s" % (branch, base))
 
     def branch_to_reference(self, branch=None):
+        if branch is None:
+            branch = self.branch
         try:
             prefixed_branch = "%s/%s" % (self.current_flow, branch)
             branch_object = self.repo.branches[prefixed_branch]
@@ -162,3 +173,39 @@ class FlowBranch(HasConfig):
         reference = self.branch_to_reference(branch)
         print("git checkout %s" % reference.shorthand)
         # self.repo.checkout(reference)
+
+    def change_branch_if_active(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        if self.repo.branches[branch].is_head():
+            self.change_to_base_branch(branch)
+
+    def change_to_base_branch(self, branch=None):
+        self.change_branch(self.base_branch(branch))
+
+    def delete_local_branch(self, branch=None, force=False):
+        print(
+            "git branch%s -d %s" % (
+                (
+                    ' --force'
+                    if force
+                    else ''
+                ),
+                branch
+            )
+        )
+        # self.repo.branches[branch].delete()
+
+    def delete_remote_branch(self, upstream=None, force=False):
+        branch = upstream.shorthand.replace("%s/" % upstream.remote_name, '')
+        print(
+            "git push%s %s :%s" % (
+                (
+                    ' --force'
+                    if force
+                    else ''
+                ),
+                upstream.remote_name,
+                branch
+            )
+        )
