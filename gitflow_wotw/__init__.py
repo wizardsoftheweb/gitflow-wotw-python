@@ -9,4 +9,5 @@ from .components import *
 from .arguments import *
 from .actions import *
 from .subcommands import *
+from .commands import *
 from .cli_file import cli
