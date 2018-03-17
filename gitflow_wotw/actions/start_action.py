@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import FetchArgument, ShowCommandsArgument
+from gitflow_wotw.arguments import FetchArgument
 from gitflow_wotw.components import Action
 
 
@@ -16,7 +16,6 @@ class StartAction(Action):
 
     def populate(self):
         self.arguments['fetch'] = FetchArgument()
-        self.arguments['showcommands'] = ShowCommandsArgument()
 
     def execute(self, parsed):
         print('Firing start!')
