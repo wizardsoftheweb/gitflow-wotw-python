@@ -230,3 +230,24 @@ class FlowBranch(HasConfig):
                     self.strip_remote_from_ref(upstream)
                 )
             )
+
+    def compare_references(self, first_branch=None, second_branch=None):
+        first_commit = self.branch_to_commit_id(first_branch)
+        second_commit = self.branch_to_commit_id(second_branch)
+        if first_commit != second_commit:
+            base = self.repo.merge_base(first_commit, second_commit)
+            if base == second_commit:
+                return 1
+            else:
+                return 2
+        return 0
+
+    def ensure_local_and_remote_equal(self, branch=None):
+        if branch is None:
+            branch = self.branch
+        local = self.repo.branches[branch]
+        if not local.upstream:
+            return True
+        remote = local.upstream
+        result = self.compare_references(local, remote)
+        print(result)
