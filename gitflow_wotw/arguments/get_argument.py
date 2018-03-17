@@ -10,5 +10,7 @@ class GetArgument(ArgumentInstance):
     kwargs = {
         'action': 'store_true',
         'dest': 'get',
-        'help': 'Get the base branch'
+        'default': True,
+        'help': 'Get the base branch',
+        'opt_out': True
     }
