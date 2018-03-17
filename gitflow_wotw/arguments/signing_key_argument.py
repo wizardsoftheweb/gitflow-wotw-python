@@ -2,17 +2,14 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class SigningKeyArgument(Argument):
-    ARGS = ['-u', '--signing-key']
-    KWARGS = {
+class SigningKeyArgument(ArgumentInstance):
+    args = ['-u', '--signing-key']
+    kwargs = {
         'nargs': 1,
         'dest': 'signing_key',
         'metavar': 'KEY',
         'help': 'Sign with the provided key'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -8,21 +8,15 @@ from gitflow_wotw.arguments import (
     PushProductionArgument,
     PushTagArgument,
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroupInstance
 
 
-class PushArgumentGroup(ArgumentGroup):
-
-    def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            OrderedDict({
-                'push': PushArgument(),
-                'push_develop': PushDevelopArgument(),
-                'push_production': PushProductionArgument(),
-                'push_tag': PushTagArgument(),
-            }),
-            'Push Options',
-            'Options related to pushing branches',
-            False
-        )
+class PushArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['push'] = PushArgument()
+    seed['push_develop'] = PushDevelopArgument()
+    seed['push_production'] = PushProductionArgument()
+    seed['push_tag'] = PushTagArgument()
+    title = 'Push Options'
+    help_string = 'Options related to pushing branches'
+    exclusive = False

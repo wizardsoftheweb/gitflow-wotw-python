@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class VerboseArgument(Argument):
-    ARGS = ['-v', '--verbose']
-    KWARGS = {
+class VerboseArgument(ArgumentInstance):
+    args = ['-v', '--verbose']
+    kwargs = {
         'action': 'store_true',
         'dest': 'verbose',
         'help': 'More output'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

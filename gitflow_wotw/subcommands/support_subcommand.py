@@ -6,14 +6,5 @@ from gitflow_wotw.components import BranchSubcommand
 
 
 class SupportSubcommand(BranchSubcommand):
-    SUBCOMMAND = 'support'
-    HELP_STRING = 'Manages support branches'
-
-    def __init__(self):
-        super(
-            SupportSubcommand,
-            self
-        ).__init__(
-            self.SUBCOMMAND,
-            self.HELP_STRING
-        )
+    identifier = 'support'
+    help_string = 'Manages support branches'

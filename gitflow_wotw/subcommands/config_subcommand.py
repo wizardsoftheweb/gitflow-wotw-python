@@ -3,25 +3,14 @@
 from __future__ import print_function
 
 from gitflow_wotw.actions import SetAction, BaseAction
-from gitflow_wotw.components import Subcommand
+from gitflow_wotw.components import SubcommandInstance
 
 
-class ConfigSubcommand(Subcommand):
-    SUBCOMMAND = 'config'
-    HELP_STRING = 'Manages config'
+class ConfigSubcommand(SubcommandInstance):
+    identifier = 'config'
+    help_string = 'Manages config'
 
     def __init__(self):
-        super(
-            ConfigSubcommand,
-            self
-        ).__init__(
-            self.SUBCOMMAND,
-            self.HELP_STRING
-        )
-        # print(dir(self))
-        # sys_exit(1)
-        self.populate()
-
-    def populate(self):
+        SubcommandInstance.__init__(self)
         self['set'] = SetAction()
         self['base'] = BaseAction()
