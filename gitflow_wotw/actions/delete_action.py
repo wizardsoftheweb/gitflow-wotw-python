@@ -2,17 +2,8 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import (
-    DeleteArgument,
-    DeleteLocalArgument,
-    DeleteRemoteArgument,
-    KeepArgument,
-    KeepLocalArgument,
-    KeepRemoteArgument,
-    ForceArgument,
-    ShowCommandsArgument
-)
-from gitflow_wotw.components import Action
+from gitflow_wotw.arguments.groups import BranchArgumentGroup
+from gitflow_wotw.components import Action, ArgumentGroup
 
 
 class DeleteAction(Action):
@@ -24,20 +15,7 @@ class DeleteAction(Action):
         self.populate()
 
     def populate(self):
-        self.exclusive_groups.append([
-            DeleteArgument(),
-            KeepArgument()
-        ])
-        self.exclusive_groups.append([
-            DeleteLocalArgument(),
-            KeepLocalArgument()
-        ])
-        self.exclusive_groups.append([
-            DeleteRemoteArgument(),
-            KeepRemoteArgument()
-        ])
-        self.arguments['force'] = ForceArgument()
-        self.arguments['show_commands'] = ShowCommandsArgument()
+        self.arguments['branches'] = BranchArgumentGroup()
 
     def execute(self, parsed):
         print('Firing delete!')

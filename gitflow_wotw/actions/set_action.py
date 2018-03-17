@@ -2,13 +2,7 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import (
-    LocalArgument,
-    GlobalArgument,
-    SystemArgument,
-    FileArgument,
-    ShowCommandsArgument
-)
+from gitflow_wotw.arguments.groups import ConfigLocationArgumentGroup
 from gitflow_wotw.components import Action
 
 
@@ -21,13 +15,7 @@ class SetAction(Action):
         self.populate()
 
     def populate(self):
-        self.exclusive_groups.append([
-            GlobalArgument(),
-            SystemArgument(),
-            LocalArgument(),
-            FileArgument()
-        ])
-        self.arguments['show_commands'] = ShowCommandsArgument()
+        self.arguments['config_file'] = ConfigLocationArgumentGroup()
 
     def execute(self, parsed):
         print('Firing set!')

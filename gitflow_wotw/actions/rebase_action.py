@@ -2,11 +2,7 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import (
-    InteractiveArgument,
-    PreserveMergesArgument,
-    ShowCommandsArgument
-)
+from gitflow_wotw.arguments import InteractiveArgument, PreserveMergesArgument
 from gitflow_wotw.components import Action
 
 
@@ -21,7 +17,6 @@ class RebaseAction(Action):
     def populate(self):
         self.arguments['interactive'] = InteractiveArgument()
         self.arguments['preserve_merges'] = PreserveMergesArgument()
-        self.arguments['show_commands'] = ShowCommandsArgument()
 
     def execute(self, parsed):
         print('Firing rebase!')

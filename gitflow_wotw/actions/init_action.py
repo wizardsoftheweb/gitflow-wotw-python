@@ -2,15 +2,8 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.arguments import (
-    LocalArgument,
-    GlobalArgument,
-    SystemArgument,
-    FileArgument,
-    ForceArgument,
-    DefaultsArgument,
-    ShowCommandsArgument
-)
+from gitflow_wotw.arguments import DefaultsArgument
+from gitflow_wotw.arguments.groups import ConfigLocationArgumentGroup
 from gitflow_wotw.components import Action
 
 
@@ -23,15 +16,8 @@ class InitAction(Action):
         self.populate()
 
     def populate(self):
-        self.exclusive_groups.append([
-            GlobalArgument(),
-            SystemArgument(),
-            LocalArgument(),
-            FileArgument()
-        ])
+        self.arguments['config_file'] = ConfigLocationArgumentGroup()
         self.arguments['defaults'] = DefaultsArgument()
-        self.arguments['force'] = ForceArgument()
-        self.arguments['show_commands'] = ShowCommandsArgument()
 
     def execute(self, parsed):
         print('Firing init!')

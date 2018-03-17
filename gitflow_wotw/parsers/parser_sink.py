@@ -16,7 +16,6 @@ class ParserSink(ObservesHierarchy):
         self.help_string = help_string
         self.parser = None
         self.arguments = OrderedDict()
-        self.exclusive_groups = []
 
     def add_parser(self, subparsers=None):
         self.parser = subparsers.add_parser(
@@ -28,13 +27,6 @@ class ParserSink(ObservesHierarchy):
     def attach_arguments(self):
         for _, value in self.arguments.items():
             value.attach_argument(self.parser)
-        self.attach_exclusive_groups()
-
-    def attach_exclusive_groups(self):
-        for group in self.exclusive_groups:
-            group_parser = self.parser.add_mutually_exclusive_group()
-            for argument in group:
-                argument.attach_argument(group_parser)
 
     def attach(self, subparsers=None):
         self.add_parser(subparsers)
