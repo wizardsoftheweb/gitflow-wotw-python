@@ -9,6 +9,5 @@ class BranchArgument(ArgumentInstance):
     args = ['branch']
     kwargs = {
         'nargs': '?',
-        'dest': 'branch',
         'help': 'The branch to operate on'
     }
