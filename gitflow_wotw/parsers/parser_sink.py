@@ -16,6 +16,7 @@ class ParserSink(ObservesHierarchy):
         self.help_string = help_string
         self.parser = None
         self.arguments = OrderedDict()
+        self.exclusive_groups = []
 
     def add_parser(self, subparsers=None):
         self.parser = subparsers.add_parser(
