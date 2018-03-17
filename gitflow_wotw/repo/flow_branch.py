@@ -4,7 +4,9 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from pygit2 import Config
+# pylint: disable=no-name-in-module
+from pygit2 import Branch, Config
+# pylint: enable=no-name-in-module
 
 from gitflow_wotw.constants import FLOWS
 from gitflow_wotw.repo import HasConfig
@@ -219,6 +221,8 @@ class FlowBranch(HasConfig):
     def branch_to_commit_id(self, branch=None):
         if branch is None:
             branch = self.branch
+        if isinstance(branch, Branch):
+            branch = branch.shorthand
         return self.repo.branches[branch].peel().id
 
     def fetch_if_upstream(self, branch=None):
