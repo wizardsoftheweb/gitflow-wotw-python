@@ -6,7 +6,7 @@ from gitflow_wotw.components import Argument
 
 
 class PreserveMergesArgument(Argument):
-    ARGS = ['-p', '--preserve-merges']
+    ARGS = ['-P', '--preserve-merges']
     KWARGS = {
         'action': 'store_true',
         'dest': 'preserve_merges',
