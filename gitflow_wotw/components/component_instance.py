@@ -15,6 +15,7 @@ class ComponentInstance(OrderedDict):
     arguments_seed = []
     arguments = OrderedDict()
     handlers = OrderedDict()
+    handlers['tidy_branches'] = tidy_branches
 
     def __init__(self):
         OrderedDict.__init__(self)
@@ -31,3 +32,13 @@ class ComponentInstance(OrderedDict):
             target[element.identifier] = element
             for key, handler in element.handlers.items():
                 self.handlers[key] = handler
+
+    @staticmethod
+    def tidy_branches(runner, parsed):
+        if hasattr(parsed, 'branch') and not parsed.branch:
+            parsed.branch = runner.flow_branch.branch
+        if hasattr(parsed, 'base') and not parsed.base:
+            if parsed.branch:
+                parsed.base = runner.flow_branch.base_branch(parsed.branch)
+        if parsed.branch:
+            parsed.upstream = runner.flow_branch.upstream_branch(parsed.branch)
