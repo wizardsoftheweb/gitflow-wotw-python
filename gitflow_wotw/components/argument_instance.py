@@ -4,15 +4,15 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import Argument, ComponentInstance
 
 
-class ArgumentInstance(Argument):
-    ARGS = []
-    KWARGS = OrderedDict()
+class ArgumentInstance(ComponentInstance, Argument):
 
     def __init__(self):
-        super(ArgumentInstance, self).__init__(
-            *self.ARGS,
-            **self.KWARGS
+        ComponentInstance.__init__(self)
+        Argument.__init__(
+            self,
+            *self.args,
+            **self.kwargs
         )
