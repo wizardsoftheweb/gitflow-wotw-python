@@ -5,7 +5,7 @@ from .delete_argument import DeleteArgument
 from .delete_local_argument import DeleteLocalArgument
 from .delete_remote_argument import DeleteRemoteArgument
 from .fetch_argument import FetchArgument
-from .ff_argument import FetchArgument
+from .ff_argument import Ffrgument
 from .ff_master_argument import FfmasterArgument
 from .file_argument import FetchArgument
 from .force_argument import ForceArgument
