@@ -2,17 +2,16 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.actions import StartAction
 from gitflow_wotw.components import Subcommand
 
 
-class FeatureSubcommand(Subcommand):
-    SUBCOMMAND = 'feature'
-    HELP_STRING = 'Manages feature branches'
+class ReleaseSubcommand(Subcommand):
+    SUBCOMMAND = 'release'
+    HELP_STRING = 'Manages release branches'
 
     def __init__(self):
         super(
-            FeatureSubcommand,
+            ReleaseSubcommand,
             self
         ).__init__(
             self.SUBCOMMAND,
@@ -23,4 +22,4 @@ class FeatureSubcommand(Subcommand):
         self.populate()
 
     def populate(self):
-        self['start'] = StartAction()
+        """"""
