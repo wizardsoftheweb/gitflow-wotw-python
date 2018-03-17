@@ -18,6 +18,7 @@ from .keep_local_argument import KeepLocalArgument
 from .keep_remote_argument import KeepRemoteArgument
 from .local_argument import LocalArgument
 from .message_argument import MessageArgument
+from .message_file_argument import MessageFileArgument
 from .preserve_merges_argument import PreserveMergesArgument
 from .push_argument import PushArgument
 from .push_develop_argument import PushDevelopArgument
