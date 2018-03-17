@@ -18,5 +18,5 @@ class ArgumentGroup(OrderedDict):
             group = parser
         if self.exclusive:
             group = group.add_mutually_exclusive_group()
-        for argument in self:
+        for _, argument in self.items():
             argument.attach_argument(group)
