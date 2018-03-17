@@ -7,5 +7,8 @@ from mock import patch
 from gitflow_wotw import cli
 
 
-def test_execution():
-    """"""
+@patch('gitflow_wotw.cli_file.WotwCommand')
+def test_execution(mock_command):
+    mock_command.assert_not_called()
+    cli()
+    mock_command.assert_called_once_with()
