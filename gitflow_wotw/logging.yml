@@ -8,10 +8,10 @@ handlers:
     class: logging.handlers.MemoryHandler
     capacity: 1024 * 1024
     target: console
-    level: NOTSET
+    level: SPAM
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: SPAM
     stream: ext://sys.stdout
 loggers:
   gitflow_wotw:
@@ -19,5 +19,5 @@ loggers:
     handlers: [console]
     propagate: no
 root:
-  level: DEBUG
+  level: WARNING
   handlers: [hidden]
