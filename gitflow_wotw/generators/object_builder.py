@@ -184,6 +184,8 @@ class ObjectBuilder(OrderedDict):
         LOGGER.debug("Attempting to create %s", object_name)
         if object_name.endswith('Argument'):
             return self.build_argument(object_name)
+        elif object_name.endswith('ArgumentGroup'):
+            return self.build_argument_group(object_name)
         elif object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
