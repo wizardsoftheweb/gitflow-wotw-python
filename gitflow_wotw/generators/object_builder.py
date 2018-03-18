@@ -69,6 +69,11 @@ class ObjectBuilder(OrderedDict):
         self[key] = self.build_object(key)
         return self[key]
 
+    def delayed_command_build(self, object_name):
+        def build_new(owner, args):
+            return self[object_name](args)
+        return build_new
+
     def build_argument(self, argument_name):
         LOGGER.debug("Building argument %s", argument_name)
         config = self.loader(argument_name)
@@ -133,7 +138,7 @@ class ObjectBuilder(OrderedDict):
                 config['action']['process']
         ):
             process = config['action']['process']
-            class_dict['processed_class'] = self[process]
+            class_dict['processed_class'] = self.delayed_command_build(process)
             LOGGER.spam("Discovered call: %s", process)
         return type(
             action_name,
