@@ -4,8 +4,6 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from pygit2 import Config
-
 from gitflow_wotw.repo import GitConfig
 from gitflow_wotw.utils import HasRepository
 
