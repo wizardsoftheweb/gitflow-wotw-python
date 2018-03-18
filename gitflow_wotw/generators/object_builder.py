@@ -24,7 +24,7 @@ def action_init(self):
 
 def action_process(self, parent_commands=None, parsed=None, args=None):
     if self.processed_class:
-        return self.processed_class(parent_commands, args)
+        return self.processed_class(args, parent_commands)
     return None
 
 
@@ -70,8 +70,8 @@ class ObjectBuilder(OrderedDict):
         return self[key]
 
     def delayed_command_build(self, object_name):
-        def build_new(owner, args):
-            return self[object_name](args)
+        def build_new(owner, args=None, parent_commands=None):
+            return self[object_name](args, parent_commands)
         return build_new
 
     def build_argument(self, argument_name):
