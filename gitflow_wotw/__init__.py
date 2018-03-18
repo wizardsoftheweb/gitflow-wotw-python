@@ -17,12 +17,14 @@ from logging import debug, info
 from logging.config import dictConfig
 from os.path import abspath, dirname, join
 
-from verboselogs import install
+from coloredlogs import ColoredFormatter, install as colored_install
+from verboselogs import install as verbose_install
 from yaml import load
 
 __location__ = abspath(dirname(__file__))
 
-install()
+verbose_install()
+colored_install()
 with open(join(__location__, 'logging.yml'), 'r') as config_file:
     config = load(config_file)
 dictConfig(config)

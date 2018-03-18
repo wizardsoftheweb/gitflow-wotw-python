@@ -7,9 +7,11 @@ from collections import OrderedDict
 from logging import getLogger
 from sys import argv
 
-from verboselogs import install
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
 
-install()
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 
@@ -145,4 +147,4 @@ class Command(OrderedDict):
         self.process(self, *args, **kwargs)
         self.load_handlers(self, *args, **kwargs)
         self.prosecute_command(self, *args, **kwargs)
-        LOGGER.info("%s has finished everything")
+        LOGGER.info("%s has finished everything", self.identifier)
