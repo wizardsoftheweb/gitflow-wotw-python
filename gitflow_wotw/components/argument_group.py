@@ -24,7 +24,7 @@ class ArgumentGroup(OrderedDict):
             for key, value in seed.items():
                 self[key] = value
 
-    def attach_argument(self, parser=None):
+    def attach_arguments(self, parser=None):
         LOGGER.debug('Attaching arguments from ArgumentGroup')
         if self.title or self.description:
             LOGGER.spam('Creating a new argument group')
