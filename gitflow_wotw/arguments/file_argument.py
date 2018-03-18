@@ -2,17 +2,14 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class FileArgument(Argument):
-    ARGS = ['--file']
-    KWARGS = {
+class FileArgument(ArgumentInstance):
+    args = ['--file']
+    kwargs = {
         'nargs': 1,
         'dest': 'config_file',
         'metavar': 'CONFIG_FILE',
         'help': 'Use the provided config file'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

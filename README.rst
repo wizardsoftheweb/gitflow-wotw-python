@@ -10,7 +10,7 @@
 .. image:: https://coveralls.io/repos/github/wizardsoftheweb/gitflow-wotw/badge.svg?branch=master
     :target: https://coveralls.io/github/wizardsoftheweb/gitflow-wotw?branch=master
 
-``gitflow-wotw`` has grand aspirations to be ``gitflow-avh`` in Python using ``pygit2``.
+``gitflow-wotw`` has grand aspirations to be ``gitflow-avh`` in Python.
 
 .. contents::
 
@@ -20,15 +20,12 @@ Suggested Reading
 * The original `git flow article <http://nvie.com/posts/a-successful-git-branching-model/>`_
 * |gitflow|_ (seriously outdated)
 * |gitflow_avh|_ (highly recommended)
-* |pygit2|_ (very useful)
 * `semantic versioning <https://semver.org>`_ (it makes so much sense)
 
 .. |gitflow| replace:: The first ``gitflow`` implementation
 .. _gitflow: https://github.com/nvie/gitflow
 .. |gitflow_avh| replace:: An updated and active fork, ``gitflow-avh``
 .. _gitflow_avh: https://github.com/petervanderdoes/gitflow-avh
-.. |pygit2| replace:: ``pygit2``, Python bindings for ``libgit2``
-.. _pygit2: https://github.com/libgit2/pygit2
 
 Installation
 ============
@@ -71,6 +68,10 @@ Once all of these are finished, I'll release ``v1``. Until then, ``v0`` should b
     "0%", "``config`` support"
     "0%", "``log`` support"
     "0%", "Negatable options"
+    "50%", "Add opt-out for ``no-`` booleans"
+    "0%", "Convert ``-v`` to a count"
+    "0%", "Prune extra delete options"
+    "0%", "Add more ``git`` messaging"
 
 Eventual Features
 -----------------
@@ -93,3 +94,11 @@ These are things I'd like to add, but might not be included in ``v1``. If not, t
     "0%", "Shell completion (bolster existing ``gitflow`` completion)"
     "0%", "``subcommand``-detecting ``action``s, e.g. ``git wotw finish release/1.0.0`` finishes a release branch"
     "0%", "``subcommand``-agnostic ``action``s, e.g. ``git wotw publish some-cool-feature`` publishes a feature branch"
+
+Far Future Features
+-------------------
+
+.. csv-table::
+    :header: "Progress", "Feature"
+
+    "0%", "Make ``pygit2`` play well enough with everyone else to actually use"

@@ -3,20 +3,13 @@
 from __future__ import print_function
 
 from gitflow_wotw.arguments.groups import ConfigLocationArgumentGroup
-from gitflow_wotw.components import Action
+from gitflow_wotw.components import ActionInstance
 
 
-class SetAction(Action):
-    ACTION = 'set'
-    HELP_STRING = 'Sets a specific config value'
+class SetAction(ActionInstance):
+    identifier = 'set'
+    help_string = 'Sets a specific config value'
 
     def __init__(self):
-        super(SetAction, self).__init__(self.ACTION, self.HELP_STRING)
-        self.populate()
-
-    def populate(self):
+        ActionInstance.__init__(self)
         self.arguments['config_file'] = ConfigLocationArgumentGroup()
-
-    def execute(self, parsed):
-        print('Firing set!')
-        print(parsed)

@@ -4,21 +4,14 @@ from __future__ import print_function
 
 from gitflow_wotw.arguments import DefaultsArgument
 from gitflow_wotw.arguments.groups import ConfigLocationArgumentGroup
-from gitflow_wotw.components import Action
+from gitflow_wotw.components import ActionInstance
 
 
-class InitAction(Action):
-    ACTION = 'init'
-    HELP_STRING = 'List program version'
+class InitAction(ActionInstance):
+    identifier = 'init'
+    help_string = 'Initialize git wotw'
 
     def __init__(self):
-        super(InitAction, self).__init__(self.ACTION, self.HELP_STRING)
-        self.populate()
-
-    def populate(self):
-        self.arguments['config_file'] = ConfigLocationArgumentGroup()
+        ActionInstance.__init__(self)
         self.arguments['defaults'] = DefaultsArgument()
-
-    def execute(self, parsed):
-        print('Firing init!')
-        print(parsed)
+        self.arguments['location'] = ConfigLocationArgumentGroup()

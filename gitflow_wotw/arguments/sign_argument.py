@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class SignArgument(Argument):
-    ARGS = ['-s', '--sign']
-    KWARGS = {
+class SignArgument(ArgumentInstance):
+    args = ['-s', '--sign']
+    kwargs = {
         'action': 'store_true',
         'dest': 'sign',
         'help': 'Sign the operation'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

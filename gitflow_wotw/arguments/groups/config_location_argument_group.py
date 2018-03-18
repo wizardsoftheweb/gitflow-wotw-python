@@ -8,21 +8,15 @@ from gitflow_wotw.arguments import (
     SystemArgument,
     FileArgument,
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroupInstance
 
 
-class ConfigLocationArgumentGroup(ArgumentGroup):
-
-    def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            OrderedDict({
-                'system': SystemArgument(),
-                'global': GlobalArgument(),
-                'local': LocalArgument(),
-                'file': FileArgument()
-            }),
-            'Configuration File',
-            'Choose the configuration file to use',
-            True
-        )
+class ConfigLocationArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['system'] = SystemArgument()
+    seed['global'] = GlobalArgument()
+    seed['local'] = LocalArgument()
+    seed['file'] = FileArgument()
+    title = 'Configuration File'
+    help_string = 'Choose the configuration file to use'
+    exclusive = True

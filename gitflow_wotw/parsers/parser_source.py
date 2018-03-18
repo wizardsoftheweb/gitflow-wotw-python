@@ -18,6 +18,7 @@ class ParserSource(ParserNode):
 
     def add_parser(self, subparsers=None):
         self.parser = ArgumentParser(
+            prog="git %s" % self.identifier,
             description=self.help_string
         )
 

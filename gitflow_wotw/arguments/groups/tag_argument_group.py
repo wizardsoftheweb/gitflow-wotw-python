@@ -10,28 +10,22 @@ from gitflow_wotw.arguments import (
     MessageArgument,
     MessageFileArgument
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroup, ArgumentGroupInstance
 
 
-class TagArgumentGroup(ArgumentGroup):
-
-    def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            OrderedDict({
-                'sign': SignArgument(),
-                'signing_key': SigningKeyArgument(),
-                'tag': TagArgument(),
-                'tag_name': TagNameArgument(),
-                'message': ArgumentGroup(
-                    seed={
-                        'message': MessageArgument(),
-                        'message_file': MessageFileArgument()
-                    },
-                    exclusive=True
-                )
-            }),
-            'Tag Options',
-            'Options related to tags',
-            False
-        )
+class TagArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['sign'] = SignArgument()
+    seed['signing_key'] = SigningKeyArgument()
+    seed['tag'] = TagArgument()
+    seed['tag_name'] = TagNameArgument()
+    seed_message = OrderedDict()
+    seed_message['message'] = MessageArgument()
+    seed_message['message_file'] = MessageFileArgument()
+    seed['message'] = ArgumentGroup(
+        seed=seed_message,
+        exclusive=True
+    )
+    title = 'Tag Options'
+    help_string = 'Options related to tags'
+    exclusive = False

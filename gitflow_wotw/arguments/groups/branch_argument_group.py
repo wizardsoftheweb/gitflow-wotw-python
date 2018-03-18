@@ -10,44 +10,59 @@ from gitflow_wotw.arguments import (
     KeepLocalArgument,
     KeepRemoteArgument
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroup, ArgumentGroupInstance
 
 
-class BranchArgumentGroup(ArgumentGroup):
+class BranchArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['full'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteArgument(),
+            'keep': KeepArgument(),
+        }),
+        exclusive=True
+    )
+    seed['local'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteLocalArgument(),
+            'keep': KeepLocalArgument(),
+        }),
+        exclusive=True
+    )
+    seed['remote'] = ArgumentGroup(
+        seed=OrderedDict({
+            'delete': DeleteRemoteArgument(),
+            'keep': KeepRemoteArgument(),
+        }),
+        exclusive=True
+    )
+    title = 'Branch Actions'
+    help_string = 'Keep or delete local and remote branches after the operation finishes'
+    exclusive = False
 
     def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            self.__create_seed(),
-            'Branch Actions',
-            'Keep or delete local and remote branches after the operation finishes',
-            False
-        )
+        ArgumentGroupInstance.__init__(self)
+        self.handlers['delete_branch'] = self.delete_branch
 
-    def __create_seed(self):
-        full = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteArgument(),
-                'keep': KeepArgument(),
-            }),
-            exclusive=True
-        )
-        local = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteLocalArgument(),
-                'keep': KeepLocalArgument(),
-            }),
-            exclusive=True
-        )
-        remote = ArgumentGroup(
-            seed=OrderedDict({
-                'delete': DeleteRemoteArgument(),
-                'keep': KeepRemoteArgument(),
-            }),
-            exclusive=True
-        )
-        return OrderedDict({
-            'full': full,
-            'local': local,
-            'remote': remote
-        })
+    @staticmethod
+    def delete_branch(runner, parsed):
+        runner.handlers['change_to_base_branch'](runner, parsed)
+        if 'local' == parsed.keep:
+            runner.flow_branch.delete_remote_branch(
+                parsed.upstream,
+                parsed.force
+            )
+        elif 'remote' == parsed.keep:
+            runner.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )
+        elif not parsed.keep or 'both' == parsed.delete:
+            runner.flow_branch.delete_remote_branch(
+                parsed.upstream,
+                parsed.force
+            )
+            runner.flow_branch.delete_local_branch(
+                parsed.branch,
+                parsed.force
+            )

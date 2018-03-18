@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class FfArgument(Argument):
-    ARGS = ['--ff']
-    KWARGS = {
+class FfArgument(ArgumentInstance):
+    args = ['--ff']
+    kwargs = {
         'action': 'store_true',
         'dest': 'fast_forward',
         'help': 'Fast-forward where possible'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

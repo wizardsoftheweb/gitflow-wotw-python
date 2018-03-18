@@ -2,16 +2,13 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Argument
+from gitflow_wotw.components import ArgumentInstance
 
 
-class ShowCommandsArgument(Argument):
-    ARGS = ['--show-commands']
-    KWARGS = {
+class ShowCommandsArgument(ArgumentInstance):
+    args = ['--show-commands']
+    kwargs = {
         'action': 'store_true',
         'dest': 'show_commands',
         'help': 'Display git commands as they are used'
     }
-
-    def __init__(self):
-        Argument.__init__(self, *self.ARGS, **self.KWARGS)

@@ -5,24 +5,32 @@ from collections import OrderedDict
 from gitflow_wotw.arguments import (
     PushArgument,
     PushDevelopArgument,
-    PushProductionArgument,
+    PushMasterArgument,
     PushTagArgument,
 )
-from gitflow_wotw.components import ArgumentGroup
+from gitflow_wotw.components import ArgumentGroupInstance
 
 
-class PushArgumentGroup(ArgumentGroup):
+class PushArgumentGroup(ArgumentGroupInstance):
+    seed = OrderedDict()
+    seed['push'] = PushArgument()
+    seed['push_develop'] = PushDevelopArgument()
+    seed['push_master'] = PushMasterArgument()
+    seed['push_tag'] = PushTagArgument()
+    title = 'Push Options'
+    help_string = 'Options related to pushing branches'
+    exclusive = False
 
     def __init__(self):
-        ArgumentGroup. __init__(
-            self,
-            OrderedDict({
-                'push': PushArgument(),
-                'push_develop': PushDevelopArgument(),
-                'push_production': PushProductionArgument(),
-                'push_tag': PushTagArgument(),
-            }),
-            'Push Options',
-            'Options related to pushing branches',
-            False
-        )
+        ArgumentGroupInstance.__init__(self)
+        self.handlers['push_results'] = self.push_results
+
+    @staticmethod
+    def push_results(runner, parsed):
+        current_branch = runner.flow_branch.branch
+        for item in set(parsed.push):
+            if parsed.force:
+                options = ' --force'
+            else:
+                options = ''
+            print("git push %s origin %s" % (options, item))

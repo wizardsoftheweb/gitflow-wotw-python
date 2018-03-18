@@ -2,20 +2,20 @@
 
 from __future__ import print_function
 
-from gitflow_wotw.components import Action
+from gitflow_wotw.arguments import BranchArgument
+from gitflow_wotw.components import ActionInstance
 
 
-class CheckoutAction(Action):
-    ACTION = 'checkout'
-    HELP_STRING = 'Check out a specific branch'
+class CheckoutAction(ActionInstance):
+    identifier = 'checkout'
+    help_string = 'Check out a specific branch'
 
     def __init__(self):
-        super(CheckoutAction, self).__init__(self.ACTION, self.HELP_STRING)
-        self.populate()
-
-    def populate(self):
-        """"""
+        ActionInstance.__init__(self)
+        self.arguments['branch'] = BranchArgument(False)
 
     def execute(self, parsed):
-        print('Firing checkout!')
-        print(parsed)
+        self.checkout_branch(parsed.branch)
+
+    def checkout_branch(self, branch=None):
+        self.flow_branch.change_branch(branch)
