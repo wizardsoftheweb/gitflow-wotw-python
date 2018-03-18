@@ -15,7 +15,7 @@ verbose_install()
 colored_install()
 LOGGER = getLogger(__name__)
 
-UNIVERSAL_ARGUMENTS = ['VerboseArgument']
+UNIVERSAL_ARGUMENTS = ['VerboseArgument', 'QuietArgument']
 
 
 def action_init(self):
