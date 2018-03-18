@@ -129,7 +129,9 @@ class ObjectBuilder(OrderedDict):
 
     def build_object(self, object_name):
         LOGGER.debug("Attempting to create %s", object_name)
-        if object_name.endswith('Action'):
+        if object_name.endswith('Argument'):
+            return self.build_argument(object_name)
+        elif object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
             return self.build_command(object_name)
