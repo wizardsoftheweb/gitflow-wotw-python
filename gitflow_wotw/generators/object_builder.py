@@ -3,14 +3,17 @@
 from __future__ import print_function
 
 from collections import Callable, OrderedDict
+from logging import getLogger
 
 from gitflow_wotw.components import Action, Command
 from gitflow_wotw.generators import ConfigLoader
 
 
+LOGGER = getLogger(__name__)
+
+
 def action_init(self):
     Action.__init__(self, self.identifier, self.help_string)
-    print('fired')
 
 
 def action_process(self, parsed=None, args=None):
@@ -34,17 +37,20 @@ class ObjectBuilder(OrderedDict):
 
     def __new__(cls):
         if cls.__instance == None:
+            LOGGER.info('Creating ObjectBuilder singleton')
             cls.__instance = OrderedDict.__new__(cls)
             cls.__instance.name = "ObjectStorage"
         return cls.__instance
 
     def __missing__(self, key):
+        LOGGER.warning("%s not found; attempting to build", key)
         self[key] = self.build_object(key)
         return self[key]
 
     def build_action(self, action_name):
+        LOGGER.debug("Building action %s", action_name)
         config = self.loader(action_name)
-        print(config)
+        LOGGER.log(0, config)
         identifier = config['identifier']
         help_string = config['help_string']
         class_dict = {
@@ -64,7 +70,6 @@ class ObjectBuilder(OrderedDict):
         ):
             process = config['action']['process']
             class_dict['processed_class'] = self[process]
-
         return type(
             action_name,
             (Action,),
@@ -72,8 +77,9 @@ class ObjectBuilder(OrderedDict):
         )
 
     def build_command(self, command_name):
+        LOGGER.debug("Building action %s", command_name)
         config = self.loader(command_name)
-        print(config)
+        LOGGER.log(0, config)
         identifier = config['identifier']
         help_string = config['help_string']
         if (
@@ -105,7 +111,7 @@ class ObjectBuilder(OrderedDict):
         )
 
     def build_object(self, object_name):
-        print("Creating %s" % object_name)
+        LOGGER.info("Attempting to create %s", object_name)
         if object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
