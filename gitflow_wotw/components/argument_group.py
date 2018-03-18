@@ -36,4 +36,4 @@ class ArgumentGroup(OrderedDict):
             LOGGER.spam('Creating a mutually exclusive group')
             group = group.add_mutually_exclusive_group()
         for _, argument in self.items():
-            argument.attach_argument(group)
+            argument.attach_arguments(group)
