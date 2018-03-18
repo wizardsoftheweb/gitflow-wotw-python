@@ -25,6 +25,7 @@ class ConfigLoader(Callable):
     DIRECTORIES = {
         'action': EXECUTORS_DIR,
         'argument': ARGUMENTS_DIR,
+        'argumentgroup': ARGUMENTS_DIR,
         'command': EXECUTORS_DIR
     }
 
