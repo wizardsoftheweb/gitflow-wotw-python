@@ -42,7 +42,8 @@ class Action(object):
         for argument in self.arguments:
             argument.attach_arguments(self.parser)
 
-    def process(self, parsed=None, args=None):
+    def process(self, parent_commands=None, parsed=None, args=None):
         LOGGER.notice("Base process used for %s Action", self.identifier)
+        LOGGER.debug("Parent commands: %s", parent_commands)
         LOGGER.debug("Received namespace: %s", parsed)
         LOGGER.debug("Remaining args: %s", args)
