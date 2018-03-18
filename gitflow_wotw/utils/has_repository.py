@@ -25,6 +25,14 @@ class HasRepository(object):
             ]
         ).strip()
 
+    @property
+    def branch(self):
+        return check_output([
+            'git',
+            'rev-parse',
+            '--abbrev-ref', 'HEAD'
+        ]).strip()
+
     @staticmethod
     def resolve_absolute_path(path_to_resolve):
         return abspath(
