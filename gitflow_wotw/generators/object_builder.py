@@ -15,6 +15,8 @@ verbose_install()
 colored_install()
 LOGGER = getLogger(__name__)
 
+UNIVERSAL_ARGUMENTS = ['VerboseArgument']
+
 
 def action_init(self):
     Action.__init__(self, self.identifier, self.help_string)
@@ -35,6 +37,8 @@ def command_init(self, args=None):
     for action in self.action_seeds:
         action_instance = action()
         self[action_instance.identifier] = action_instance
+    for argument in self.argument_seeds:
+        self.arguments.append(argument)
     self.complete()
 
 
@@ -123,11 +127,15 @@ class ObjectBuilder(OrderedDict):
         else:
             actions = []
         LOGGER.spam("Discovered actions: %s", actions)
+        arguments = []
+        for argument in UNIVERSAL_ARGUMENTS:
+            arguments.append(self[argument]())
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,
             '__init__': command_init,
-            'action_seeds': actions
+            'action_seeds': actions,
+            'argument_seeds': arguments
         }
         return type(
             command_name,
