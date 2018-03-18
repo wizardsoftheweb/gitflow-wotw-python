@@ -38,18 +38,17 @@ class FinishAction(ActionInstance):
         self.arguments['preserve_merges'] = PreserveMergesArgument()
         self.arguments['squash'] = SquashArgument()
         self.arguments['ff'] = FfArgument()
+        self.post_execution['push_results'] = []
+        self.post_execution['delete_branch'] = []
         # self.arguments['ff_master'] = FfMasterArgument()
         # self.arguments['back_merge'] = BackMergeArgument()
 
     def execute(self, parsed):
         print('firing!')
-        self.tidy_branch(parsed)
         self.fetch_first(parsed)
         self.stream_equality(parsed)
         self.rebase_first(parsed)
         self.finish_with_failsafe(parsed)
-        self.delete_branches(parsed)
-        self.push_results(parsed)
 
     def tidy_branch(self, parsed):
         if not parsed.branch:
@@ -136,37 +135,3 @@ class FinishAction(ActionInstance):
                 parsed.branch,
                 parsed.force
             )
-
-    def push_results(self, parsed):
-        all_tasks = ['develop', 'master', 'tag']
-        if 'all' in parsed.push:
-            tasks = all_tasks[0:]
-        else:
-            tasks = [task for task in parsed.push if task in all_tasks]
-        if 'develop' in tasks:
-            self.push_branch('develop', parsed.force)
-        if 'master' in tasks:
-            self.push_branch('master', parsed.force)
-        if 'tag' in tasks:
-            self.push_tags(parsed.force)
-
-    def push_tags(self, force=False):
-        if force:
-            options = ' --force'
-        else:
-            options = ''
-        print("git push%s --tags" % (options))
-
-    def push_branch(self, branch=None, force=False):
-        if not branch in ['master', 'develop']:
-            branch = 'master'
-        if force:
-            options = ' --force'
-        else:
-            options = ''
-        print(
-            "git push%s %s" % (
-                options,
-                getattr(self.flow_branch, branch)
-            )
-        )

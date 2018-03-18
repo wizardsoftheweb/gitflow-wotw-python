@@ -14,11 +14,19 @@ class HasDescendants(OrderedDict):
     def add_descendant(self, descendant):
         self[descendant.identifier] = descendant
 
+    def pre_execute(self, *args, **kwargs):
+        """"""
+
+    def post_execute(self, *args, **kwargs):
+        """"""
+
     def execute(self, parsed_args=None):
         if hasattr(parsed_args, self.descendant_arg):
             desired_descendant = getattr(parsed_args, self.descendant_arg)
             if desired_descendant in self:
+                self[desired_descendant].pre_execute(parsed_args)
                 self[desired_descendant].execute(parsed_args)
+                self[desired_descendant].post_execute(parsed_args)
             else:
                 raise ValueError(
                     "Unable to find the %s %s"

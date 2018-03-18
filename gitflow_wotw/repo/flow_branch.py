@@ -205,18 +205,19 @@ class FlowBranch(HasConfig):
         )
 
     def delete_remote_branch(self, upstream=None, force=False):
-        branch = self.strip_remote_from_ref(upstream)
-        print(
-            "git push%s %s :%s" % (
-                (
-                    ' --force'
-                    if force
-                    else ''
-                ),
-                upstream.remote_name,
-                branch
+        if upstream:
+            branch = self.strip_remote_from_ref(upstream)
+            print(
+                "git push%s %s :%s" % (
+                    (
+                        ' --force'
+                        if force
+                        else ''
+                    ),
+                    upstream.remote_name,
+                    branch
+                )
             )
-        )
 
     def branch_to_commit_id(self, branch=None):
         if branch is None:

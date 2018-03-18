@@ -9,7 +9,10 @@ class PushDevelopArgument(ArgumentInstance):
     args = ['--push-develop']
     kwargs = {
         'action': 'append_const',
-        'const': 'develop',
         'dest': 'push',
         'help': 'Push develop after operation finishes'
     }
+
+    def __init__(self):
+        ArgumentInstance.__init__(self)
+        self.kwargs['const'] = self.flow_branch.develop
