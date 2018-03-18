@@ -73,6 +73,8 @@ Once all of these are finished, I'll release ``v1``. Until then, ``v0`` should b
     "0%", "Negatable options"
     "50%", "Add opt-out for ``no-`` booleans"
     "0%", "Convert ``-v`` to a count"
+    "0%", "Prune extra delete options"
+    "0%", "Add more ``git`` messaging"
 
 Eventual Features
 -----------------
