@@ -22,6 +22,9 @@ class GitConfig(OrderedDict, HasRepository):
         HasRepository.__init__(self, directory)
         self.load_and_sort()
 
+    def __missing__(self, key):
+        return 'qqq'
+
     @staticmethod
     def get_active_config():
         return check_output([
