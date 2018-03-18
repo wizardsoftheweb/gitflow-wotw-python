@@ -27,7 +27,7 @@ class PushArgumentGroup(ArgumentGroupInstance):
 
     @staticmethod
     def push_results(runner, parsed):
-        current_branch = runner.flow_branch.branch
+        current_branch = runner.flow.head
         for item in set(parsed.push):
             if parsed.force:
                 options = ' --force'
