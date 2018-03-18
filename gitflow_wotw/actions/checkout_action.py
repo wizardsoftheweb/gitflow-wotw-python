@@ -18,4 +18,4 @@ class CheckoutAction(ActionInstance):
         self.checkout_branch(parsed.branch)
 
     def checkout_branch(self, branch=None):
-        self.flow_branch.change_branch(branch)
+        self.flow.branch.change_branch(branch)
