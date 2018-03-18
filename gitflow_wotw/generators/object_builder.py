@@ -8,12 +8,14 @@ from logging import getLogger
 from coloredlogs import install as colored_install
 from verboselogs import install as verbose_install
 
-from gitflow_wotw.components import Action, Command
+from gitflow_wotw.components import Action, Argument, Command
 from gitflow_wotw.generators import ConfigLoader
 
 verbose_install()
 colored_install()
 LOGGER = getLogger(__name__)
+
+UNIVERSAL_ARGUMENTS = ['VerboseArgument', 'QuietArgument']
 
 
 def action_init(self):
@@ -26,11 +28,17 @@ def action_process(self, parsed=None, args=None):
     return None
 
 
+def argument_init(self):
+    Argument.__init__(self, *self.args, **self.kwargs)
+
+
 def command_init(self, args=None):
     Command.__init__(self, args, self.identifier, self.help_string)
     for action in self.action_seeds:
         action_instance = action()
         self[action_instance.identifier] = action_instance
+    for argument in self.argument_seeds:
+        self.arguments.append(argument)
     self.complete()
 
 
@@ -50,6 +58,20 @@ class ObjectBuilder(OrderedDict):
         LOGGER.notice("%s not found; attempting to build", key)
         self[key] = self.build_object(key)
         return self[key]
+
+    def build_argument(self, argument_name):
+        LOGGER.debug("Building argument %s", argument_name)
+        config = self.loader(argument_name)
+        LOGGER.spam(config)
+        return type(
+            argument_name,
+            (Argument,),
+            {
+                '__init__': argument_init,
+                'args': config['args'],
+                'kwargs': config['kwargs']
+            }
+        )
 
     def build_action(self, action_name):
         LOGGER.debug("Building action %s", action_name)
@@ -105,11 +127,15 @@ class ObjectBuilder(OrderedDict):
         else:
             actions = []
         LOGGER.spam("Discovered actions: %s", actions)
+        arguments = []
+        for argument in UNIVERSAL_ARGUMENTS:
+            arguments.append(self[argument]())
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,
             '__init__': command_init,
-            'action_seeds': actions
+            'action_seeds': actions,
+            'argument_seeds': arguments
         }
         return type(
             command_name,
@@ -119,7 +145,9 @@ class ObjectBuilder(OrderedDict):
 
     def build_object(self, object_name):
         LOGGER.debug("Attempting to create %s", object_name)
-        if object_name.endswith('Action'):
+        if object_name.endswith('Argument'):
+            return self.build_argument(object_name)
+        elif object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
             return self.build_command(object_name)
