@@ -9,7 +9,7 @@ class PushTagArgument(ArgumentInstance):
     args = ['--push-tag']
     kwargs = {
         'action': 'append_const',
-        'const': 'tag',
+        'const': '--tags',
         'dest': 'push',
         'help': 'Push tag after operation finishes'
     }
