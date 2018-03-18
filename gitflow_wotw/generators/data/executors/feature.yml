@@ -1,0 +1,7 @@
+---
+identifier: feature
+help_string: Manage feature branches
+command:
+  actions:
+action:
+  process:
