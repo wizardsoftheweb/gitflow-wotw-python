@@ -30,7 +30,8 @@ class HasRepository(object):
         return check_output([
             'git',
             'rev-parse',
-            '--abbrev-ref', 'HEAD'
+            '--abbrev-ref',
+            'HEAD'
         ]).strip()
 
     @staticmethod
