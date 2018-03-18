@@ -41,7 +41,8 @@ class Command(OrderedDict):
         self.parser = ArgumentParser(
             prog="git %s" % self.identifier,
             add_help=False,
-            description=self.help_string
+            description=self.help_string,
+            conflict_handler='resolve'
         )
         self.parser.add_argument(
             '-h', '--help',
@@ -68,6 +69,7 @@ class Command(OrderedDict):
     def attach_arguments(self):
         LOGGER.debug("Adding %s's own arguments", self.identifier)
         for argument in self.arguments:
+            LOGGER.spam(argument)
             argument.attach_arguments(self.parser)
 
     def parse_args(self):
