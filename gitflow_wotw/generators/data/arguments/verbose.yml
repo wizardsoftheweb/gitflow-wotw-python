@@ -1,0 +1,8 @@
+---
+args:
+  - '-v'
+  - '--verbose'
+kwargs:
+  action: count
+  dest: verbose
+  help: Increase the log verbosity
