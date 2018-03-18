@@ -111,8 +111,8 @@ class Command(OrderedDict):
     def run_handlers(self, handlers):
         LOGGER.debug('Running specific handler')
         for key, args in handlers.items():
-            LOGGER.spam("Handler:", key)
-            LOGGER.spam("Args:", args)
+            LOGGER.spam("Handler: %s", key)
+            LOGGER.spam("Args: %s", args)
             self.handlers[key](self, self.results[0], *args)
 
     def __pre_execute(self, *args, **kwargs):
