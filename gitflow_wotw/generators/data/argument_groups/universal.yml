@@ -1,0 +1,7 @@
+---
+title: Universal Arguments
+description: Arguments that can be used anywhere
+exclusive: no
+seed:
+  - VerboseArgument
+  - QuietArgument
