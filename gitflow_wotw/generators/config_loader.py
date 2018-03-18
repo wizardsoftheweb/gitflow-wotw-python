@@ -35,7 +35,7 @@ class ConfigLoader(Callable):
         (?P<object_type>
             Action
             |
-            Argument
+            Argument(?:Group)?
             |
             Command
         )
