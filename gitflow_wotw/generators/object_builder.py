@@ -42,8 +42,14 @@ def argument_group_init(self):
     )
 
 
-def command_init(self, args=None):
-    Command.__init__(self, args, self.identifier, self.help_string)
+def command_init(self, args=None, parent_commands=None):
+    Command.__init__(
+        self,
+        args,
+        parent_commands,
+        self.identifier,
+        self.help_string
+    )
     for action in self.action_seeds:
         action_instance = action()
         self[action_instance.identifier] = action_instance
