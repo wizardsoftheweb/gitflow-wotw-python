@@ -34,7 +34,7 @@ class Command(OrderedDict):
         self.post_execution = OrderedDict()
 
     def add_parser(self, subparsers=None):
-        LOGGER.info("Defining the root parser on %s", self.identifier)
+        LOGGER.debug("Defining the root parser on %s", self.identifier)
         self.parser = ArgumentParser(
             prog="git %s" % self.identifier,
             add_help=False,
@@ -46,7 +46,7 @@ class Command(OrderedDict):
         )
 
     def add_subparsers(self):
-        LOGGER.info("Attaching a subparser on %s", self.identifier)
+        LOGGER.debug("Attaching a subparser on %s", self.identifier)
         self.subparsers = self.parser.add_subparsers(
             dest='next_command',
             metavar='Action',
@@ -63,12 +63,12 @@ class Command(OrderedDict):
             action.attach_arguments(self.subparsers)
 
     def attach_arguments(self):
-        LOGGER.info("Adding %s's own arguments", self.identifier)
+        LOGGER.debug("Adding %s's own arguments", self.identifier)
         for argument in self.arguments:
             argument.attach_arguments(self.parser)
 
     def parse_args(self):
-        LOGGER.info('Attempting to parse args')
+        LOGGER.debug('Attempting to parse args')
         return self.parser.parse_known_args(self.args)
 
     def parse(self, *args, **kwargs):
@@ -111,7 +111,7 @@ class Command(OrderedDict):
             self.handlers[key](self, self.results[0], *args)
 
     def __pre_execute(self, *args, **kwargs):
-        LOGGER.info("Running %s's pre_execute handlers", self.identifier)
+        LOGGER.debug("Running %s's pre_execute handlers", self.identifier)
         self.run_handlers(self.pre_execution)
         self.pre_execute(*args, **kwargs)
 
@@ -122,7 +122,7 @@ class Command(OrderedDict):
         """"""
 
     def __post_execute(self, *args, **kwargs):
-        LOGGER.info("Running %s's post_execution handlers", self.identifier)
+        LOGGER.debug("Running %s's post_execution handlers", self.identifier)
         self.run_handlers(self.post_execution)
         self.post_execute(*args, **kwargs)
 
@@ -130,7 +130,7 @@ class Command(OrderedDict):
         """"""
 
     def prosecute_command(self, *args, **kwargs):
-        LOGGER.info("Fully executing %s", self.identifier)
+        LOGGER.debug("Fully executing %s", self.identifier)
         self.__pre_execute(self, *args, **kwargs)
         self.execute(self, *args, **kwargs)
         self.__post_execute(self, *args, **kwargs)

@@ -39,7 +39,7 @@ class ConfigLoader(Callable):
     )
 
     def load_object_config(self, unknown_object):
-        LOGGER.info("Attempting to load the config for %s", unknown_object)
+        LOGGER.debug("Attempting to load the config for %s", unknown_object)
         name, object_type = self.parse_info(unknown_object)
         config_file_path = join(self.DIRECTORIES[object_type], "%s.yml" % name)
         LOGGER.debug("Config file path is %s", config_file_path)

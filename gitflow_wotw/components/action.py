@@ -24,7 +24,7 @@ class Action(object):
         """"""
 
     def attach_as_subcommand(self, subparsers):
-        LOGGER.info("Attaching %s as a subcommand", self.identifier)
+        LOGGER.debug("Attaching %s as a subcommand", self.identifier)
         self.parser = subparsers.add_parser(
             self.identifier,
             add_help=False,
@@ -33,7 +33,7 @@ class Action(object):
         )
 
     def attach_arguments(self, subparsers):
-        LOGGER.info("Attaching arguments for %s", self.identifier)
+        LOGGER.debug("Attaching arguments for %s", self.identifier)
         self.attach_as_subcommand(subparsers)
         for argument in self.arguments:
             argument.attach_arguments(self.parser)

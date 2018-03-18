@@ -18,5 +18,5 @@ class Argument(object):
         self.kwargs = kwargs
 
     def attach_arguments(self, parser=None):
-        LOGGER.info('Attaching arguments')
+        LOGGER.debug('Attaching arguments')
         parser.add_argument(*self.args, **self.kwargs)
