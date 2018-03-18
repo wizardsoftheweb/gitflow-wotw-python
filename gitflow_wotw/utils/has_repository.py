@@ -26,7 +26,7 @@ class HasRepository(object):
         ).strip()
 
     @property
-    def branch(self):
+    def head(self):
         return check_output([
             'git',
             'rev-parse',
