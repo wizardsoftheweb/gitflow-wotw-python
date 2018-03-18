@@ -72,7 +72,7 @@ class ObjectBuilder(OrderedDict):
         ):
             process = config['action']['process']
             class_dict['processed_class'] = self[process]
-            LOGGER.spam('Discovered call:', process)
+            LOGGER.spam("Discovered call: %s", process)
         return type(
             action_name,
             (Action,),
@@ -101,7 +101,7 @@ class ObjectBuilder(OrderedDict):
             ]
         else:
             actions = []
-        LOGGER.spam('Discovered actions:', actions)
+        LOGGER.spam("Discovered actions: %s", actions)
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,
