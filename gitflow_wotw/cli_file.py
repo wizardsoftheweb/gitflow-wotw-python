@@ -1,8 +1,9 @@
-# pylint: disable=W,C,R
+# pylint:disable=W,C,R
 
-from gitflow_wotw.commands import WotwCommand
+from gitflow_wotw.generators import ObjectBuilder
 
 
 def cli():
-    demo = WotwCommand()
-    demo.bootstrap()
+    builder = ObjectBuilder()
+    WotwCommand = builder('WotwCommand')
+    WotwCommand()

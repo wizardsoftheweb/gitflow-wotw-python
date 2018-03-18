@@ -1,0 +1,6 @@
+---
+identifier: init
+help_string: Initialize git wotw
+command:
+action:
+  process: InitCommand

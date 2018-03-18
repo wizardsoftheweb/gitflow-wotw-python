@@ -1,14 +1,7 @@
-# pylint: disable=W,C,R
+"""This file provides the full wotw module"""
 
-from .base_argument import Argument
-from .argument_group import ArgumentGroup
-from .base_action import Action
-from .base_subcommand import Subcommand
+# pylint:disable=W,C,R
+
+from .argument import Argument
+from .action import Action
 from .command import Command
-from .component_instance import ComponentInstance
-from .argument_instance import ArgumentInstance
-from .argument_group_instance import ArgumentGroupInstance
-from .action_instance import ActionInstance
-from .subcommand_instance import SubcommandInstance
-from .command_instance import CommandInstance
-from .branch_subcommand import BranchSubcommand
