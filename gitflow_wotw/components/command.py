@@ -9,6 +9,7 @@ from sys import argv
 
 from verboselogs import install
 
+install()
 LOGGER = getLogger(__name__)
 
 

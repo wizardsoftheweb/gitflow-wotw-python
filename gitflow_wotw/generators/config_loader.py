@@ -12,6 +12,7 @@ DATA_DIR = join(abspath(dirname(__file__)), 'data')
 EXECUTORS_DIR = join(DATA_DIR, 'executors')
 ARGUMENTS_DIR = join(DATA_DIR, 'arguments')
 
+install()
 LOGGER = getLogger(__name__)
 
 

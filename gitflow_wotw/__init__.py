@@ -22,6 +22,7 @@ from yaml import load
 
 __location__ = abspath(dirname(__file__))
 
+install()
 with open(join(__location__, 'logging.yml'), 'r') as config_file:
     config = load(config_file)
 dictConfig(config)

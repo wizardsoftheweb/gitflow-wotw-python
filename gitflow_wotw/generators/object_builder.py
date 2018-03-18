@@ -10,7 +10,7 @@ from verboselogs import install
 from gitflow_wotw.components import Action, Command
 from gitflow_wotw.generators import ConfigLoader
 
-
+install()
 LOGGER = getLogger(__name__)
 
 
