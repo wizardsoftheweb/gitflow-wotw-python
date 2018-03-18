@@ -25,7 +25,7 @@ from .message_file_argument import MessageFileArgument
 from .preserve_merges_argument import PreserveMergesArgument
 from .push_argument import PushArgument
 from .push_develop_argument import PushDevelopArgument
-from .push_production_argument import PushProductionArgument
+from .push_master_argument import PushMasterArgument
 from .push_tag_argument import PushTagArgument
 from .rebase_argument import RebaseArgument
 from .set_argument import SetArgument
