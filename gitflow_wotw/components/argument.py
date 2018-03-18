@@ -13,7 +13,7 @@ class Argument(object):
 
     def __init__(self, *args, **kwargs):
         LOGGER.verbose('Initialized an Argument')
-        LOGGER.debug(*args)
+        LOGGER.spam(*args)
         self.args = args
         self.kwargs = kwargs
 

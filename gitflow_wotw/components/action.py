@@ -16,6 +16,7 @@ class Action(object):
 
     def __init__(self, identifier=None, help_string=None):
         LOGGER.verbose("Initialized a %s Action", identifier)
+        LOGGER.spam("help_string: %s", help_string)
         self.identifier = identifier
         self.help_string = help_string
         self.arguments = []
@@ -39,6 +40,6 @@ class Action(object):
             argument.attach_arguments(self.parser)
 
     def process(self, parsed=None, args=None):
-        LOGGER.warning("Base process used for %s Action", self.identifier)
-        print(parsed)
-        print(args)
+        LOGGER.notice("Base process used for %s Action", self.identifier)
+        LOGGER.debug("Received namespace: %s", parsed)
+        LOGGER.debug("Remaining args: %s", args)

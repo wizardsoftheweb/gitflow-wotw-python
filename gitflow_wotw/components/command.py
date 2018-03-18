@@ -24,8 +24,8 @@ class Command(OrderedDict):
         LOGGER.debug("Received args %s", self.args)
         self.identifier = identifier
         self.help_string = help_string
+        LOGGER.spam("help_string: %s", help_string)
         self.parser = None
-        self.uses_subcommands = False
         self.subparsers = None
         self.arguments = []
         self.results = []
@@ -55,10 +55,10 @@ class Command(OrderedDict):
 
     def attach_actions(self):
         if len(self.items()) > 0:
-            LOGGER.info("Adding %s's Action arguments", self.identifier)
+            LOGGER.verbose("Adding %s's Action arguments", self.identifier)
             self.add_subparsers()
         else:
-            LOGGER.info("%s has no actions to add", self.identifier)
+            LOGGER.verbose("%s has no actions to add", self.identifier)
         for _, action in self.items():
             action.attach_arguments(self.subparsers)
 
@@ -76,17 +76,18 @@ class Command(OrderedDict):
         self.attach_actions()
         self.attach_arguments()
         self.results = self.parse_args()
-        LOGGER.debug("%s parsed out %s", self.identifier, self.results[0])
-        LOGGER.debug("%s left %s", self.identifier, self.results[0])
+        LOGGER.spam("%s parsed out %s", self.identifier, self.results[0])
+        LOGGER.spam("%s left %s", self.identifier, self.results[0])
 
     def process(self, *args, **kwargs):
         if hasattr(self.results[0], 'next_command') and self.results[0].next_command:
             action = self.results[0].next_command
             LOGGER.info("%s triggered Action %s", self.identifier, action)
             return self[action].process(*self.results)
-        LOGGER.warning("%s.process() did not fire an action", self.identifier)
+        LOGGER.notice("%s.process() did not fire an action", self.identifier)
 
     def load_specific_handler(self, source, destination):
+        LOGGER.debug('Loading specific handler')
         for key, args in source.items():
             destination[key] = args
 
@@ -107,7 +108,10 @@ class Command(OrderedDict):
             )
 
     def run_handlers(self, handlers):
+        LOGGER.debug('Running specific handler')
         for key, args in handlers.items():
+            LOGGER.spam("Handler:", key)
+            LOGGER.spam("Args:", args)
             self.handlers[key](self, self.results[0], *args)
 
     def __pre_execute(self, *args, **kwargs):
@@ -140,4 +144,4 @@ class Command(OrderedDict):
         self.process(self, *args, **kwargs)
         self.load_handlers(self, *args, **kwargs)
         self.prosecute_command(self, *args, **kwargs)
-        LOGGER.debug("%s has finished everything")
+        LOGGER.info("%s has finished everything")
