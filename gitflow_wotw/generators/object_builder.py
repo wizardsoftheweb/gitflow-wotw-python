@@ -26,6 +26,10 @@ def action_process(self, parsed=None, args=None):
     return None
 
 
+def argument_init(self):
+    Argument.__init__(self, *self.args, **self.kwargs)
+
+
 def command_init(self, args=None):
     Command.__init__(self, args, self.identifier, self.help_string)
     for action in self.action_seeds:
@@ -58,7 +62,11 @@ class ObjectBuilder(OrderedDict):
         return type(
             argument_name,
             (Argument,),
-            {}
+            {
+                '__init__': argument_init,
+                'args': config['args'],
+                'kwargs': config['kwargs']
+            }
         )
 
     def build_action(self, action_name):
