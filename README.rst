@@ -69,7 +69,6 @@ More information can be found in |verboselogs|_.
 * ``SUCCESS``: ``-q``
 * ``ERROR``: ``-qq``
 * ``CRITICAL``: ``-qqq``
-* off: ``-qqqq``
 
 .. |verboselogs| replace:: the official ``verboselogs`` docs
 .. _verboselogs: https://pypi.python.org/pypi/verboselogs#overview-of-logging-levels
