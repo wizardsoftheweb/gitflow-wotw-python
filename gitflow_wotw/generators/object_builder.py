@@ -22,9 +22,9 @@ def action_init(self):
     Action.__init__(self, self.identifier, self.help_string)
 
 
-def action_process(self, parsed=None, args=None):
+def action_process(self, parent_commands=None, parsed=None, args=None):
     if self.processed_class:
-        return self.processed_class(args)
+        return self.processed_class(parent_commands, args)
     return None
 
 
