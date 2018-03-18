@@ -5,12 +5,14 @@ from __future__ import print_function
 from collections import Callable, OrderedDict
 from logging import getLogger
 
-from verboselogs import install
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
 
 from gitflow_wotw.components import Action, Command
 from gitflow_wotw.generators import ConfigLoader
 
-install()
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 
@@ -59,7 +61,8 @@ class ObjectBuilder(OrderedDict):
             'identifier': identifier,
             'help_string': help_string,
             '__init__': action_init,
-            'process': action_process
+            'process': action_process,
+            'processed_class': None
         }
         if (
                 'action' in config

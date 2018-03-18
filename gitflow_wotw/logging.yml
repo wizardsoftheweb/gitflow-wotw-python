@@ -2,6 +2,7 @@
 version: 1
 formatters:
   simple:
+    (): coloredlogs.ColoredFormatter
     format: '%(asctime)s - %(levelname)-7s - %(message)s'
     datefmt: '%H:%M:%S'
 handlers:
@@ -17,11 +18,10 @@ handlers:
   console:
     class: logging.StreamHandler
     level: SPAM
-    stream: ext://sys.stdout
     formatter: simple
 loggers:
   gitflow_wotw:
-    level: DEBUG
+    level: SPAM
     handlers: [console]
     propagate: no
 root:

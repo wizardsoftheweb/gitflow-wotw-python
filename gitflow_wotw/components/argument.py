@@ -4,9 +4,11 @@ from __future__ import print_function
 
 from logging import getLogger
 
-from verboselogs import install
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
 
-install()
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 

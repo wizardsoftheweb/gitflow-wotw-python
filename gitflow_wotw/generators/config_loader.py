@@ -5,10 +5,12 @@ from logging import getLogger
 from os.path import abspath, dirname, join
 from re import compile as re_compile, match, sub, VERBOSE
 
-from verboselogs import install
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
 from yaml import load
 
-install()
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 DATA_DIR = join(abspath(dirname(__file__)), 'data')
