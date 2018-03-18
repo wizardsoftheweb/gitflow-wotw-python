@@ -15,4 +15,4 @@ class PushMasterArgument(ArgumentInstance):
 
     def __init__(self):
         ArgumentInstance.__init__(self)
-        self.kwargs['const'] = self.flow_branch.master
+        self.kwargs['const'] = self.flow.branch.master

@@ -15,4 +15,4 @@ class PushDevelopArgument(ArgumentInstance):
 
     def __init__(self):
         ArgumentInstance.__init__(self)
-        self.kwargs['const'] = self.flow_branch.develop
+        self.kwargs['const'] = self.flow.branch.develop
