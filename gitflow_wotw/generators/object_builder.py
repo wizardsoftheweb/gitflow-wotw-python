@@ -8,7 +8,7 @@ from logging import getLogger
 from coloredlogs import install as colored_install
 from verboselogs import install as verbose_install
 
-from gitflow_wotw.components import Action, Command
+from gitflow_wotw.components import Action, Argument, Command
 from gitflow_wotw.generators import ConfigLoader
 
 verbose_install()
@@ -50,6 +50,16 @@ class ObjectBuilder(OrderedDict):
         LOGGER.notice("%s not found; attempting to build", key)
         self[key] = self.build_object(key)
         return self[key]
+
+    def build_argument(self, argument_name):
+        LOGGER.debug("Building argument %s", argument_name)
+        config = self.loader(argument_name)
+        LOGGER.spam(config)
+        return type(
+            argument_name,
+            (Argument,),
+            {}
+        )
 
     def build_action(self, action_name):
         LOGGER.debug("Building action %s", action_name)
