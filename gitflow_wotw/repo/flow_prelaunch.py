@@ -3,13 +3,13 @@
 from __future__ import print_function
 
 from collections import OrderedDict
-
-from pygit2 import Config
+from subprocess import check_output
 
 from gitflow_wotw.repo import HasConfig
 
 
 class FlowPrelaunch(HasConfig):
+    """"""
 
     def __init__(self, directory=None, config=None):
         super(FlowPrelaunch, self).__init__(directory, config)
@@ -18,13 +18,18 @@ class FlowPrelaunch(HasConfig):
 
     def branch_configured(self, branch):
         key = "gitflow.branch.%s" % branch
-        return (
-            key in self.config
-            and
-            self.repo.branches.get(self.config[key])
-            and
-            self.config[key]
-        )
+        if key in self.config:
+            return (
+                check_output([
+                    'git',
+                    'branch',
+                    '--list',
+                    self.config[key]
+                ]).strip()
+                and
+                self.config[key]
+            )
+        return False
 
     def all_branches_configured(self):
         develop = self.branch_configured('develop')
