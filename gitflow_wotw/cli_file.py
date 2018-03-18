@@ -1,5 +1,9 @@
 # pylint:disable=W,C,R
 
+from gitflow_wotw.generators import ObjectBuilder
+
 
 def cli():
-    print('cool')
+    builder = ObjectBuilder()
+    WotwCommand = builder('WotwCommand')
+    WotwCommand()
