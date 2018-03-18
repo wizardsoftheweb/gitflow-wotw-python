@@ -4,11 +4,7 @@ from __future__ import print_function
 
 from os import getcwd
 from os.path import abspath, expanduser, expandvars, normpath, relpath
-
-# pylint: disable=no-name-in-module
-from pygit2 import discover_repository
-# pylint: enable=no-name-in-module
-from pygit2 import Repository
+from subprocess import check_output
 
 
 class HasRepository(object):
@@ -21,8 +17,7 @@ class HasRepository(object):
             directory = getcwd()
         else:
             directory = self.resolve_absolute_path(directory)
-        repo_path = discover_repository(directory)
-        self.repo = Repository(repo_path)
+        self.repo_dir = check_output(['git', 'rev-parse', '--show-toplevel'])
 
     @staticmethod
     def resolve_absolute_path(path_to_resolve):
