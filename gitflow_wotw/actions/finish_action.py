@@ -112,26 +112,3 @@ class FinishAction(ActionInstance):
             # TODO: need to figure out the real exception
             print(e)
             self.handle_merge_error(parsed)
-
-    def delete_branches(self, parsed):
-        upstream = self.flow_branch.upstream_branch(parsed.branch)
-        self.flow_branch.change_to_base_branch(parsed.branch)
-        if 'local' == parsed.keep:
-            self.flow_branch.delete_remote_branch(
-                upstream,
-                parsed.force
-            )
-        elif 'remote' == parsed.keep:
-            self.flow_branch.delete_local_branch(
-                parsed.branch,
-                parsed.force
-            )
-        elif not parsed.keep or 'both' == parsed.delete:
-            self.flow_branch.delete_remote_branch(
-                upstream,
-                parsed.force
-            )
-            self.flow_branch.delete_local_branch(
-                parsed.branch,
-                parsed.force
-            )
