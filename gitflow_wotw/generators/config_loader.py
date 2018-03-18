@@ -16,15 +16,18 @@ LOGGER = getLogger(__name__)
 DATA_DIR = join(abspath(dirname(__file__)), 'data')
 LOGGER.debug("Object data directory: %s", DATA_DIR)
 EXECUTORS_DIR = join(DATA_DIR, 'executors')
-LOGGER.debug("Command and Action recipe directory: %s", DATA_DIR)
+LOGGER.debug("Command and Action recipe directory: %s", EXECUTORS_DIR)
 ARGUMENTS_DIR = join(DATA_DIR, 'arguments')
-LOGGER.debug("Argument recipe directory: %s", DATA_DIR)
+LOGGER.debug("Argument recipe directory: %s", ARGUMENTS_DIR)
+ARGUMENTS_GROUP_DIR = join(DATA_DIR, 'argument_groups')
+LOGGER.debug("Argument recipe directory: %s", ARGUMENTS_GROUP_DIR)
 
 
 class ConfigLoader(Callable):
     DIRECTORIES = {
         'action': EXECUTORS_DIR,
         'argument': ARGUMENTS_DIR,
+        'argumentgroup': ARGUMENTS_GROUP_DIR,
         'command': EXECUTORS_DIR
     }
 
@@ -35,7 +38,7 @@ class ConfigLoader(Callable):
         (?P<object_type>
             Action
             |
-            Argument
+            Argument(?:Group)?
             |
             Command
         )

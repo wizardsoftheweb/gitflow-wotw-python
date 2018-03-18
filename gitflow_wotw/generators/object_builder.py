@@ -8,14 +8,14 @@ from logging import getLogger
 from coloredlogs import install as colored_install
 from verboselogs import install as verbose_install
 
-from gitflow_wotw.components import Action, Argument, Command
+from gitflow_wotw.components import Action, Argument, ArgumentGroup, Command
 from gitflow_wotw.generators import ConfigLoader
 
 verbose_install()
 colored_install()
 LOGGER = getLogger(__name__)
 
-UNIVERSAL_ARGUMENTS = ['VerboseArgument', 'QuietArgument']
+UNIVERSAL_ARGUMENTS = ['UniversalArgumentGroup']
 
 
 def action_init(self):
@@ -30,6 +30,16 @@ def action_process(self, parsed=None, args=None):
 
 def argument_init(self):
     Argument.__init__(self, *self.args, **self.kwargs)
+
+
+def argument_group_init(self):
+    ArgumentGroup.__init__(
+        self,
+        self.seed,
+        self.title,
+        self.description,
+        self.exclusive
+    )
 
 
 def command_init(self, args=None):
@@ -70,6 +80,33 @@ class ObjectBuilder(OrderedDict):
                 '__init__': argument_init,
                 'args': config['args'],
                 'kwargs': config['kwargs']
+            }
+        )
+
+    def build_argument_group(self, argument_group_name):
+        LOGGER.debug("Building ArgumentGroup %s", argument_group_name)
+        config = self.loader(argument_group_name)
+        LOGGER.spam(config)
+        seed = OrderedDict()
+        for element in config['seed']:
+            if isinstance(element, list):
+                new_seed = OrderedDict()
+                name = ''
+                for child in element:
+                    name += child
+                    new_seed[child] = self[child]()
+                seed[name] = ArgumentGroup(seed=new_seed, exclusive=True)
+            else:
+                seed[element] = self[element]()
+        return type(
+            argument_group_name,
+            (ArgumentGroup,),
+            {
+                'seed': seed,
+                'title': config['title'],
+                'description': config['description'],
+                'exclusive': config['exclusive'],
+                '__init__': argument_group_init
             }
         )
 
@@ -147,6 +184,8 @@ class ObjectBuilder(OrderedDict):
         LOGGER.debug("Attempting to create %s", object_name)
         if object_name.endswith('Argument'):
             return self.build_argument(object_name)
+        elif object_name.endswith('ArgumentGroup'):
+            return self.build_argument_group(object_name)
         elif object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
