@@ -31,10 +31,11 @@ class GitConfig(OrderedDict, HasRepository):
             'git',
             'config',
             '--list'
-        ]).strip()
+        ]).strip().decode('utf-8')
 
     def parse_config(self, config_to_parse):
         config = {}
+        print(config_to_parse)
         for matched in finditer(GitConfig.CONFIG_LINE_PATTERN, config_to_parse):
             key = matched.group('key')
             value = matched.group('value')
@@ -42,7 +43,7 @@ class GitConfig(OrderedDict, HasRepository):
         return config
 
     def sort_config(self, unsorted_config=None):
-        for key in sorted(unsorted_config.iterkeys()):
+        for key in sorted([key for key in unsorted_config]):
             self[key] = unsorted_config[key]
 
     def load_and_sort(self):
