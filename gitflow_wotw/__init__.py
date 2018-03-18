@@ -17,10 +17,12 @@ from logging import debug, info
 from logging.config import dictConfig
 from os.path import abspath, dirname, join
 
-__location__ = abspath(dirname(__file__))
-
+from verboselogs import install
 from yaml import load
 
+__location__ = abspath(dirname(__file__))
+
+install()
 with open(join(__location__, 'logging.yml'), 'r') as config_file:
     config = load(config_file)
 dictConfig(config)
