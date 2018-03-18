@@ -4,6 +4,8 @@ from collections import Callable
 from logging import getLogger
 from os.path import abspath, dirname, join
 from re import compile as re_compile, match, sub, VERBOSE
+
+from verboselogs import install
 from yaml import load
 
 DATA_DIR = join(abspath(dirname(__file__)), 'data')

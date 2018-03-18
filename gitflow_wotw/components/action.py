@@ -7,6 +7,8 @@ from collections import OrderedDict
 from logging import getLogger
 from sys import argv
 
+from verboselogs import install
+
 LOGGER = getLogger(__name__)
 
 

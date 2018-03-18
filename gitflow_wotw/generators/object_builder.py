@@ -5,6 +5,8 @@ from __future__ import print_function
 from collections import Callable, OrderedDict
 from logging import getLogger
 
+from verboselogs import install
+
 from gitflow_wotw.components import Action, Command
 from gitflow_wotw.generators import ConfigLoader
 

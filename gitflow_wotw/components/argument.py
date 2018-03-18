@@ -4,6 +4,8 @@ from __future__ import print_function
 
 from logging import getLogger
 
+from verboselogs import install
+
 LOGGER = getLogger(__name__)
 
 
