@@ -38,4 +38,10 @@ from .tag_argument import TagArgument
 from .tag_name_argument import TagNameArgument
 from .verbose_argument import VerboseArgument
 
-from .groups import *
+from .groups import (
+    BranchArgumentGroup,
+    ConfigLocationArgumentGroup,
+    PushArgumentGroup,
+    TagArgumentGroup,
+    UniversalArgumentGroup
+)
