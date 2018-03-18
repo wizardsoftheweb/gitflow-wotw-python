@@ -1,0 +1,23 @@
+---
+version: 1
+handlers:
+  hidden:
+    class: logging.handlers.MemoryHandler
+    capacity: 1024
+  memory:
+    class: logging.handlers.MemoryHandler
+    capacity: 1024 * 1024
+    target: console
+    level: NOTSET
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    stream: ext://sys.stdout
+loggers:
+  gitflow_wotw:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [hidden]
