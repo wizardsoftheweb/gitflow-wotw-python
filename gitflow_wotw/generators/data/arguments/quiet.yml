@@ -1,0 +1,8 @@
+---
+args:
+  - '-q'
+  - '--quiet'
+kwargs:
+  action: count
+  dest: quiet
+  help: Reduce the log verbosity
