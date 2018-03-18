@@ -12,12 +12,6 @@ from gitflow_wotw.repo import HasConfig
 class FlowRemote(HasConfig):
     """"""
 
-    # def __init__(self, directory=None, config=None):
-    #     super(FlowBranch, self).__init__(directory, config)
-    #     self.stored_prefixes = []
-    #     self.branch = self.repo.head.shorthand
-    #     self.all_branches = self.sort_branches()
-
     def list_local(self, prefix=None):
         return check_output([
             'git',
