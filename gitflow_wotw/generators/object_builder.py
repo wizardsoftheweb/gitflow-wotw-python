@@ -45,14 +45,14 @@ class ObjectBuilder(OrderedDict):
         return cls.__instance
 
     def __missing__(self, key):
-        LOGGER.warning("%s not found; attempting to build", key)
+        LOGGER.notice("%s not found; attempting to build", key)
         self[key] = self.build_object(key)
         return self[key]
 
     def build_action(self, action_name):
         LOGGER.debug("Building action %s", action_name)
         config = self.loader(action_name)
-        LOGGER.log(0, config)
+        LOGGER.spam(config)
         identifier = config['identifier']
         help_string = config['help_string']
         class_dict = {
@@ -72,6 +72,7 @@ class ObjectBuilder(OrderedDict):
         ):
             process = config['action']['process']
             class_dict['processed_class'] = self[process]
+            LOGGER.spam('Discovered call:', process)
         return type(
             action_name,
             (Action,),
@@ -81,7 +82,7 @@ class ObjectBuilder(OrderedDict):
     def build_command(self, command_name):
         LOGGER.debug("Building action %s", command_name)
         config = self.loader(command_name)
-        LOGGER.log(0, config)
+        LOGGER.spam(config)
         identifier = config['identifier']
         help_string = config['help_string']
         if (
@@ -100,6 +101,7 @@ class ObjectBuilder(OrderedDict):
             ]
         else:
             actions = []
+        LOGGER.spam('Discovered actions:', actions)
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,

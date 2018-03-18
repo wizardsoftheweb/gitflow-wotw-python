@@ -41,6 +41,8 @@ class ConfigLoader(Callable):
     def load_object_config(self, unknown_object):
         LOGGER.debug("Attempting to load the config for %s", unknown_object)
         name, object_type = self.parse_info(unknown_object)
+        LOGGER.spam("Discovered name:", name)
+        LOGGER.spam("Discovered type:", object_type)
         config_file_path = join(self.DIRECTORIES[object_type], "%s.yml" % name)
         LOGGER.debug("Config file path is %s", config_file_path)
         with open(config_file_path, 'r') as config_file:
@@ -50,7 +52,7 @@ class ConfigLoader(Callable):
     @staticmethod
     def pascal_to_snake(pascal_case):
         snake_case = sub('(?!^)([A-Z][a-z]+)', r'_\1', pascal_case).lower()
-        LOGGER.log(0, "Converted %s to %s", pascal_case, snake_case)
+        LOGGER.spam("Converted %s to %s", pascal_case, snake_case)
         return snake_case
 
     @staticmethod
