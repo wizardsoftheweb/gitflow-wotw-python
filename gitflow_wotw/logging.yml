@@ -6,24 +6,14 @@ formatters:
     format: '%(asctime)s - %(levelname)-7s - %(message)s'
     datefmt: '%H:%M:%S'
 handlers:
-  hidden:
-    class: logging.handlers.MemoryHandler
-    capacity: 1024
-  memory:
-    class: logging.handlers.MemoryHandler
-    capacity: 1024 * 1024
-    target: console
-    level: SPAM
-    formatter: simple
   console:
     class: logging.StreamHandler
     level: SPAM
     formatter: simple
 loggers:
   gitflow_wotw:
-    level: SPAM
-    handlers: [console]
-    propagate: no
+    propagate: yes
 root:
   level: WARNING
-  handlers: [hidden]
+  handlers: [console]
+  formatter: simple
