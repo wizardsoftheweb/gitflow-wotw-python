@@ -19,6 +19,6 @@ class FlowWrangler(HasConfig):
 
     def __init__(self, directory=None, config=None):
         HasConfig.__init__(self, directory, config)
-        self.flow_branch = FlowBranch(directory, config)
-        self.flow_prefix = FlowPrefix(directory, config)
-        self.flow_remote = FlowRemote(directory, config)
+        self.branch = FlowBranch(directory, config)
+        self.prefix = FlowPrefix(directory, config)
+        self.remote = FlowRemote(directory, config)
