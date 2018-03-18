@@ -1,4 +1,5 @@
 include gitflow_wotw/*.py
+include gitflow_wotw/*.yml
 include .editorconfig
 include .pylintrc
 include LICENSE.rst
