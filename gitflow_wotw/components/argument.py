@@ -12,7 +12,7 @@ LOGGER = getLogger(__name__)
 class Argument(object):
 
     def __init__(self, *args, **kwargs):
-        LOGGER.debug('Initialized an Argument')
+        LOGGER.verbose('Initialized an Argument')
         LOGGER.debug(*args)
         self.args = args
         self.kwargs = kwargs

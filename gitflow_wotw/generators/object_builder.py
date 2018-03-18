@@ -39,7 +39,7 @@ class ObjectBuilder(OrderedDict):
 
     def __new__(cls):
         if cls.__instance == None:
-            LOGGER.info('Creating ObjectBuilder singleton')
+            LOGGER.verbose('Creating ObjectBuilder singleton')
             cls.__instance = OrderedDict.__new__(cls)
             cls.__instance.name = "ObjectStorage"
         return cls.__instance

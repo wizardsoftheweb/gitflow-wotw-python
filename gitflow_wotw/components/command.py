@@ -16,7 +16,7 @@ class Command(OrderedDict):
 
     def __init__(self, args=None, identifier=None, help_string=None):
         OrderedDict.__init__(self)
-        LOGGER.debug("Initialized a %s Command", identifier)
+        LOGGER.verbose("Initialized a %s Command", identifier)
         if args is None:
             self.args = argv[1:]
         else:

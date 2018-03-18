@@ -15,7 +15,7 @@ LOGGER = getLogger(__name__)
 class Action(object):
 
     def __init__(self, identifier=None, help_string=None):
-        LOGGER.debug("Initialized a %s Action", identifier)
+        LOGGER.verbose("Initialized a %s Action", identifier)
         self.identifier = identifier
         self.help_string = help_string
         self.arguments = []
