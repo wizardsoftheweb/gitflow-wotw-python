@@ -4,13 +4,21 @@ from collections import Callable
 from logging import getLogger
 from os.path import abspath, dirname, join
 from re import compile as re_compile, match, sub, VERBOSE
+
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
 from yaml import load
 
-DATA_DIR = join(abspath(dirname(__file__)), 'data')
-EXECUTORS_DIR = join(DATA_DIR, 'executors')
-ARGUMENTS_DIR = join(DATA_DIR, 'arguments')
-
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
+
+DATA_DIR = join(abspath(dirname(__file__)), 'data')
+LOGGER.debug("Object data directory: %s", DATA_DIR)
+EXECUTORS_DIR = join(DATA_DIR, 'executors')
+LOGGER.debug("Command and Action recipe directory: %s", DATA_DIR)
+ARGUMENTS_DIR = join(DATA_DIR, 'arguments')
+LOGGER.debug("Argument recipe directory: %s", DATA_DIR)
 
 
 class ConfigLoader(Callable):
@@ -37,8 +45,10 @@ class ConfigLoader(Callable):
     )
 
     def load_object_config(self, unknown_object):
-        LOGGER.info("Attempting to load the config for %s", unknown_object)
+        LOGGER.debug("Attempting to load the config for %s", unknown_object)
         name, object_type = self.parse_info(unknown_object)
+        LOGGER.spam("Discovered name: %s", name)
+        LOGGER.spam("Discovered type: %s", object_type)
         config_file_path = join(self.DIRECTORIES[object_type], "%s.yml" % name)
         LOGGER.debug("Config file path is %s", config_file_path)
         with open(config_file_path, 'r') as config_file:
@@ -48,7 +58,7 @@ class ConfigLoader(Callable):
     @staticmethod
     def pascal_to_snake(pascal_case):
         snake_case = sub('(?!^)([A-Z][a-z]+)', r'_\1', pascal_case).lower()
-        LOGGER.log(0, "Converted %s to %s", pascal_case, snake_case)
+        LOGGER.spam("Converted %s to %s", pascal_case, snake_case)
         return snake_case
 
     @staticmethod

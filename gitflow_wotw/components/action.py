@@ -7,13 +7,19 @@ from collections import OrderedDict
 from logging import getLogger
 from sys import argv
 
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
+
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 
 class Action(object):
 
     def __init__(self, identifier=None, help_string=None):
-        LOGGER.debug("Initialized a %s Action", identifier)
+        LOGGER.verbose("Initialized a %s Action", identifier)
+        LOGGER.spam("help_string: %s", help_string)
         self.identifier = identifier
         self.help_string = help_string
         self.arguments = []
@@ -22,7 +28,7 @@ class Action(object):
         """"""
 
     def attach_as_subcommand(self, subparsers):
-        LOGGER.info("Attaching %s as a subcommand", self.identifier)
+        LOGGER.debug("Attaching %s as a subcommand", self.identifier)
         self.parser = subparsers.add_parser(
             self.identifier,
             add_help=False,
@@ -31,12 +37,12 @@ class Action(object):
         )
 
     def attach_arguments(self, subparsers):
-        LOGGER.info("Attaching arguments for %s", self.identifier)
+        LOGGER.debug("Attaching arguments for %s", self.identifier)
         self.attach_as_subcommand(subparsers)
         for argument in self.arguments:
             argument.attach_arguments(self.parser)
 
     def process(self, parsed=None, args=None):
-        LOGGER.warning("Base process used for %s Action", self.identifier)
-        print(parsed)
-        print(args)
+        LOGGER.notice("Base process used for %s Action", self.identifier)
+        LOGGER.debug("Received namespace: %s", parsed)
+        LOGGER.debug("Remaining args: %s", args)

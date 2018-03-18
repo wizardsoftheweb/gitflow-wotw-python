@@ -47,6 +47,46 @@ Usage
     $ git wotw
     < should print the main help >
 
+Logging
+=======
+
+Log levels come from |verboselogs|_. It's useful to have a few extra channels. There shouldn't be any conflicts as this (theoretically) runs entirely in the console.
+
+.. |verboselogs| replace:: the excellent ``verboselogs`` package
+.. _verboselogs: https://pypi.python.org/pypi/verboselogs
+
+Levels
+------
+
+More information can be found in |verboselogs|_.
+
+* ``SPAM``: ``-vvvvv``
+* ``DEBUG``: ``-vvvv``
+* ``VERBOSE``: ``-vvv``
+* ``INFO``: ``-vv``
+* ``NOTICE``: ``-v``
+* ``WARNING``: default
+* ``SUCCESS``: ``-q``
+* ``ERROR``: ``-qq``
+* ``CRITICAL``: ``-qqq``
+
+.. |verboselogs| replace:: the official ``verboselogs`` docs
+.. _verboselogs: https://pypi.python.org/pypi/verboselogs#overview-of-logging-levels
+Changing the Level
+------------------
+
+To increase the level, use more ``v``'s.
+
+.. code:: shell-session
+
+    $ git wotw -vvvvv
+
+To decrease the level, use more ``q``'s.
+
+.. code:: shell-session
+
+    $ git wotw -qqqq
+
 Roadmap
 =======
 
