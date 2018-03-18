@@ -12,6 +12,8 @@
 
 ``gitflow-wotw`` has grand aspirations to be ``gitflow-avh`` in Python.
 
+Please note that this is not yet stable. I've refactored massively twice now. Luckily that's not a huge issue because the code didn't do anything before.
+
 .. contents::
 
 Suggested Reading
@@ -102,3 +104,8 @@ Far Future Features
     :header: "Progress", "Feature"
 
     "0%", "Make ``pygit2`` play well enough with everyone else to actually use"
+
+Aside
+=====
+
+I started the current refactor (``>=0.6.0``) to speed things up. My first attempt starting taking a few seconds to render the help menu because it initialized everything before running anything. I've rewritten things to be generated on the fly. However, once again, everything has be generated on the fly before anything can run (To create the root, I have to create its dependencies. But to create its dependencies, I have to create their dependencies. And so on.) I think this direction is a little smarter but it will probably involve less cool reflection and more boilerplate.
