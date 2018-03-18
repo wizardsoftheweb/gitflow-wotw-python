@@ -48,21 +48,21 @@ class BranchArgumentGroup(ArgumentGroupInstance):
     def delete_branch(runner, parsed):
         runner.handlers['change_to_base_branch'](runner, parsed)
         if 'local' == parsed.keep:
-            runner.flow_branch.delete_remote_branch(
+            runner.flow.branch.delete_remote_branch(
                 parsed.upstream,
                 parsed.force
             )
         elif 'remote' == parsed.keep:
-            runner.flow_branch.delete_local_branch(
+            runner.flow.branch.delete_local_branch(
                 parsed.branch,
                 parsed.force
             )
         elif not parsed.keep or 'both' == parsed.delete:
-            runner.flow_branch.delete_remote_branch(
+            runner.flow.branch.delete_remote_branch(
                 parsed.upstream,
                 parsed.force
             )
-            runner.flow_branch.delete_local_branch(
+            runner.flow.branch.delete_local_branch(
                 parsed.branch,
                 parsed.force
             )

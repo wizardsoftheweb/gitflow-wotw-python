@@ -23,11 +23,10 @@ class PushArgumentGroup(ArgumentGroupInstance):
 
     def __init__(self):
         ArgumentGroupInstance.__init__(self)
-        self.handlers['push_results'] = self.push_results
+        self.handlers['push_results'] = PushArgumentGroup.push_results
 
     @staticmethod
     def push_results(runner, parsed):
-        current_branch = runner.flow.head
         for item in set(parsed.push):
             if parsed.force:
                 options = ' --force'

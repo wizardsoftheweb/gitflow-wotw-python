@@ -50,10 +50,6 @@ class FinishAction(ActionInstance):
         self.rebase_first(parsed)
         self.finish_with_failsafe(parsed)
 
-    def tidy_branch(self, parsed):
-        if not parsed.branch:
-            parsed.branch = self.flow.branch.branch
-
     def pretasks(self):
         print('run before merge')
 

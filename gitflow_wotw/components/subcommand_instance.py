@@ -8,6 +8,7 @@ from gitflow_wotw.components import ComponentInstance, Subcommand
 class SubcommandInstance(ComponentInstance, Subcommand):
 
     def __init__(self):
+        print(self.identifier)
         ComponentInstance.__init__(self)
         Subcommand.__init__(
             self,
