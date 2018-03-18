@@ -15,7 +15,7 @@ verbose_install()
 colored_install()
 LOGGER = getLogger(__name__)
 
-UNIVERSAL_ARGUMENTS = ['VerboseArgument', 'QuietArgument']
+UNIVERSAL_ARGUMENTS = ['UniversalArgumentGroup']
 
 
 def action_init(self):
@@ -94,10 +94,10 @@ class ObjectBuilder(OrderedDict):
                 name = ''
                 for child in element:
                     name += child
-                    new_seed[child] = self[child]
+                    new_seed[child] = self[child]()
                 seed[name] = ArgumentGroup(seed=new_seed, exclusive=True)
             else:
-                seed[element] = self[element]
+                seed[element] = self[element]()
         return type(
             argument_group_name,
             (ArgumentGroup,),
