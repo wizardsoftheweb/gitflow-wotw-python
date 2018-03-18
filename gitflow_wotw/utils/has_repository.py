@@ -17,7 +17,13 @@ class HasRepository(object):
             directory = getcwd()
         else:
             directory = self.resolve_absolute_path(directory)
-        self.repo_dir = check_output(['git', 'rev-parse', '--show-toplevel'])
+        self.repo_dir = check_output(
+            [
+                'git',
+                'rev-parse',
+                '--show-toplevel'
+            ]
+        ).strip()
 
     @staticmethod
     def resolve_absolute_path(path_to_resolve):
