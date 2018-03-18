@@ -16,7 +16,6 @@ class DiffAction(ActionInstance):
         self.arguments['base'] = BaseArgument()
 
     def execute(self, parsed):
-        self.handlers['tidy_branches'](self, parsed)
         print(
             "git diff %s %s" % (
                 self.flow_branch.branch_to_commit_id(parsed.branch),
