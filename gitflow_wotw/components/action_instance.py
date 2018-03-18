@@ -9,8 +9,6 @@ from gitflow_wotw.components import Action, ComponentInstance
 
 
 class ActionInstance(ComponentInstance, Action):
-    pre_execution = OrderedDict()
-    post_execution = OrderedDict()
 
     def __init__(self):
         ComponentInstance.__init__(self)
@@ -19,6 +17,8 @@ class ActionInstance(ComponentInstance, Action):
             self.identifier,
             self.help_string
         )
+        self.pre_execution = OrderedDict()
+        self.post_execution = OrderedDict()
         self.arguments['universal'] = UniversalArgumentGroup()
         self.pre_execution['tidy_branches'] = []
 

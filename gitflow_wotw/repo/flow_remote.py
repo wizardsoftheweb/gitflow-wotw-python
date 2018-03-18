@@ -48,7 +48,7 @@ class FlowRemote(HasConfig):
 
     def upstream_from_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         return self.config["branch.%s.merge" % branch]
 
     @property
@@ -97,7 +97,7 @@ class FlowRemote(HasConfig):
 
     def hash_from_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         return check_output(['git', 'rev-parse', '--short', branch]).strip()
 
     def compare_references(self, first_branch=None, second_branch=None):
@@ -118,7 +118,7 @@ class FlowRemote(HasConfig):
 
     def ensure_local_and_remote_equal(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         upstream = self.upstream_from_branch(branch)
         if not upstream:
             return True

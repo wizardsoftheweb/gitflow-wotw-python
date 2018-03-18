@@ -28,7 +28,7 @@ class FlowBranch(HasConfig):
 
     def base_from_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         base_key = "gitflow.branch.%s.base" % branch
         if base_key in self.config:
             return self.config[base_key]
@@ -40,20 +40,20 @@ class FlowBranch(HasConfig):
 
     def update_base(self, branch=None, base=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         if base is None:
-            if branch != self.branch:
-                base = self.branch
+            if branch != self.head:
+                base = self.head
             else:
                 base = self.develop
         print("git config gitflow.branch.%s.base %s" % (branch, base))
 
     def change_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         print("git checkout %s" % branch)
 
     def change_to_base_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         self.change_branch(branch)

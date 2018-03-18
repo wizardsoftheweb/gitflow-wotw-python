@@ -52,7 +52,7 @@ class BaseAction(ActionInstance):
             return self.get_base(parsed.branch)
 
     def get_base(self, branch=None):
-        self.flow_branch.base_branch(branch)
+        self.flow.branch.base_from_branch(branch)
 
     def set_base(self, branch=None, base=None):
-        self.flow_branch.update_base(branch, base)
+        self.flow.branch.update_base(branch, base)

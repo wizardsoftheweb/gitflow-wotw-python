@@ -35,7 +35,7 @@ class FlowPrefix(HasConfig):
 
     def prefix_from_branch(self, branch=None):
         if branch is None:
-            branch = self.branch
+            branch = self.head
         for prefix in self.prefixes:
             if branch.startswith(prefix):
                 return prefix[0:-1]

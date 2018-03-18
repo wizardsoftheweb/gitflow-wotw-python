@@ -17,7 +17,7 @@ class PushArgument(ArgumentInstance):
     def __init__(self):
         ArgumentInstance.__init__(self)
         self.kwargs['const'] = [
-            self.flow_branch.master,
-            self.flow_branch.develop,
+            self.flow.branch.master,
+            self.flow.branch.develop,
             '--tags'
         ]

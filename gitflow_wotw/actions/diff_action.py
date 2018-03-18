@@ -18,7 +18,7 @@ class DiffAction(ActionInstance):
     def execute(self, parsed):
         print(
             "git diff %s %s" % (
-                self.flow_branch.branch_to_commit_id(parsed.branch),
-                self.flow_branch.branch_to_commit_id(parsed.base)
+                self.flow.remote.hash_from_branch(parsed.branch),
+                self.flow.remote.hash_from_branch(parsed.base)
             )
         )

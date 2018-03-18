@@ -50,22 +50,18 @@ class FinishAction(ActionInstance):
         self.rebase_first(parsed)
         self.finish_with_failsafe(parsed)
 
-    def tidy_branch(self, parsed):
-        if not parsed.branch:
-            parsed.branch = self.flow_branch.branch
-
     def pretasks(self):
         print('run before merge')
 
     def fetch_first(self, parsed):
-        self.flow_branch.fetch_if_upstream(parsed.branch)
+        self.flow.remote.fetch_if_upstream(parsed.branch)
         if parsed.fetch:
-            self.flow_branch.fetch_if_upstream(
-                self.flow_branch.base_branch(parsed.branch)
+            self.flow.remote.fetch_if_upstream(
+                self.flow.branch.base_from_branch(parsed.branch)
             )
 
     def stream_equality(self, parsed):
-        self.flow_branch.ensure_local_and_remote_equal(parsed.branch)
+        self.flow.remote.ensure_local_and_remote_equal(parsed.branch)
 
     def rebase_first(self, parsed):
         if parsed.rebase:
@@ -87,7 +83,7 @@ class FinishAction(ActionInstance):
         print("git commit")
 
     def change_and_merge(self, parsed):
-        self.flow_branch.change_to_base_branch(parsed.branch)
+        self.flow.branch.change_to_base_branch(parsed.branch)
         if parsed.squash:
             self.merge_with_squash(parsed)
         else:
@@ -95,12 +91,15 @@ class FinishAction(ActionInstance):
 
     def handle_merge_error(self, parsed):
         directory = join(
-            self.flow_branch.repo.path,
+            self.flow.repo_dir,
+            '.git',
             '.gitflow'
         )
         mkdir(directory)
         with open(join(directory, 'MERGE_BASE'), 'w') as merge_file:
-            merge_file.write(self.flow_branch.base_branch(parsed.branch))
+            merge_file.write(
+                self.flow.branch.base_from_branch(parsed.branch)
+            )
         raise RuntimeError(
             'Merge conflict detected; please fix before continuing'
         )
@@ -112,26 +111,3 @@ class FinishAction(ActionInstance):
             # TODO: need to figure out the real exception
             print(e)
             self.handle_merge_error(parsed)
-
-    def delete_branches(self, parsed):
-        upstream = self.flow_branch.upstream_branch(parsed.branch)
-        self.flow_branch.change_to_base_branch(parsed.branch)
-        if 'local' == parsed.keep:
-            self.flow_branch.delete_remote_branch(
-                upstream,
-                parsed.force
-            )
-        elif 'remote' == parsed.keep:
-            self.flow_branch.delete_local_branch(
-                parsed.branch,
-                parsed.force
-            )
-        elif not parsed.keep or 'both' == parsed.delete:
-            self.flow_branch.delete_remote_branch(
-                upstream,
-                parsed.force
-            )
-            self.flow_branch.delete_local_branch(
-                parsed.branch,
-                parsed.force
-            )

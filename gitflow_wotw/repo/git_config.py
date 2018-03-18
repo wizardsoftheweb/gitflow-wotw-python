@@ -35,7 +35,6 @@ class GitConfig(OrderedDict, HasRepository):
 
     def parse_config(self, config_to_parse):
         config = {}
-        print(config_to_parse)
         for matched in finditer(GitConfig.CONFIG_LINE_PATTERN, config_to_parse):
             key = matched.group('key')
             value = matched.group('value')
