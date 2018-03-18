@@ -17,7 +17,13 @@ LOGGER = getLogger(__name__)
 
 class Command(OrderedDict):
 
-    def __init__(self, args=None, identifier=None, help_string=None):
+    def __init__(
+            self,
+            args=None,
+            parent_commands=None,
+            identifier=None,
+            help_string=None
+    ):
         OrderedDict.__init__(self)
         LOGGER.verbose("Initialized a %s Command", identifier)
         if args is None:
@@ -29,6 +35,10 @@ class Command(OrderedDict):
         self.help_string = help_string
         LOGGER.spam("help_string: %s", help_string)
         self.parser = None
+        if parent_commands:
+            self.prog = "%s %s" % (parent_commands, identifier)
+        else:
+            self.prog = identifier
         self.subparsers = None
         self.arguments = []
         self.results = []
@@ -39,7 +49,7 @@ class Command(OrderedDict):
     def add_parser(self, subparsers=None):
         LOGGER.debug("Defining the root parser on %s", self.identifier)
         self.parser = ArgumentParser(
-            prog="git %s" % self.identifier,
+            prog="git %s" % self.prog,
             add_help=False,
             description=self.help_string,
             conflict_handler='resolve'
@@ -88,7 +98,7 @@ class Command(OrderedDict):
         if hasattr(self.results[0], 'next_command') and self.results[0].next_command:
             action = self.results[0].next_command
             LOGGER.info("%s triggered Action %s", self.identifier, action)
-            return self[action].process(*self.results)
+            return self[action].process(self.prog, *self.results)
         LOGGER.notice("%s.process() did not fire an action", self.identifier)
 
     def load_specific_handler(self, source, destination):
