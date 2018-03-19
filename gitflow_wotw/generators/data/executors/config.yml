@@ -1,0 +1,10 @@
+---
+identifier: config
+help_string: Manages config
+command:
+  actions:
+    - SetAction
+    - BaseAction
+  arguments:
+action:
+  process:

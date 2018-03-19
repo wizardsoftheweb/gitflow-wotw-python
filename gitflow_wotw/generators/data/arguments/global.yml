@@ -1,0 +1,8 @@
+---
+args:
+  - '--global'
+kwargs:
+  action: 'store_const'
+  const: 'global'
+  dest: 'config_location'
+  help: 'Use the global config file'

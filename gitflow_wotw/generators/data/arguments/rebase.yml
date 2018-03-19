@@ -1,0 +1,8 @@
+---
+args:
+  - '-r'
+  - '--rebase'
+kwargs:
+  action: 'store_true'
+  dest: 'rebase'
+  help: 'Rebase before merging'

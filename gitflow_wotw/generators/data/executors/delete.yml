@@ -1,0 +1,10 @@
+---
+identifier: delete
+help_string: Delete a specific branch
+command:
+  actions:
+  arguments:
+    - BranchArgument
+    - BaseArgument
+action:
+  process:

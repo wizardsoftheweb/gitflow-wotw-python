@@ -1,0 +1,8 @@
+---
+args:
+  - '--local'
+kwargs:
+  action: 'store_const'
+  const: 'local'
+  dest: 'config_location'
+  help: 'Use repository's config file'

@@ -1,0 +1,8 @@
+---
+identifier: list
+help_string: Lists a set of branches
+command:
+  actions:
+  arguments:
+action:
+  process:

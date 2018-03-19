@@ -5,3 +5,10 @@ command:
   actions:
     - InitAction
     - FeatureAction
+    - BugfixAction
+    - ReleaseAction
+    - HotfixAction
+    - SupportAction
+    - VersionAction
+    - ConfigAction
+    - LogAction

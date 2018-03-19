@@ -1,0 +1,7 @@
+---
+args:
+  - '--ff-master'
+kwargs:
+  action: 'store_true'
+  dest: 'ff_master'
+  help: 'Fast-forward master when applicable'

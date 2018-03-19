@@ -1,6 +1,6 @@
 ---
-identifier: feature
-help_string: Manage feature branches
+identifier: hotfix
+help_string: Manages hotfix branches
 command:
   actions:
     - ListAction
@@ -15,4 +15,4 @@ command:
     - DeleteAction
   arguments:
 action:
-  process: FeatureCommand
+  process: HotfixCommand

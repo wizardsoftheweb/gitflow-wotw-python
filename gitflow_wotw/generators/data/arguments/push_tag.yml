@@ -1,0 +1,8 @@
+---
+args:
+  - '--push-tag'
+kwargs:
+  action: 'append_const'
+  const: '--tags'
+  dest: 'push'
+  help: 'Push tag after operation finishes'---

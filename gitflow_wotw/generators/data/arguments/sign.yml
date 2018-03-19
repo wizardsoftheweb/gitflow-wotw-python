@@ -1,0 +1,8 @@
+---
+args:
+  - '-s'
+  - '--sign'
+kwargs:
+  action: 'store_true'
+  dest: 'sign'
+  help: 'Sign the operation'

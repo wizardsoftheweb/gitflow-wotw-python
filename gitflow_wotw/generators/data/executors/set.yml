@@ -1,0 +1,9 @@
+---
+identifier: set
+help_string: Sets a specific config value
+command:
+  actions:
+  arguments:
+    - ConfigLocationArgumentGroup
+action:
+  process:

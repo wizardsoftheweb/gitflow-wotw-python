@@ -23,3 +23,12 @@ class Argument(object):
     def attach_arguments(self, parser=None):
         LOGGER.debug('Attaching arguments')
         parser.add_argument(*self.args, **self.kwargs)
+
+    def load_handlers(self, *args, **kwargs):
+        """"""
+
+    def assign_pre_tasks(self, *args, **kwargs):
+        """"""
+
+    def assign_post_tasks(self, *args, **kwargs):
+        """"""

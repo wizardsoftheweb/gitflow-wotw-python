@@ -1,0 +1,8 @@
+---
+args:
+  - '--push-master'
+  - '--push-production'
+kwargs:
+  action: 'append_const'
+  dest: 'push'
+  help: 'Push production after operation finishes'

@@ -1,0 +1,10 @@
+---
+identifier: rebase
+help_string: Rebases a specific branch
+command:
+  actions:
+  arguments:
+    - InteractiveArgument
+    - PreserveMergesArgument
+action:
+  process:

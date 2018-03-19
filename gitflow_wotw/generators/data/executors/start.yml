@@ -1,0 +1,8 @@
+---
+identifier: start
+help_string: Start the given operation
+command:
+  actions:
+  arguments:
+action:
+  process:
