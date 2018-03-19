@@ -1,0 +1,11 @@
+---
+title: Tag Options
+description: Options related to tags
+exclusive: no
+seed:
+  - SignArgument
+  - SigningKeyArgument
+  - TagArgument
+  - TagNameArgument
+  - - MessageArgument
+    - MessageFileArgument
