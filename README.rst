@@ -47,6 +47,46 @@ Usage
     $ git wotw
     < should print the main help >
 
+Logging
+=======
+
+Log levels come from |verboselogs|_. It's useful to have a few extra channels. There shouldn't be any conflicts as this (theoretically) runs entirely in the console.
+
+.. |verboselogs| replace:: the excellent ``verboselogs`` package
+.. _verboselogs: https://pypi.python.org/pypi/verboselogs
+
+Levels
+------
+
+More information can be found in |verboselogs|_.
+
+* ``SPAM``: ``-vvvvv``
+* ``DEBUG``: ``-vvvv``
+* ``VERBOSE``: ``-vvv``
+* ``INFO``: ``-vv``
+* ``NOTICE``: ``-v``
+* ``WARNING``: default
+* ``SUCCESS``: ``-q``
+* ``ERROR``: ``-qq``
+* ``CRITICAL``: ``-qqq``
+
+.. |verboselogs| replace:: the official ``verboselogs`` docs
+.. _verboselogs: https://pypi.python.org/pypi/verboselogs#overview-of-logging-levels
+Changing the Level
+------------------
+
+To increase the level, use more ``v``'s.
+
+.. code:: shell-session
+
+    $ git wotw -vvvvv
+
+To decrease the level, use more ``q``'s.
+
+.. code:: shell-session
+
+    $ git wotw -qqq
+
 Roadmap
 =======
 
@@ -109,3 +149,5 @@ Aside
 =====
 
 I started the current refactor (``>=0.6.0``) to speed things up. My first attempt starting taking a few seconds to render the help menu because it initialized everything before running anything. I've rewritten things to be generated on the fly. However, once again, everything has be generated on the fly before anything can run (To create the root, I have to create its dependencies. But to create its dependencies, I have to create their dependencies. And so on.) I think this direction is a little smarter but it will probably involve less cool reflection and more boilerplate.
+
+As of ``>=0.7.0``, I've got some delayed callbacks in place to keep things speedy. Previously, everything was getting created in ``ObjectBuilder`` on launch. Now ``Action``s are built with a factory in ``process``, which means the necessary ``Command`` won't get loaded until the ``Action`` has fired. It keeps things much slimmer.

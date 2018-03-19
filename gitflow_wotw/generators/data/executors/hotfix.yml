@@ -1,0 +1,18 @@
+---
+identifier: hotfix
+help_string: Manages hotfix branches
+command:
+  actions:
+    - ListAction
+    - StartAction
+    - FinishAction
+    - PublishAction
+    - TrackAction
+    - DiffAction
+    - RebaseAction
+    - RenameAction
+    - CheckoutAction
+    - DeleteAction
+  arguments:
+action:
+  process: HotfixCommand

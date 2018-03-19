@@ -1,0 +1,8 @@
+---
+args:
+  - '-F'
+  - '--fetch'
+kwargs:
+  action: 'store_true'
+  dest: 'fetch'
+  help: 'Fetch before operation'

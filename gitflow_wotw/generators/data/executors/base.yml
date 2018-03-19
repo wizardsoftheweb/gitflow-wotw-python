@@ -1,0 +1,12 @@
+---
+identifier: base
+help_string: Manipulate the base branch
+command:
+  actions:
+  arguments:
+    - BranchArgument
+    - BaseArgument
+    - - GetArgument
+      - SetArgument
+action:
+  process: BaseCommand

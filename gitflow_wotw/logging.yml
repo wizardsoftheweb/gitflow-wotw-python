@@ -1,23 +1,19 @@
 ---
 version: 1
+formatters:
+  simple:
+    (): coloredlogs.ColoredFormatter
+    format: '[%(asctime)s] [%(levelname)-7s] %(message)s'
+    datefmt: '%H:%M:%S'
 handlers:
-  hidden:
-    class: logging.handlers.MemoryHandler
-    capacity: 1024
-  memory:
-    class: logging.handlers.MemoryHandler
-    capacity: 1024 * 1024
-    target: console
-    level: NOTSET
   console:
     class: logging.StreamHandler
-    level: DEBUG
-    stream: ext://sys.stdout
+    level: SPAM
+    formatter: simple
 loggers:
   gitflow_wotw:
-    level: DEBUG
-    handlers: [console]
-    propagate: no
+    propagate: yes
 root:
-  level: DEBUG
-  handlers: [hidden]
+  level: WARNING
+  handlers: [console]
+  formatter: simple

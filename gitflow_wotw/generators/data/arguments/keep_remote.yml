@@ -1,0 +1,8 @@
+---
+args:
+  - '--keep-remote'
+kwargs:
+  action: 'store_const'
+  const: 'remote'
+  dest: 'keep'
+  help: 'Keep the remote branch after the operation finishes'

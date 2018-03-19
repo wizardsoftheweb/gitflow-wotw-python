@@ -1,0 +1,8 @@
+---
+args:
+  - '-t'
+  - '--tag'
+kwargs:
+  action: 'store_true'
+  dest: 'tag'
+  help: 'Tag the repo after the operation finishes'

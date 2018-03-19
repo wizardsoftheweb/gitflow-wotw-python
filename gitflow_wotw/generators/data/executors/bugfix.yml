@@ -1,0 +1,18 @@
+---
+identifier: bugfix
+help_string: Manages bugfix branches
+command:
+  actions:
+    - ListAction
+    - StartAction
+    - FinishAction
+    - PublishAction
+    - TrackAction
+    - DiffAction
+    - RebaseAction
+    - RenameAction
+    - CheckoutAction
+    - DeleteAction
+  arguments:
+action:
+  process: BugfixCommand

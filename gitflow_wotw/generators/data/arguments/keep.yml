@@ -1,0 +1,9 @@
+---
+args:
+  - '-k'
+  - '--keep'
+kwargs:
+  action: 'store_const'
+  const: 'both'
+  dest: 'keep'
+  help: 'Keep local and remote branch after operation finishes'

@@ -1,0 +1,18 @@
+---
+identifier: support
+help_string: Manages support branches
+command:
+  actions:
+    - ListAction
+    - StartAction
+    - FinishAction
+    - PublishAction
+    - TrackAction
+    - DiffAction
+    - RebaseAction
+    - RenameAction
+    - CheckoutAction
+    - DeleteAction
+  arguments:
+action:
+  process:

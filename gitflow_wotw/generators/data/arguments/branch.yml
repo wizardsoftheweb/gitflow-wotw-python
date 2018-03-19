@@ -1,0 +1,5 @@
+---
+args:
+  - 'branch'
+kwargs:
+  help: 'The branch to operate on'

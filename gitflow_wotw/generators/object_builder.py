@@ -5,28 +5,56 @@ from __future__ import print_function
 from collections import Callable, OrderedDict
 from logging import getLogger
 
-from gitflow_wotw.components import Action, Command
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
+
+from gitflow_wotw.components import Action, Argument, ArgumentGroup, Command
 from gitflow_wotw.generators import ConfigLoader
 
-
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
+
+UNIVERSAL_ARGUMENTS = ['UniversalArgumentGroup']
 
 
 def action_init(self):
     Action.__init__(self, self.identifier, self.help_string)
 
 
-def action_process(self, parsed=None, args=None):
+def action_process(self, parent_commands=None, parsed=None, args=None):
     if self.processed_class:
-        return self.processed_class(args)
+        return self.processed_class(args, parent_commands)
     return None
 
 
-def command_init(self, args=None):
-    Command.__init__(self, args, self.identifier, self.help_string)
+def argument_init(self):
+    Argument.__init__(self, *self.args, **self.kwargs)
+
+
+def argument_group_init(self):
+    ArgumentGroup.__init__(
+        self,
+        self.seed,
+        self.title,
+        self.description,
+        self.exclusive
+    )
+
+
+def command_init(self, args=None, parent_commands=None):
+    Command.__init__(
+        self,
+        args,
+        parent_commands,
+        self.identifier,
+        self.help_string
+    )
     for action in self.action_seeds:
         action_instance = action()
         self[action_instance.identifier] = action_instance
+    for argument in self.argument_seeds:
+        self.arguments.append(argument)
     self.complete()
 
 
@@ -37,27 +65,74 @@ class ObjectBuilder(OrderedDict):
 
     def __new__(cls):
         if cls.__instance == None:
-            LOGGER.info('Creating ObjectBuilder singleton')
+            LOGGER.verbose('Creating ObjectBuilder singleton')
             cls.__instance = OrderedDict.__new__(cls)
             cls.__instance.name = "ObjectStorage"
         return cls.__instance
 
     def __missing__(self, key):
-        LOGGER.warning("%s not found; attempting to build", key)
+        LOGGER.notice("%s not found; attempting to build", key)
         self[key] = self.build_object(key)
         return self[key]
+
+    def delayed_command_build(self, object_name):
+        def build_new(owner, args=None, parent_commands=None):
+            return self[object_name](args, parent_commands)
+        return build_new
+
+    def build_argument(self, argument_name):
+        LOGGER.debug("Building argument %s", argument_name)
+        config = self.loader(argument_name)
+        LOGGER.spam(config)
+        return type(
+            argument_name,
+            (Argument,),
+            {
+                '__init__': argument_init,
+                'args': config['args'],
+                'kwargs': config['kwargs']
+            }
+        )
+
+    def build_argument_group(self, argument_group_name):
+        LOGGER.debug("Building ArgumentGroup %s", argument_group_name)
+        config = self.loader(argument_group_name)
+        LOGGER.spam(config)
+        seed = OrderedDict()
+        for element in config['seed']:
+            if isinstance(element, list):
+                new_seed = OrderedDict()
+                name = ''
+                for child in element:
+                    name += child
+                    new_seed[child] = self[child]()
+                seed[name] = ArgumentGroup(seed=new_seed, exclusive=True)
+            else:
+                seed[element] = self[element]()
+        return type(
+            argument_group_name,
+            (ArgumentGroup,),
+            {
+                'seed': seed,
+                'title': config['title'],
+                'description': config['description'],
+                'exclusive': config['exclusive'],
+                '__init__': argument_group_init
+            }
+        )
 
     def build_action(self, action_name):
         LOGGER.debug("Building action %s", action_name)
         config = self.loader(action_name)
-        LOGGER.log(0, config)
+        LOGGER.spam(config)
         identifier = config['identifier']
         help_string = config['help_string']
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,
             '__init__': action_init,
-            'process': action_process
+            'process': action_process,
+            'processed_class': None
         }
         if (
                 'action' in config
@@ -69,7 +144,8 @@ class ObjectBuilder(OrderedDict):
                 config['action']['process']
         ):
             process = config['action']['process']
-            class_dict['processed_class'] = self[process]
+            class_dict['processed_class'] = self.delayed_command_build(process)
+            LOGGER.spam("Discovered call: %s", process)
         return type(
             action_name,
             (Action,),
@@ -79,7 +155,7 @@ class ObjectBuilder(OrderedDict):
     def build_command(self, command_name):
         LOGGER.debug("Building action %s", command_name)
         config = self.loader(command_name)
-        LOGGER.log(0, config)
+        LOGGER.spam(config)
         identifier = config['identifier']
         help_string = config['help_string']
         if (
@@ -98,11 +174,16 @@ class ObjectBuilder(OrderedDict):
             ]
         else:
             actions = []
+        LOGGER.spam("Discovered actions: %s", actions)
+        arguments = []
+        for argument in UNIVERSAL_ARGUMENTS:
+            arguments.append(self[argument]())
         class_dict = {
             'identifier': identifier,
             'help_string': help_string,
             '__init__': command_init,
-            'action_seeds': actions
+            'action_seeds': actions,
+            'argument_seeds': arguments
         }
         return type(
             command_name,
@@ -111,8 +192,12 @@ class ObjectBuilder(OrderedDict):
         )
 
     def build_object(self, object_name):
-        LOGGER.info("Attempting to create %s", object_name)
-        if object_name.endswith('Action'):
+        LOGGER.debug("Attempting to create %s", object_name)
+        if object_name.endswith('Argument'):
+            return self.build_argument(object_name)
+        elif object_name.endswith('ArgumentGroup'):
+            return self.build_argument_group(object_name)
+        elif object_name.endswith('Action'):
             return self.build_action(object_name)
         elif object_name.endswith('Command'):
             return self.build_command(object_name)

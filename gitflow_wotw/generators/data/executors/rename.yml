@@ -1,0 +1,8 @@
+---
+identifier: rename
+help_string: Renames a specific branch
+command:
+  actions:
+  arguments:
+action:
+  process:

@@ -2,5 +2,9 @@
 identifier: init
 help_string: Initialize git wotw
 command:
+  actions:
+  arguments:
+    - DefaultsArgument
+    - ConfigLocationArgumentGroup
 action:
   process: InitCommand

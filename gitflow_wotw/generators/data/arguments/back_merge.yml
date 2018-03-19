@@ -1,0 +1,8 @@
+---
+args:
+  - '-b'
+  - '--back-merge'
+kwargs:
+  action: 'store_true'
+  dest: 'back_merge'
+  help: 'Back merge where possible'

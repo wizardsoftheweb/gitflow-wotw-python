@@ -1,0 +1,10 @@
+---
+identifier: diff
+help_string: Compare the branch against its base
+command:
+  actions:
+  arguments:
+    - BranchArgument
+    - BaseArgument
+action:
+  process:

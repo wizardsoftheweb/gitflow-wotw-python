@@ -7,14 +7,25 @@ from collections import OrderedDict
 from logging import getLogger
 from sys import argv
 
+from coloredlogs import install as colored_install
+from verboselogs import install as verbose_install
+
+verbose_install()
+colored_install()
 LOGGER = getLogger(__name__)
 
 
 class Command(OrderedDict):
 
-    def __init__(self, args=None, identifier=None, help_string=None):
+    def __init__(
+            self,
+            args=None,
+            parent_commands=None,
+            identifier=None,
+            help_string=None
+    ):
         OrderedDict.__init__(self)
-        LOGGER.debug("Initialized a %s Command", identifier)
+        LOGGER.verbose("Initialized a %s Command", identifier)
         if args is None:
             self.args = argv[1:]
         else:
@@ -22,8 +33,13 @@ class Command(OrderedDict):
         LOGGER.debug("Received args %s", self.args)
         self.identifier = identifier
         self.help_string = help_string
+        LOGGER.spam("help_string: %s", help_string)
         self.parser = None
-        self.uses_subcommands = False
+        if parent_commands:
+            self.prog = "%s %s" % (parent_commands, identifier)
+        else:
+            self.prog = identifier
+        LOGGER.spam("PROG: %s", self.prog)
         self.subparsers = None
         self.arguments = []
         self.results = []
@@ -32,19 +48,16 @@ class Command(OrderedDict):
         self.post_execution = OrderedDict()
 
     def add_parser(self, subparsers=None):
-        LOGGER.info("Defining the root parser on %s", self.identifier)
+        LOGGER.debug("Defining the root parser on %s", self.identifier)
         self.parser = ArgumentParser(
-            prog="git %s" % self.identifier,
+            prog="git %s" % self.prog,
             add_help=False,
-            description=self.help_string
-        )
-        self.parser.add_argument(
-            '-h', '--help',
-            action='help'
+            description=self.help_string,
+            conflict_handler='resolve'
         )
 
     def add_subparsers(self):
-        LOGGER.info("Attaching a subparser on %s", self.identifier)
+        LOGGER.debug("Attaching a subparser on %s", self.identifier)
         self.subparsers = self.parser.add_subparsers(
             dest='next_command',
             metavar='Action',
@@ -53,20 +66,21 @@ class Command(OrderedDict):
 
     def attach_actions(self):
         if len(self.items()) > 0:
-            LOGGER.info("Adding %s's Action arguments", self.identifier)
+            LOGGER.verbose("Adding %s's Action arguments", self.identifier)
             self.add_subparsers()
         else:
-            LOGGER.info("%s has no actions to add", self.identifier)
+            LOGGER.verbose("%s has no actions to add", self.identifier)
         for _, action in self.items():
             action.attach_arguments(self.subparsers)
 
     def attach_arguments(self):
-        LOGGER.info("Adding %s's own arguments", self.identifier)
+        LOGGER.debug("Adding %s's own arguments", self.identifier)
         for argument in self.arguments:
+            LOGGER.spam(argument)
             argument.attach_arguments(self.parser)
 
     def parse_args(self):
-        LOGGER.info('Attempting to parse args')
+        LOGGER.debug('Attempting to parse args')
         return self.parser.parse_known_args(self.args)
 
     def parse(self, *args, **kwargs):
@@ -74,17 +88,20 @@ class Command(OrderedDict):
         self.attach_actions()
         self.attach_arguments()
         self.results = self.parse_args()
-        LOGGER.debug("%s parsed out %s", self.identifier, self.results[0])
-        LOGGER.debug("%s left %s", self.identifier, self.results[0])
+        LOGGER.spam("%s parsed out %s", self.identifier, self.results[0])
+        LOGGER.spam("%s left %s", self.identifier, self.results[0])
 
     def process(self, *args, **kwargs):
         if hasattr(self.results[0], 'next_command') and self.results[0].next_command:
             action = self.results[0].next_command
             LOGGER.info("%s triggered Action %s", self.identifier, action)
-            return self[action].process(*self.results)
-        LOGGER.warning("%s.process() did not fire an action", self.identifier)
+            return self[action].process(self.prog, *self.results)
+        LOGGER.notice("%s.process() did not fire an action", self.identifier)
 
-    def load_specific_handler(self, source, destination):
+    def load_specific_handler(self, source=None, destination=None):
+        LOGGER.debug('Loading specific handler')
+        if source is None:
+            return
         for key, args in source.items():
             destination[key] = args
 
@@ -105,11 +122,14 @@ class Command(OrderedDict):
             )
 
     def run_handlers(self, handlers):
+        LOGGER.debug('Running specific handler')
         for key, args in handlers.items():
+            LOGGER.spam("Handler: %s", key)
+            LOGGER.spam("Args: %s", args)
             self.handlers[key](self, self.results[0], *args)
 
     def __pre_execute(self, *args, **kwargs):
-        LOGGER.info("Running %s's pre_execute handlers", self.identifier)
+        LOGGER.debug("Running %s's pre_execute handlers", self.identifier)
         self.run_handlers(self.pre_execution)
         self.pre_execute(*args, **kwargs)
 
@@ -120,7 +140,7 @@ class Command(OrderedDict):
         """"""
 
     def __post_execute(self, *args, **kwargs):
-        LOGGER.info("Running %s's post_execution handlers", self.identifier)
+        LOGGER.debug("Running %s's post_execution handlers", self.identifier)
         self.run_handlers(self.post_execution)
         self.post_execute(*args, **kwargs)
 
@@ -128,7 +148,7 @@ class Command(OrderedDict):
         """"""
 
     def prosecute_command(self, *args, **kwargs):
-        LOGGER.info("Fully executing %s", self.identifier)
+        LOGGER.debug("Fully executing %s", self.identifier)
         self.__pre_execute(self, *args, **kwargs)
         self.execute(self, *args, **kwargs)
         self.__post_execute(self, *args, **kwargs)
@@ -138,4 +158,4 @@ class Command(OrderedDict):
         self.process(self, *args, **kwargs)
         self.load_handlers(self, *args, **kwargs)
         self.prosecute_command(self, *args, **kwargs)
-        LOGGER.debug("%s has finished everything")
+        LOGGER.info("%s has finished everything", self.identifier)

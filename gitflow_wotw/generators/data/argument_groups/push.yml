@@ -1,0 +1,9 @@
+---
+title: Push Options
+description: Options related to pushing branches
+exclusive: no
+seed:
+  - PushArgument
+  - PushDevelopArgument
+  - PushMasterArgument
+  - PushTagArgument

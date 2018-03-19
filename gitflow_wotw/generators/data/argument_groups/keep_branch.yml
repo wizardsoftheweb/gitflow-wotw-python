@@ -1,0 +1,8 @@
+---
+title: Branch Retention Actions
+description: Keep local and/or remote branches after the operation finishes
+exclusive: yes
+seed:
+  - KeepArgument
+  - KeepLocalArgument
+  - KeepRemoteArgument
