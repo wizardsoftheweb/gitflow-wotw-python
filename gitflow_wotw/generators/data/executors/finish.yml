@@ -1,7 +1,19 @@
 ---
-identifier:
-help_string:
+identifier: finish
+help_string: Finish the given operation
 command:
   actions:
+  arguments:
+    - BranchArgument
+    - BranchArgumentGroup
+    - TagArgumentGroup
+    - PushArgumentGroup
+    - FetchArgument
+    - RebaseArgument
+    - PreserveMergesArgument
+    - SquashArgument
+    - FfArgument
+    - FfMasterArgument
+    - BackMergeArgument
 action:
   process:

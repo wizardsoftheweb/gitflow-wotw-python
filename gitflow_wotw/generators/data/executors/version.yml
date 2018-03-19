@@ -1,7 +1,8 @@
 ---
-identifier:
-help_string:
+identifier: version
+help_string: List program version
 command:
   actions:
+  arguments:
 action:
   process:

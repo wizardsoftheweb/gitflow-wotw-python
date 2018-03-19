@@ -1,7 +1,8 @@
 ---
-identifier:
-help_string:
+identifier: publish
+help_string: Publish a specific branch
 command:
   actions:
+  arguments:
 action:
   process:

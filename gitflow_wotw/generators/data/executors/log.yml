@@ -1,7 +1,8 @@
 ---
-identifier:
-help_string:
+identifier: log
+help_string: Compare current log against dev
 command:
   actions:
+  arguments:
 action:
   process:

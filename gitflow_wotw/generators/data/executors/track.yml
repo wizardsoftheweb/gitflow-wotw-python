@@ -1,7 +1,8 @@
 ---
-identifier:
-help_string:
+identifier: track
+help_string: Tracks a specific branch
 command:
   actions:
+  arguments:
 action:
   process:

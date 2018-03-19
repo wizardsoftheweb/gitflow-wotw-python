@@ -1,7 +1,9 @@
 ---
-identifier:
-help_string:
+identifier: checkout
+help_string: Check out a specific branch
 command:
   actions:
+  arguments:
+    - BranchArgument
 action:
   process:

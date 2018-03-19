@@ -3,5 +3,16 @@ identifier: feature
 help_string: Manage feature branches
 command:
   actions:
+    - ListAction
+    - StartAction
+    - FinishAction
+    - PublishAction
+    - TrackAction
+    - DiffAction
+    - RebaseAction
+    - RenameAction
+    - CheckoutAction
+    - DeleteAction
+  arguments:
 action:
   process:

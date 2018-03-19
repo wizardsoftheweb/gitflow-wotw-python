@@ -1,7 +1,18 @@
 ---
-identifier:
-help_string:
+identifier: release
+help_string: Manages release branches
 command:
   actions:
+    - ListAction
+    - StartAction
+    - FinishAction
+    - PublishAction
+    - TrackAction
+    - DiffAction
+    - RebaseAction
+    - RenameAction
+    - CheckoutAction
+    - DeleteAction
+  arguments:
 action:
   process:
