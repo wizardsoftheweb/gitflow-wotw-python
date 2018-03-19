@@ -98,8 +98,10 @@ class Command(OrderedDict):
             return self[action].process(self.prog, *self.results)
         LOGGER.notice("%s.process() did not fire an action", self.identifier)
 
-    def load_specific_handler(self, source, destination):
+    def load_specific_handler(self, source=None, destination=None):
         LOGGER.debug('Loading specific handler')
+        if source is None:
+            return
         for key, args in source.items():
             destination[key] = args
 
