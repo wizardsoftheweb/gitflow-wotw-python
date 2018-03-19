@@ -1,0 +1,8 @@
+---
+args:
+  - '-D'
+  - '--defaults'
+kwargs:
+  action: 'store_true'
+  dest: 'defaults'
+  help: 'Use defaults where possible'

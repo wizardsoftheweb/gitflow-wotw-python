@@ -1,0 +1,7 @@
+---
+args:
+  - '--push-develop'
+kwargs:
+  action: 'append_const'
+  dest: 'push'
+  help: 'Push develop after operation finishes'

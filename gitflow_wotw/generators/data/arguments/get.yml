@@ -1,0 +1,9 @@
+---
+args:
+  - '--get'
+kwargs:
+  action: 'store_true'
+  default: True
+  dest: 'get'
+  help: 'Get the base branch'
+  opt_out': True

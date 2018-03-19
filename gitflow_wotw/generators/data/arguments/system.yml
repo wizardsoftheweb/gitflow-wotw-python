@@ -1,0 +1,8 @@
+---
+args:
+  - '--system'
+kwargs:
+  action: 'store_const'
+  const: 'system'
+  dest: 'config_location'
+  help: 'Use the system config file'

@@ -1,0 +1,8 @@
+---
+args:
+  - '--delete-local'
+kwargs:
+  action: 'store_const'
+  const: 'local'
+  dest: 'delete'
+  help: 'Delete the local branch after the operation finishes'

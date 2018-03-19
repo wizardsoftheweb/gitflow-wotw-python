@@ -1,0 +1,7 @@
+---
+args:
+  - '--set'
+kwargs:
+  dest: 'set'
+  metavar: 'BASE_BRANCH'
+  help: 'Use the provided branch as the base'

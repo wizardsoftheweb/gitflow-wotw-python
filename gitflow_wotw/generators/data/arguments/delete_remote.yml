@@ -1,0 +1,8 @@
+---
+args:
+  - '--delete-remote'
+kwargs:
+  action: 'store_const'
+  const: 'remote'
+  dest: 'delete'
+  help: 'Delete the remote branch after the operation finishes'
