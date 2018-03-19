@@ -1,0 +1,8 @@
+---
+args:
+  - '-f'
+  - '--force'
+kwargs:
+  action: 'store_true'
+  dest: 'force'
+  help: 'Force the operation to complete'

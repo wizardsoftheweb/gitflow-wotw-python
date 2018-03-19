@@ -1,0 +1,8 @@
+---
+args:
+  - '--keep-local'
+kwargs:
+  action: 'store_const'
+  const: 'both'
+  dest: 'local'
+  help: 'Keep the local branch after the operation finishes'

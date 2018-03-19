@@ -1,0 +1,8 @@
+---
+args:
+  - '-T'
+  - '--tag-name'
+kwargs:
+  action: 'store_true'
+  dest: 'tag_name'
+  help: 'Use the provided tag name'

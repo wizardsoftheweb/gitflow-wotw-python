@@ -1,0 +1,9 @@
+---
+args:
+  - '-u'
+  - '--signing-key'
+kwargs:
+  nargs: 1
+  dest: 'signing_key'
+  metavar: 'KEY'
+  help: 'Sign with the provided key'

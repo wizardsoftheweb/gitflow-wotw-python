@@ -1,0 +1,9 @@
+---
+args:
+  - '-p'
+  - '--push'
+kwargs:
+  action: 'store_const'
+        'default': [],
+  dest: 'push'
+  help: 'Push to origin after operation completes'

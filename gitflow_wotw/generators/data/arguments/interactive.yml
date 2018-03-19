@@ -1,0 +1,8 @@
+---
+args:
+  - '-i'
+  - '--interactive'
+kwargs:
+  action: 'store_true'
+  dest: 'interactive'
+  help: 'Perform an interactive rebase'

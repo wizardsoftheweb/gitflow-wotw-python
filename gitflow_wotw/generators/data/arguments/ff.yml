@@ -1,0 +1,7 @@
+---
+args:
+  - '--ff'
+kwargs:
+  action: 'store_true'
+  dest: 'fast_forward'
+  help: 'Fast-forward where possible'

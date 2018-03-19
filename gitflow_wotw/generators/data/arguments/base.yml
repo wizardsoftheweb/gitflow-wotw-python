@@ -1,0 +1,6 @@
+---
+args:
+  - 'base'
+kwargs:
+  nargs: '?'
+  help: 'The base branch to use'

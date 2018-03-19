@@ -1,0 +1,9 @@
+---
+args:
+  - '-d'
+  - '--delete'
+kwargs:
+  action: 'store_const'
+  const: 'both'
+  dest: 'delete'
+  help: 'Delete local and remote branch after operation finishes'

@@ -1,0 +1,9 @@
+---
+args:
+  - '-m'
+  - '--message'
+kwargs:
+  nargs: 1
+  dest: 'message'
+  metavar: 'MESSAGE'
+  help: 'Use the provided message'
