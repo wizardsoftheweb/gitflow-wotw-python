@@ -15,4 +15,4 @@ command:
     - DeleteAction
   arguments:
 action:
-  process:
+  process: HotfixCommand
