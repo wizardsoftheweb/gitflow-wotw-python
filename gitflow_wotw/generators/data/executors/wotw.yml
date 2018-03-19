@@ -4,11 +4,11 @@ help_string: An ambitious attempt to duplicate gitflow-avh in Python
 command:
   actions:
     - InitAction
-    - FeatureSubcommand
-    - BugfixSubcommand
-    - ReleaseSubcommand
-    - HotfixSubcommand
-    - SupportSubcommand
+    - FeatureCommand
+    - BugfixCommand
+    - ReleaseCommand
+    - HotfixCommand
+    - SupportCommand
     - VersionAction
-    - ConfigSubcommand
+    - ConfigCommand
     - LogAction
