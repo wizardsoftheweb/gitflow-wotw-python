@@ -37,3 +37,12 @@ class ArgumentGroup(OrderedDict):
             group = group.add_mutually_exclusive_group()
         for _, argument in self.items():
             argument.attach_arguments(group)
+
+    def load_handlers(self, *args, **kwargs):
+        """"""
+
+    def assign_pre_tasks(self, *args, **kwargs):
+        """"""
+
+    def assign_post_tasks(self, *args, **kwargs):
+        """"""
