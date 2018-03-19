@@ -50,15 +50,15 @@ Usage
 Logging
 =======
 
-Log levels come from |verboselogs|_. It's useful to have a few extra channels. There shouldn't be any conflicts as this (theoretically) runs entirely in the console.
+Log levels come from |main_verboselogs|_. It's useful to have a few extra channels. There shouldn't be any conflicts as this (theoretically) runs entirely in the console.
 
-.. |verboselogs| replace:: the excellent ``verboselogs`` package
-.. _verboselogs: https://pypi.python.org/pypi/verboselogs
+.. |main_verboselogs| replace:: the excellent ``verboselogs`` package
+.. _main_verboselogs: https://pypi.python.org/pypi/verboselogs
 
 Levels
 ------
 
-More information can be found in |verboselogs|_.
+More information can be found in |verboselogs_levels|_.
 
 * ``SPAM``: ``-vvvvv``
 * ``DEBUG``: ``-vvvv``
@@ -70,8 +70,9 @@ More information can be found in |verboselogs|_.
 * ``ERROR``: ``-qq``
 * ``CRITICAL``: ``-qqq``
 
-.. |verboselogs| replace:: the official ``verboselogs`` docs
-.. _verboselogs: https://pypi.python.org/pypi/verboselogs#overview-of-logging-levels
+.. |verboselogs_levels| replace:: the official ``verboselogs`` docs
+.. _verboselogs_levels: https://pypi.python.org/pypi/verboselogs#overview-of-logging-levels
+
 Changing the Level
 ------------------
 
