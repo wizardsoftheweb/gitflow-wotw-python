@@ -39,6 +39,7 @@ class Command(OrderedDict):
             self.prog = "%s %s" % (parent_commands, identifier)
         else:
             self.prog = identifier
+        LOGGER.spam("PROG: %s", self.prog)
         self.subparsers = None
         self.arguments = []
         self.results = []
@@ -53,10 +54,6 @@ class Command(OrderedDict):
             add_help=False,
             description=self.help_string,
             conflict_handler='resolve'
-        )
-        self.parser.add_argument(
-            '-h', '--help',
-            action='help'
         )
 
     def add_subparsers(self):
